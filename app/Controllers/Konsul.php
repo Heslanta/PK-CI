@@ -19,7 +19,7 @@ class Konsul extends BaseController
         $data = [
             'title' => 'Detail Konsultasi',
             'konsul' => $this->konsulModel->viewKonsul($id_konsul),
-            'css' => 'preview-client-style'
+            'css' => 'preview-consul-style'
 
         ];
         //jika klien tidak ada di tabel
@@ -33,9 +33,9 @@ class Konsul extends BaseController
     public function create()
     {
         $data = [
-            'title' => 'Tambah Klien',
+            'title' => 'Tambah Konsultasi',
             'validation' => \Config\Services::validation(),
-            'css' => 'add-client-style'
+            'css' => 'add-consul-style'
         ];
 
         return view('klien/create', $data);
