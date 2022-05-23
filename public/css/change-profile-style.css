@@ -1,0 +1,74 @@
+.form-wrapper{
+    height: 550px;
+    background-color: white;
+    width: 1250px;
+    border: 1px solid black;
+    margin-top: 40px;
+    border-radius: 10px;
+    font-family: 'Roboto Slab';
+    font-size: 20px;
+}
+
+.form-header{
+    background-color: #013B64;
+    height: 60px;
+    width: 100%;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    line-height: 60px;
+    font-size: 30px;
+}
+
+.form-content{
+    margin-top: 30px;
+    margin-left: 40px;
+}
+
+.input{
+    width: 250px;
+    height: 20px;
+    font-size: 18px;
+    color: black;
+}
+
+.input-lg{
+    width: 700px;
+    height: 200px;
+    font-size: 18px;
+    color: black;
+}
+
+.button-wrapper{
+    float: right;
+}
+
+.button-batal{
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    font-family: 'Roboto Slab';
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #DC3545;
+    height: 40px;
+    width: 140px;
+    margin-top: 40px;
+    margin-right: 20px;
+}
+
+.button-submit{
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    font-family: 'Roboto Slab';
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #007BFF;
+    height: 40px;
+    width: 140px;
+    margin-top: 40px;
+    margin-right: 20px;
+}
