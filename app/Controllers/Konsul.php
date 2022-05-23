@@ -38,7 +38,7 @@ class Konsul extends BaseController
             'css' => 'add-consul-style'
         ];
 
-        return view('klien/create', $data);
+        return view('konsul/create', $data);
     }
     public function save()
     {
