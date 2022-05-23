@@ -13,11 +13,11 @@ class Pages extends BaseController
     {
 
         $data = [
-            'title' => 'Login | HLP',
+            'title' => 'Beranda | HLP',
             'css' => 'style'
         ];
 
-        return view('auth/login', $data);
+        return view('pages/beranda', $data);
     }
     public function profil()
     {
@@ -29,13 +29,13 @@ class Pages extends BaseController
         return view('pages/profil', $data);
     }
 
-    public function pengguna()
+    public function login()
     {
         $data = [
-            'title' => 'Pengguna | HLP',
-            'user' => $this->klienModel->getUser()
+            'title' => 'Login | HLP',
+            'css' => 'style'
         ];
 
-        return view('pages/pengguna', $data);
+        return view('auth/login', $data);
     }
 }
