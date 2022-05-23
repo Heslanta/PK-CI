@@ -16,7 +16,7 @@
                     <h5 class="card-title"> Wajib Pajak : <?= $klien['wajibpajak']; ?></h5>
                     <p class="card-text">NPWP : <?= $klien['npwp']; ?></p>
                     <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
-                    <p class="card-text">Catatan : <?php echo "<table><tbody><tr><td><textarea rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
+                    <p class="card-text">Catatan : <?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
                     <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
                     <button onclick="history.back()" class="btn btn-warning">Kembali</button>
                     <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
