@@ -31,7 +31,7 @@
 
                 <div class="tabel">
                     <a href="/konsul/<?= $kon->id_konsul ?>">
-                        <div class="tabel-header"><?= $kon->konsul_ke ?></div>
+                        <div class="tabel-header">Konsultasi ke-<?= $kon->konsul_ke ?></div>
 
                         <div class="tabel-list"><?= $kon->hari_tanggal ?></div>
                         <div class="tabel-list"><?= $kon->tujuan ?></div>
