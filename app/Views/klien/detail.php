@@ -26,7 +26,7 @@
                     </form>
                 </div>
             </div>
-            <a href="/konsultasi/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
+            <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
             <?php foreach (array_reverse($konsultasi) as $kon) : ?>
 
                 <div class="tabel">
