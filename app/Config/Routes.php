@@ -38,6 +38,8 @@ $routes->delete('/klien/(:num)', 'Klien::delete/$1');
 $routes->get('/klien/edit/(:segment)', 'Klien::edit/$1');
 $routes->get('/klien/(:num)', 'Klien::detail/$1');
 $routes->get('/konsul/(:num)', 'Konsul::detail/$1');
+$routes->get('/konsul/create', 'Konsul::create');
+$routes->delete('/konsul/(:num)', 'Konsul::delete/$1');
 $routes->get('/users', 'Users::index');
 $routes->get('/users/create', 'Users::create');
 $routes->get('/users/save', 'Users::save');
