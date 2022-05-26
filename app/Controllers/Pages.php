@@ -9,6 +9,13 @@ class Pages extends BaseController
     // {
     //     $this->klienModel = new  KlienModel();
     // }
+    public function __construct()
+    {
+        if (session()->get('level') != "admin" || "pegawai") {
+            echo 'Access denied';
+            exit;
+        }
+    }
     public function index()
     {
 
