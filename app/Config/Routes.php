@@ -52,7 +52,7 @@ $routes->get('/users/create', 'Users::create');
 $routes->get('/users/save', 'Users::save');
 
 
-$routes->match(['get', 'post'], 'login', 'UserController::login', ["filter" => "noauth"]);
+$routes->match(['get', 'post'], 'login', 'Users::login', ["filter" => "noauth"]);
 // Routes Admin
 $routes->group("admin", ["filter" => "auth"], function ($routes) {
     $routes->get('/', 'Pages::index');
@@ -61,7 +61,7 @@ $routes->group("admin", ["filter" => "auth"], function ($routes) {
 $routes->group("pegawai", ["filter" => "auth"], function ($routes) {
     $routes->get('/', 'Pages::index');
 });
-$routes->get('logout', 'UserController::logout');
+$routes->get('logout', 'Users::logout');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
