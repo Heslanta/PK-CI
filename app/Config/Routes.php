@@ -34,15 +34,18 @@ $routes->setAutoRoute(true);
 // Rute ke Beranda
 $routes->get('/', 'Pages::index');
 // $routes->get('/', 'pengguna::index');
+
 // Rute untuk bagian klien
 $routes->get('/klien/create', 'Klien::create');
 $routes->delete('/klien/(:num)', 'Klien::delete/$1');
 $routes->get('/klien/edit/(:segment)', 'Klien::edit/$1');
 $routes->get('/klien/(:num)', 'Klien::detail/$1');
+
 // Rute untuk bagian konsul
 $routes->get('/konsul/(:num)', 'Konsul::detail/$1');
 $routes->get('/konsul/create', 'Konsul::create');
 $routes->delete('/konsul/(:num)', 'Konsul::delete/$1');
+
 // Rute untuk bagian user
 $routes->get('/users', 'Users::index');
 $routes->get('/users/create', 'Users::create');
