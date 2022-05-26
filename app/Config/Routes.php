@@ -31,28 +31,32 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+// Rute ke Beranda
 $routes->get('/', 'Pages::index');
 // $routes->get('/', 'pengguna::index');
+// Rute untuk bagian klien
 $routes->get('/klien/create', 'Klien::create');
 $routes->delete('/klien/(:num)', 'Klien::delete/$1');
 $routes->get('/klien/edit/(:segment)', 'Klien::edit/$1');
 $routes->get('/klien/(:num)', 'Klien::detail/$1');
+// Rute untuk bagian konsul
 $routes->get('/konsul/(:num)', 'Konsul::detail/$1');
 $routes->get('/konsul/create', 'Konsul::create');
 $routes->delete('/konsul/(:num)', 'Konsul::delete/$1');
+// Rute untuk bagian user
 $routes->get('/users', 'Users::index');
 $routes->get('/users/create', 'Users::create');
 $routes->get('/users/save', 'Users::save');
 
 
 $routes->match(['get', 'post'], 'login', 'UserController::login', ["filter" => "noauth"]);
-// Admin routes
+// Routes Admin
 $routes->group("admin", ["filter" => "auth"], function ($routes) {
-    $routes->get("/", "AdminController::index");
+    $routes->get('/', 'Pages::index');
 });
-// Editor routes
-$routes->group("editor", ["filter" => "auth"], function ($routes) {
-    $routes->get("/", "EditorController::index");
+//  Routes Pegawai
+$routes->group("pegawai", ["filter" => "auth"], function ($routes) {
+    $routes->get('/', 'Pages::index');
 });
 $routes->get('logout', 'UserController::logout');
 /*
