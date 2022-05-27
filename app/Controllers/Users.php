@@ -31,7 +31,7 @@ class Users extends BaseController
             [
                 'title' => 'Form Tambah Data',
                 'validation' => \Config\Services::validation(),
-                'css' => 'preview-client-style'
+                'css' => 'add-user-style'
             ];
 
         return view('users/create', $data);
@@ -120,9 +120,9 @@ class Users extends BaseController
                 if ($user['role'] == "admin") {
 
                     return redirect()->to(base_url('admin'));
-                } elseif ($user['role'] == "editor") {
+                } elseif ($user['role'] == "pegawai") {
 
-                    return redirect()->to(base_url('editor'));
+                    return redirect()->to(base_url('pegawai'));
                 }
             }
         }
@@ -137,7 +137,7 @@ class Users extends BaseController
             'phone_no' => $user['phone_no'],
             'email' => $user['email'],
             'isLoggedIn' => true,
-            "role" => $user['role'],
+            "level" => $user['level'],
         ];
 
         session()->set($data);
