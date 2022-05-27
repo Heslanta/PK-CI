@@ -75,6 +75,14 @@ class Klien extends BaseController
                     'errors' => [
                         'required' => '{field} klien harus diisi.'
                     ]
+                ],
+                'filedata' => [
+                    'rules' => 'max_size[filedata,3072]|is_image[filedata]|mime_in[filedata,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        'max_size' => 'Ukuran gambar terlalu besar',
+                        'is_image' => 'Yang anda pilih bukan gambar, pilihlah gambar berupa jpg/jpeg/png',
+                        'mime_in' => 'Yang anda pilih bukan gambar, pilihlah gambar berupa jpg/jpeg/png'
+                    ]
                 ]
 
             ]
