@@ -90,12 +90,13 @@ class Klien extends BaseController
         if (empty($notelp)) {
             $notelp = '-';
         }
+
+
         $this->klienModel->save([
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
             'notelp' => $notelp,
-            'catatan' => $this->request->getVar('catatan'),
-            'slug' => null
+            'catatan' => $this->request->getVar('catatan')
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
