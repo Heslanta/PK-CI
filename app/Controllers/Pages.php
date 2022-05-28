@@ -11,17 +11,18 @@ class Pages extends BaseController
     // }
     public function __construct()
     {
-        if (session()->get('level') != "admin" || "pegawai") {
-            echo 'Access denied';
-            exit;
-        }
+        // cek session login
+        // if (session()->get('level') != "admin" || "pegawai") {
+        //     echo 'Access denied';
+        //     exit;
+        // }
     }
     public function index()
     {
 
         $data = [
             'title' => 'Beranda | HLP',
-            'css' => 'style'
+            'css' => 'preview-client-style'
         ];
 
         return view('pages/beranda', $data);

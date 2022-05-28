@@ -10,7 +10,7 @@
                 Expedita doloremque, magni illum, officiis, minima exercitationem quas laudantium ipsam debitis sequi
                 dolorum laborum sit quam neque labore hic! Provident.</p>
 
-            <input type="text">
+
         </div>
     </div>
 </div>

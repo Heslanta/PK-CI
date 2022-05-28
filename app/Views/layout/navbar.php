@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" style="color:white" href="<?= base_url('/'); ?>">Beranda</a>
+                    <a class="nav-link active" style="color:white" href="<?= base_url('/pages/index'); ?>">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="color:white" href="<?= base_url('/pages/profil'); ?>">Profil</a>
