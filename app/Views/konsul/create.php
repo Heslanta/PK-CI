@@ -17,7 +17,7 @@
                         <input type="text" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
                                                                                                     : ''; ?>" value="<?= old('konsul_ke'); ?>">
                         <div id="validationServer03Feedback" class="invalid-feedback">
-                            <?= $validation->getError('wajibpajak'); ?>
+                            <?= $validation->getError('konsul_ke'); ?>
                         </div>
                     </div>
                 </div>
