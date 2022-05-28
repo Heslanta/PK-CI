@@ -12,17 +12,17 @@
                 <br>
                 <div class="row mb-3">
 
-                    <label for="wajibpajak" class="col-sm-2 col-form-label">Wajib Pajak</label>
+                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsuk ke- : </label>
                     <div class="col-sm-10">
-                        <input type="text" id=" wajibpajak" name="wajibpajak" class="form-control <?= ($validation->hasError('wajibpajak')) ? 'is-invalid'
-                                                                                                        : ''; ?>" value="<?= old('wajibpajak'); ?>">
+                        <input type="text" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
+                                                                                                    : ''; ?>" value="<?= old('konsul_ke'); ?>">
                         <div id="validationServer03Feedback" class="invalid-feedback">
                             <?= $validation->getError('wajibpajak'); ?>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="npwp" class="col-sm-2 col-form-label">NPWP</label>
+                    <label for="npwp" class="col-sm-2 col-form-label">Tanggal : </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control <?= ($validation->hasError('npwp')) ? 'is-invalid'
                                                                     : ''; ?>" value="<?= old('npwp'); ?>" id="npwp" name="npwp">

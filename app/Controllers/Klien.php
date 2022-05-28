@@ -18,7 +18,8 @@ class Klien extends BaseController
         $data = [
             'title' => 'Klien | HLP',
             'klien' => $this->klienModel->getKlien(),
-            'css' => 'data-client-style'
+            'css' => 'data-client-style',
+            'jumlah' => $this->klienModel->getJumlah()
         ];
 
 

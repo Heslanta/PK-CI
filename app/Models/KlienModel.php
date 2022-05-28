@@ -24,4 +24,9 @@ class KlienModel extends Model
             ->get();
         return $query;
     }
+    public function getJumlah()
+    {
+        $jumlah = $this->db->table('klien')->countAllResults();
+        return $jumlah;
+    }
 }

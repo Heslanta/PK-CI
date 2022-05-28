@@ -24,7 +24,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     <?php endif; ?>
-
+                    <h1>Klien berjumlah : <?= $jumlah; ?></h1>
                     <div class="tabel-wrap">
 
                         <?php foreach (array_reverse($klien) as $k) : ?>
