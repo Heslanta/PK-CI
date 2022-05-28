@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\PagesModel;
+use App\Models\JadwalModel;
+
 class Pages extends BaseController
 {
 
@@ -9,20 +12,29 @@ class Pages extends BaseController
     // {
     //     $this->klienModel = new  KlienModel();
     // }
+    // protected $pagesModel;
+    // public function __construct()
+    // {
+    //     // cek session login
+    //     // if (session()->get('level') != "admin" || "pegawai") {
+    //     //     echo 'Access denied';
+    //     //     exit;
+    //     // }
+    //   
+    // }
+    protected $pagesModel;
     public function __construct()
     {
-        // cek session login
-        // if (session()->get('level') != "admin" || "pegawai") {
-        //     echo 'Access denied';
-        //     exit;
-        // }
+        $this->pagesModel = new  PagesModel();
     }
     public function index()
     {
 
         $data = [
             'title' => 'Beranda | HLP',
-            'css' => 'preview-client-style'
+            'css' => 'preview-client-style',
+            'jmlklien' => $this->pagesModel->getJumlahKlien(),
+            'jmlkonsul' => $this->pagesModel->getJumlahKonsul()
         ];
 
         return view('pages/beranda', $data);
