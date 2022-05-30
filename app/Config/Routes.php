@@ -43,8 +43,9 @@ $routes->get('/klien/(:num)', 'Klien::detail/$1');
 
 // Rute untuk bagian konsul
 $routes->get('/konsul/(:num)', 'Konsul::detail/$1');
-$routes->add('/konsul/create', 'Konsul::create');
+$routes->add('/konsul/create/(:num)', 'Konsul::create/$1');
 $routes->delete('/konsul/(:num)', 'Konsul::delete/$1');
+$routes->add('/konsul/edit/(:segment)', 'Konsul::edit/$1');
 
 // Rute untuk bagian user
 $routes->get('/users', 'Users::index');
