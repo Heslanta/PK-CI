@@ -23,13 +23,9 @@
                     </thead>
                     <tbody>
                         <?php $i = 1; ?>
-                        <?php foreach ($users as $u) : ?>
+                        <?php foreach ($jadwal as $u) : ?>
                             <tr>
-                                <th scope="row"><?= $i++; ?></th>
-                                <td><?= $u['nama']; ?></td>
-                                <td><?= $u['username']; ?></td>
-                                <td><?= $u['password']; ?></td>
-                                <td><?= $u['notelp']; ?></td>
+
 
 
                             </tr>

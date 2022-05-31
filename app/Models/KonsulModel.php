@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class KonsulModel extends Model
 {
     protected $table = 'konsultasi';
-    protected $allowedFields = ['konsul_ke', 'hari_tanggal', 'Tujuan', 'hasil_konsul', 'catatan_konsul'];
+    protected $allowedFields = ['konsul_ke', 'hari_tanggal', 'tujuan', 'hasil_konsul', 'catatan_konsul', 'id_klien'];
     public function getKonsul($id)
     {
 
@@ -17,8 +17,18 @@ class KonsulModel extends Model
             ->get();
         return $query;
     }
+    public function editKonsul($id_konsul)
+    {
+
+        return $this->where(['id_konsul' => $id_konsul])->first();
+    }
     public function viewKonsul($id_konsul)
     {
         return $this->where(['id_konsul' => $id_konsul])->first();
+    }
+    public function deleteKonsul($id_konsul)
+    {
+        $this->db->table('konsultasi')
+            ->delete(['id_konsul' => $id_konsul]);
     }
 }

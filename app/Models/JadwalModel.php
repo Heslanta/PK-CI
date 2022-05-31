@@ -13,4 +13,22 @@ class JadwalModel extends Model
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
+
+    public function viewTunggu($id)
+    {
+
+        $query =  $this->db->table('konsultasi')
+            ->join('klien', 'konsultasi.id_klien = klien.id')
+            ->where('konsultasi.id_klien', $id)
+            ->get();
+        return $query;
+    }
+    public function viewTerima($id_konsul)
+    {
+        return $this->where(['id_konsul' => $id_konsul])->first();
+    }
+    public function viewTolak($id_konsul)
+    {
+        return $this->where(['id_konsul' => $id_konsul])->first();
+    }
 }

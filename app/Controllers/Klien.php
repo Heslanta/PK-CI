@@ -36,6 +36,7 @@ class Klien extends BaseController
         // $id_k = $this->klienModel->getKlien($id);
 
         $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
+
         $data = [
             'title' => 'Detail Klien',
             'klien' => $this->klienModel->getKlien($id),
@@ -62,21 +63,28 @@ class Klien extends BaseController
     }
     public function save()
     {
+
         // validasi input
         if (!$this->validate(
             [
                 'wajibpajak' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => '{field} klien harus diisi.'
+                        'required' => 'Nama klien harus diisi!'
                     ]
                 ],
                 'npwp' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => '{field} klien harus diisi.'
+                        'required' => 'NPWP klien harus diisi!'
                     ]
                 ],
+                // $notelp => [
+                //     'rules' => 'numeric',
+                //     'errors' => [
+                //         'numeric' => 'Nomor HP klien harus berupa angka.'
+                //     ]
+                // ],
                 'filedata' => [
                     'rules' => 'max_size[filedata,3072]|is_image[filedata]|mime_in[filedata,image/jpg,image/jpeg,image/png]',
                     'errors' => [
@@ -98,14 +106,19 @@ class Klien extends BaseController
         $notelp = $this->request->getVar('notelp');
         if (empty($notelp)) {
             $notelp = '-';
+        } else {
+            $notelp = url_title($this->request->getVar('notelp'), '-', true);
         }
-
-
+        $catatan = $this->request->getVar('catatan');
+        if (empty($catatan)) {
+            $catatan = "Tidak ada catatan mengenai klien ini!";
+        }
+        // dd($catatan);
         $this->klienModel->save([
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
             'notelp' => $notelp,
-            'catatan' => $this->request->getVar('catatan')
+            'catatan' => $catatan
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
@@ -136,8 +149,9 @@ class Klien extends BaseController
     public function update($id)
     {
 
-        // cek judul
+        // cek klien
         $klienLama = $this->klienModel->getKlien($this->request->getVar('id'));
+        // dd($klienLama);
         if ($klienLama['wajibpajak'] == $this->request->getVar('wajibpajak')) {
             $rule_wp = 'required';
         } else {
@@ -182,7 +196,7 @@ class Klien extends BaseController
             // 'slug' => $id
         ]);
 
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Data berhasil diubah');
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/klien');
     }

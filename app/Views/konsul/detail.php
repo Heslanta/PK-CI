@@ -29,7 +29,6 @@
                     </form>
                 </div>
             </div>
-            <a href="/konsultasi/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
 
         </div>
     </div>

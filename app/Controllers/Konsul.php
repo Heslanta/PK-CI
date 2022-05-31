@@ -3,13 +3,16 @@
 namespace App\Controllers;
 
 use App\Models\KonsulModel;
+use App\Models\KlienModel;
 
 class Konsul extends BaseController
 {
     protected $konsulModel;
+    protected $klienModel;
     public function __construct()
     {
         $this->konsulModel = new  KonsulModel();
+        $this->klienModel = new  KlienModel();
     }
 
     public function detail($id_konsul)
@@ -22,7 +25,7 @@ class Konsul extends BaseController
             'css' => 'preview-consul-style'
 
         ];
-        //jika klien tidak ada di tabel
+        //jika konsultasi tidak ada di tabel
         if (empty($data['konsul'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
         }
@@ -30,31 +33,30 @@ class Konsul extends BaseController
 
         return view('konsul/detail', $data);
     }
-    public function create()
+    public function create($id)
     {
+        $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
+        dd($data_konsul);
         $data = [
             'title' => 'Tambah Konsultasi',
             'validation' => \Config\Services::validation(),
-            'css' => 'add-consul-style'
+            'klien' => $this->klienModel->getKlien($id),
+            'css' => 'add-consul-style',
+            'konsultasi' => $data_konsul
         ];
 
         return view('konsul/create', $data);
     }
     public function save()
     {
+
         // validasi input
         if (!$this->validate(
             [
-                'wajibpajak' => [
+                'konsul_ke' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => '{field} klien harus diisi.'
-                    ]
-                ],
-                'npwp' => [
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} klien harus diisi.'
+                        'required' => 'Tidak boleh kosong!'
                     ]
                 ]
 
@@ -63,98 +65,95 @@ class Konsul extends BaseController
             // validasi
             $validation = \Config\Services::validation();
             // redirect kembali tanpa index.php
-            return redirect()->to(base_url() . '/klien/create')->withInput();
+            return redirect()->to(base_url() . '/konsul/create')->withInput();
         }
         // masukan ke database
         // $id = url_title($this->request->getVar('wajibpajak'), '-', true);
-        $notelp = $this->request->getVar('notelp');
-        if (empty($notelp)) {
-            $notelp = '-';
-        }
-        $this->klienModel->save([
-            'wajibpajak' => $this->request->getVar('wajibpajak'),
-            'npwp' => $this->request->getVar('npwp'),
-            'notelp' => $notelp,
-            'catatan' => $this->request->getVar('catatan'),
-            'slug' => null
+        $id = $this->request->getVar('id_klien');
+        $this->konsulModel->save([
+            'konsul_ke' => $this->request->getVar('konsul_ke'),
+            'hari_tanggal' => $this->request->getVar('hari_tanggal'),
+            'tujuan' => $this->request->getVar('tujuan'),
+            'hasil_konsul' => $this->request->getVar('hasil_konsul'),
+            'catatan_konsul' => $this->request->getVar('catatan_konsul'),
+            'id_klien' => $id
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
         // redirect kembali tanpa index.php
-        return redirect()->to(base_url() . '/klien');
+        return redirect()->to(base_url() . '/klien/' . $id);
     }
 
-    public function delete($id)
+    public function delete($id_konsul)
     {
-        $this->klienModel->delete(($id));
+
+        $this->konsulModel->deleteKonsul(($id_konsul));
+
         session()->setFlashdata('pesan-hapus', 'Data berhasil dihapus');
         return redirect()->to(base_url() . '/klien');
     }
 
-    public function edit($id)
+    public function edit($id_konsul)
     {
+        $data_konsul =  $this->konsulModel->editKonsul($id_konsul);
+        // dd($data_konsul);
         $data = [
-            'title' => 'Edit Klien',
+            'title' => 'Edit Konsultasi',
             'validation' => \Config\Services::validation(),
-            'klien' => $this->klienModel->getKlien(($id)),
-            'css' => 'change-client-data-style'
+            // 'klien' => $this->konsulModel->editKonsul($id_konsul),
+            'css' => 'add-consul-style',
+            'konsultasi' => $data_konsul
         ];
 
-        return view('klien/edit', $data);
+        return view('konsul/edit', $data);
     }
 
 
-    public function update($id)
+    public function update($id_konsul)
     {
+        // $data_konsul =  $this->konsulModel->editKonsul($id_konsul);
+        // cek validasi
 
-        // cek judul
-        $klienLama = $this->klienModel->getKlien($this->request->getVar('id'));
-        if ($klienLama['wajibpajak'] == $this->request->getVar('wajibpajak')) {
-            $rule_wp = 'required';
-        } else {
-            $rule_wp = 'required|is_unique[klien.wajibpajak]';
-        }
 
         // validasi input
         if (!$this->validate(
             [
-                'wajibpajak' => [
-                    'rules' => $rule_wp,
-                    'errors' => [
-                        'required' => '{field} klien harus diisi.',
-                        'is_unique' => '{field} klien sudah ada.'
-                    ]
-                ],
-                'npwp' => [
+                'konsul_ke' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => '{field} klien harus diisi.'
+                        'required' => '{field} konsultasi harus diisi.'
+                        // 'is_unique' => '{field} klien sudah ada.'
                     ]
                 ]
+                // 'npwp' => [
+                //     'rules' => 'required',
+                //     'errors' => [
+                //         'required' => '{field} klien harus diisi.'
+                //     ]
+                // ]
 
             ]
         )) {
             // validasi
             $validation = \Config\Services::validation();
             // redirect kembali tanpa index.php
-            return redirect()->to(base_url() . '/klien/edit/' .  $this->request->getVar('id'))->withInput('validation', $validation);
+            return redirect()->to(base_url() . '/konsul/edit/' .  $this->request->getVar('id_konsul'))->withInput('validation', $validation);
         }
-        $notelp = $this->request->getVar('notelp');
-        if (empty($notelp)) {
-            $notelp = '-';
-        }
-        // $id = url_title($this->request->getVar('wajibpajak'), '-', true);
-        $this->klienModel->save([
-            'id' => $id,
-            'wajibpajak' => $this->request->getVar('wajibpajak'),
-            'npwp' => $this->request->getVar('npwp'),
-            'notelp' => $notelp,
-            'catatan' => $this->request->getVar('catatan')
-            // 'slug' => $id
+
+            // $id = url_title($this->request->getVar('wajibpajak'), '-', true);
+        ;
+        $this->konsulModel->save([
+            'id_konsul' => $id_konsul,
+            'id_klien' => $this->request->getVar('id_klien'),
+            'konsul_ke' => $this->request->getVar('konsul_ke'),
+            'hari_tanggal' => $this->request->getVar('hari_tanggal'),
+            'tujuan' => $this->request->getVar('tujuan'),
+            'hasil_konsul' => $this->request->getVar('hasil_konsul'),
+            'catatan_konsul' => $this->request->getVar('catatan_konsul'),
         ]);
 
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        session()->setFlashdata('pesan', 'Data berhasil diubah');
         // redirect kembali tanpa index.php
-        return redirect()->to(base_url() . '/klien');
+        return redirect()->to(base_url() . '/klien/' . $this->request->getVar('id_klien'));
     }
 }

@@ -8,6 +8,11 @@
     <div class="row">
         <div class="col">
             <div class="card">
+                <?php if (session()->getFlashdata('pesan')) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('pesan'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div><?php endif; ?>
                 <div class="card-header">
                     Detail Wajib Pajak
                 </div>
@@ -26,8 +31,11 @@
                     </form>
                 </div>
             </div>
-            <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
-            <?php foreach (array_reverse($konsultasi) as $kon) : ?>
+
+            <a href="/konsul/create/<?= $klien['id'] ?>" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
+
+            <!-- <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br> -->
+            <?php foreach (array_reverse($konsultasi) as $kon) :  ?>
 
                 <div class="tabel">
                     <a href="/konsul/<?= $kon->id_konsul ?>">
@@ -40,6 +48,6 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <br>
+    <br><br>
 </div>
 <?= $this->endSection(); ?>
