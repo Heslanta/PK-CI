@@ -30,6 +30,16 @@
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <label for="efin" class="col-sm-2 col-form-label">Nomor EFIN</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control <?= ($validation->hasError('efin')) ? 'is-invalid'
+                                                                    : ''; ?>" value="<?= (old('efin')) ? old('efin') : $klien['efin'] ?>" id="efin" name="efin">
+                        <div id="validationServer03Feedback" class="invalid-feedback">
+                            <?= $validation->getError('efin'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <label for="notelp" class="col-sm-2 col-form-label">Nomor HP</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="notelp" name="notelp" value="<?= (old('notelp')) ? old('notelp') : $klien['notelp'] ?>">

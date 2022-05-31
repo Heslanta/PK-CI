@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class KlienModel extends Model
 {
     protected $table = 'klien';
-    protected $allowedFields = ['wajibpajak', 'npwp', 'notelp', 'catatan', 'filedata'];
+    protected $allowedFields = ['wajibpajak', 'npwp', 'notelp', 'catatan', 'filedata', 'efin'];
 
     public function getKlien($id = false)
     {
