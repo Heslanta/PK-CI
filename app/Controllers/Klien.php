@@ -139,9 +139,17 @@ class Klien extends BaseController
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
             'efin' => $this->request->getVar('efin'),
+            'bidang_usaha' => $this->request->getVar('bidang_usaha'),
+            'email' => $this->request->getVar('email'),
+            'email_pass' => $this->request->getVar('email_pass'),
+            'notelp_per' => $this->request->getVar('notelp_per'),
+            'pkp' => $this->request->getVar('pkp'),
+            'enofa' => $this->request->getVar('enofa'),
             'notelp' => $notelp,
-            'catatan' => $catatan
+            'catatan' => $catatan,
+            'filedata' => $this->request->getVar('filedata')
         ];
+
         // dd($data);
         $this->klienModel->insert($data);
         $level = "klien";
