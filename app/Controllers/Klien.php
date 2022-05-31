@@ -140,6 +140,7 @@ class Klien extends BaseController
             'notelp' => $notelp,
             'catatan' => $catatan
         ];
+        // dd($data);
         $this->klienModel->insert($data);
         $level = "klien";
         $data_user = [
