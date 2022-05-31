@@ -18,21 +18,39 @@
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-title"> Wajib Pajak : <?= $klien['wajibpajak']; ?></h5>
-                    <p class="card-text">NPWP : <?= $klien['npwp']; ?></p>
-                    <p class="card-text">Nomor EFIN : <?= $klien['efin']; ?></p>
-                    <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
-                    <p class="card-text">Catatan : <?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
-                    <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
-                    <button onclick="history.back()" class="btn btn-warning">Kembali</button>
-                    <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
-                        <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
-                    </form>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h5 class="card-title"> Wajib Pajak : <?= $klien['wajibpajak']; ?></h5>
+                            <p class="card-text">NPWP : <?= $klien['npwp']; ?></p>
+                            <p class="card-text">Nomor EFIN : <?= $klien['efin']; ?></p>
+                            <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
+                            <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
+                            <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
+                            <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
+                            <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
+                            <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
+                            <p class="card-text">Catatan : <?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
+                            <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
+                            <button onclick="history.back()" class="btn btn-warning">Kembali</button>
+                            <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-5">
+                            <h5>Akun Klien</h5>
+                            <?php foreach (array_reverse($user) as $user) :  ?>
+
+                                <p class="card-text">Nama akun : <?= $user['nama']; ?></p>
+                                <p class="card-text">Username : <?= $user['username']; ?></p>
+                                <p class="card-text">Password : <?= $user['password']; ?></p>
+
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <a href="/konsul/create/<?= $klien['id'] ?>" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
 
             <!-- <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br> -->
