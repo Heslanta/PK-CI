@@ -20,9 +20,20 @@
 
             <p><input type="password" class="input-form" id="password" name="password" value="password" onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''" required></p>
 
+            <p><input type="checkbox" onclick="myFunction()">Show Password </p>
             <p><input type="submit" class="submit-form" name="login" value="Login" id="tombol"></p>
         </form>
         <br> <br> <br> <br>
     </div> <!-- end login -->
 </div>
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 <?= $this->endSection(); ?>
