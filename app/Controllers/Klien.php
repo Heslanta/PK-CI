@@ -3,13 +3,16 @@
 namespace App\Controllers;
 
 use App\Models\KlienModel;
+use App\Models\UsersModel;
 
 class Klien extends BaseController
 {
     protected $klienModel;
+    protected $usersModel;
     public function __construct()
     {
         $this->klienModel = new  KlienModel();
+        $this->usersModel = new  UsersModel();
     }
 
     public function index()
@@ -69,6 +72,7 @@ class Klien extends BaseController
 
         return view('klien/create', $data);
     }
+
     public function save()
     {
 
@@ -122,14 +126,33 @@ class Klien extends BaseController
             $catatan = "Tidak ada catatan mengenai klien ini!";
         }
         // dd($catatan);
-        $this->klienModel->save([
+        // $this->klienModel->save([
+        //     'wajibpajak' => $this->request->getVar('wajibpajak'),
+        //     'npwp' => $this->request->getVar('npwp'),
+        //     'notelp' => $notelp,
+        //     'catatan' => $catatan
+        // ]);
+
+        $data = [
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
+            'efin' => $this->request->getVar('efin'),
             'notelp' => $notelp,
             'catatan' => $catatan
-        ]);
+        ];
+        $this->klienModel->insert($data);
+        $level = "klien";
+        $data_user = [
+            'nama' => $this->request->getVar('wajibpajak'),
+            'username' => $this->request->getVar('npwp'),
+            'password' => $this->request->getVar('efin'),
+            'level' => $level,
+            'notelp' => $notelp
+        ];
+        $this->usersModel->insert($data_user);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/klien');
     }
@@ -200,11 +223,18 @@ class Klien extends BaseController
             'id' => $id,
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
+            'efin' => $this->request->getVar('efin'),
             'notelp' => $notelp,
             'catatan' => $this->request->getVar('catatan')
             // 'slug' => $id
         ]);
-
+        // $data = [
+        //     'wajibpajak' => $this->request->getVar('wajibpajak'),
+        //     'npwp' => $this->request->getVar('npwp'),
+        //     'notelp' => $notelp,
+        //     'catatan' => $this->request->getVar('catatan')
+        // ];
+        // $this->klienModel->replace($data);
         session()->setFlashdata('pesan', 'Data berhasil diubah');
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/klien');

@@ -20,6 +20,7 @@
                 <div class="card-body">
                     <h5 class="card-title"> Wajib Pajak : <?= $klien['wajibpajak']; ?></h5>
                     <p class="card-text">NPWP : <?= $klien['npwp']; ?></p>
+                    <p class="card-text">Nomor EFIN : <?= $klien['efin']; ?></p>
                     <p class="card-text">Nomor HP : <?= $klien['notelp']; ?></p>
                     <p class="card-text">Catatan : <?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
                     <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
