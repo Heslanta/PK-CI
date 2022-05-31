@@ -21,10 +21,10 @@
             <p><input type="password" class="input-form" id="password" name="password" value="password" onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''" required></p>
 
             <div class="checkbox-container">
-            <p><input type="checkbox" onclick="myFunction()">&nbsp;Show Password </p>
+                <p><input type="checkbox" onclick="myFunction()">&nbsp;Show Password </p>
             </div>
             <p><input type="submit" class="submit-form" name="login" value="Login" id="tombol"></p>
-            
+
         </form>
         <br> <br> <br> <br>
     </div> <!-- end login -->
