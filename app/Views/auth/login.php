@@ -4,7 +4,7 @@
 <?= $this->section('content'); ?>
 <div class="container-login">
     <div class="left-half">
-        <img src="img/themis.png">
+        <img src="images/themis.png">
     </div>
 
 
