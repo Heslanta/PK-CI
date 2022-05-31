@@ -23,7 +23,7 @@ body {
 
 .left-half{
     height:auto;
-    width: auto;
+    width: 400px;
     background: rgb(0,9,12);
     background: linear-gradient(90deg, rgba(0,9,12,1) 0%, rgba(1,59,100,1) 100%);
 }
@@ -47,9 +47,13 @@ body {
 .right-half{
     background-color: white;
     height:auto;
-    width: auto;
+    width: 400px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     /* border: 1px solid black; */
+}
+
+.img-container{
+    margin-left: -40px;
 }
 
 .right-half h1{
@@ -101,7 +105,7 @@ body {
 }
 
 .checkbox-container{
-    margin-left: 20px;
+    margin-left: 50px;
 }
 
 @media screen and (max-width: 600px){
