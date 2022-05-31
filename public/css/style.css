@@ -103,3 +103,26 @@ body {
 .checkbox-container{
     margin-left: 20px;
 }
+
+@media screen and (max-width: 600px){
+    .container-login{
+        height: 600px;
+    }
+    .left-half{
+        display: none;
+    }
+    .right-half{
+        width: 400px;
+        border-radius: 20px;
+    }
+    .right-half h1{
+        font-size: 28px;
+    }
+    
+    .right-half h2{
+        display: none;
+    }
+    .checkbox-container{
+        margin-left: 50px;
+    }
+}
