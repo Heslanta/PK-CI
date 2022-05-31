@@ -116,3 +116,28 @@ body{
     border-top: none;
     color:black;
 }
+
+@media screen and (max-width: 600px){
+    .main-content h1{
+        text-align: left;
+    }
+    .row{
+        text-align: center;
+    }
+    .pagination{
+        margin-left: 95px;
+        margin-top: 40px;
+    }
+    .tabel{
+        width: 170px;
+    }
+    .col-6{
+        width: 100%;
+    }
+    .mt-2{
+        padding-bottom: 10px;
+    }
+    .add{
+        float: right;
+    }
+}
