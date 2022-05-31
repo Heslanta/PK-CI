@@ -99,3 +99,7 @@ body {
     color:white;
     font-weight: bold;
 }
+
+.checkbox-container{
+    margin-left: 20px;
+}
