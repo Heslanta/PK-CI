@@ -47,11 +47,13 @@ class Klien extends BaseController
         // $id_k = $this->klienModel->getKlien($id);
 
         $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
-
+        $data_akun = $this->usersModel->getUser($id)->getResultArray();
+        // dd($data_akun);
         $data = [
             'title' => 'Detail Klien',
             'klien' => $this->klienModel->getKlien($id),
             'css' => 'preview-client-style',
+            'user' => $data_akun,
             'konsultasi' => $data_konsul
         ];
         //jika klien tidak ada di tabel
