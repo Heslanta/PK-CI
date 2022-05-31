@@ -29,4 +29,8 @@ class KlienModel extends Model
         $jumlah = $this->db->table('klien')->countAllResults();
         return $jumlah;
     }
+    public function search($keyword)
+    {
+        return $this->table('klien')->like('wajibpajak', $keyword);
+    }
 }

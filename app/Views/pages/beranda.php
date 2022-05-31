@@ -113,7 +113,7 @@
 
                 <h2>Klien berjumlah : <?= $jmlklien; ?></h2>
                 <h2>Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
-                <table class="table table-striped">
+                <!-- <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -125,19 +125,9 @@
                     </thead>
                     <tbody>
                         <?php $i = 1; ?>
-                        <?php
-                        if (is_array($users) || is_object($users))
-                            foreach ($users as $u) : ?>
-                            <tr>
-                                <th scope="row"><?= $i++; ?></th>
-                                <td><?= $u['nama']; ?></td>
-                                <td><?= $u['username']; ?></td>
-                                <td><?= $u['password']; ?></td>
-                                <td><?= $u['notelp']; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
+
                     </tbody>
-                </table>
+                </table> -->
             </div>
         </div>
     </div>

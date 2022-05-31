@@ -15,9 +15,17 @@ class Klien extends BaseController
     public function index()
     {
         // $klien = $this->klienModel->findAll();
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $klien = $this->klienModel->search($keyword);
+        } else {
+            $klien = $this->klienModel;
+        }
+
         $data = [
             'title' => 'Klien | HLP',
-            'klien' => $this->klienModel->getKlien(),
+            'klien' => $klien->paginate(12, 'klien'),
+            'pager' => $this->klienModel->pager,
             'css' => 'data-client-style',
             'jumlah' => $this->klienModel->getJumlah()
         ];
@@ -187,6 +195,7 @@ class Klien extends BaseController
             $notelp = '-';
         }
         // $id = url_title($this->request->getVar('wajibpajak'), '-', true);
+        // dd($this->request->getVar());
         $this->klienModel->save([
             'id' => $id,
             'wajibpajak' => $this->request->getVar('wajibpajak'),

@@ -15,12 +15,24 @@ class Users extends BaseController
 
     public function index()
     {
-        $users = $this->usersModel->findAll();
-
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $user = $this->usersModel->search($keyword);
+        } else {
+            $user = $this->usersModel;
+        }
+        // $users = $this->usersModel->findAll();
+        $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
+            1;
+        // jumlah data per halaman
+        $jmldata = 10;
         $data = [
             'title' => 'Daftar Pengguna | HLP',
-            'users' => $users,
-            'css' => 'preview-client-style'
+            'users' => $user->paginate($jmldata, 'user'),
+            'pager' => $this->usersModel->pager,
+            'css' => 'users',
+            'currentPage' => $currentPage,
+            'jmldata' => $jmldata
         ];
 
         return view('users/index', $data);
@@ -52,10 +64,10 @@ class Users extends BaseController
                     ]
                 ],
                 'nama' => [
-                    'rules' => 'required|is_unique[user.username]',
+                    'rules' => 'required',
                     'errors' => [
                         'required' => '{field} pengguna harus diisi.',
-                        'is_unique' => '{field} pengguna sudah ada'
+
 
                     ]
                 ],

@@ -7,16 +7,17 @@ use CodeIgniter\Model;
 class KonsulModel extends Model
 {
     protected $table = 'konsultasi';
-    protected $allowedFields = ['konsul_ke', 'hari_tanggal', 'tujuan', 'hasil_konsul', 'catatan_konsul', 'id_klien'];
-    public function getKonsul($id)
-    {
+    protected $allowedFields =
+    ['konsul_ke', 'hari_tanggal', 'tujuan', 'hasil_konsul', 'catatan_konsul', 'id_klien'];
+    // public function getKonsul($id)
+    // {
 
-        $query =  $this->db->table('konsultasi')
-            ->join('klien', 'konsultasi.id_klien = klien.id')
-            ->where('konsultasi.id_klien', $id)
-            ->get();
-        return $query;
-    }
+    //     $query =  $this->db->table('konsultasi')
+    //         ->join('klien', 'konsultasi.id_klien = klien.id')
+    //         ->where('konsultasi.id_klien', $id)
+    //         ->get();
+    //     return $query;
+    // }
     public function editKonsul($id_konsul)
     {
 

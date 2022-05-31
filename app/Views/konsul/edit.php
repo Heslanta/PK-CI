@@ -10,8 +10,8 @@
                 <?= csrf_field(); ?>
 
                 <div class="row mb-3">
-                    <input type="hidden" name="id_konsul" id="id_konsul" value="<?= $konsultasi['id_konsul']; ?>">
                     <input type="hidden" name="id_klien" id="id_klien" value="<?= $konsultasi['id_klien'] ?>">
+                    <input type="hidden" name="id_konsul" id="id_konsul" value="<?= $konsultasi['id_konsul'] ?>">
 
                     <label for="konsul_ke" class="col-sm-2 col-form-label">Konsu1 ke- : </label>
                     <div class="col-sm-10">

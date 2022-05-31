@@ -5,6 +5,18 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-6">
+            <h1 class="mt-2">Daftar Klien </h1>
+            <form action="" method="POST">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Masukkan pencarian..." name="keyword">
+                    <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col">
             <a href="/klien/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a>
             <div class="main-content-wrapper">
@@ -40,6 +52,7 @@
                         <?php endforeach; ?>
 
                     </div>
+                    <?= $pager->links('klien', 'pagination_klien'); ?>
                 </div>
             </div>
             <br><br>
