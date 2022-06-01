@@ -18,14 +18,6 @@
                 </div>
 
                 <div class="card-body">
-                        <div class="akun-container">
-                            <h5>Akun Klien</h5>
-                            <?php foreach (array_reverse($user) as $user) :  ?>
-                                <p class="card-text">Nama akun : <?= $user['nama']; ?></p>
-                                <p class="card-text">Username : <?= $user['username']; ?></p>
-                                <p class="card-text">Password : <?= $user['password']; ?></p>
-                            <?php endforeach; ?>
-                        </div>
                     <div class="row">
                         <div class="col-sm-5">
                             <h5 class="card-title"><b> Wajib Pajak : </b><br><?= $klien['wajibpajak']; ?></h5>
@@ -51,6 +43,14 @@
                     </div>
                 </div>
             </div>
+            <div class="akun-container">
+                            <h5>Akun Klien</h5>
+                            <?php foreach (array_reverse($user) as $user) :  ?>
+                                <p class="card-text">Nama akun : <?= $user['nama']; ?></p>
+                                <p class="card-text">Username : <?= $user['username']; ?></p>
+                                <p class="card-text">Password : <?= $user['password']; ?></p>
+                            <?php endforeach; ?>
+                        </div>
             <a href="/konsul/create/<?= $klien['id'] ?>" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
 
             <!-- <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br> -->
