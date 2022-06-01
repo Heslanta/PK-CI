@@ -72,3 +72,15 @@
     margin-top: 40px;
     margin-right: 20px;
 }
+
+@media screen and (max-width:600px){
+    h2{
+        text-align: center;
+    }
+    input{
+        width: 100%;
+    }
+    textarea{
+        text-align: justify;
+    }
+}
