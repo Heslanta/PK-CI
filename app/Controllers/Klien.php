@@ -152,7 +152,12 @@ class Klien extends BaseController
         ];
 
         // dd($data);
-        $this->klienModel->insert($data);
+        $user = $this->klienModel
+            ->withGroup('guests')
+            ->insert($data);
+        dd($user);
+        // $this->klienModel->insert($data);
+
         $level = "klien";
         $data_user = [
             'nama' => $this->request->getVar('wajibpajak'),

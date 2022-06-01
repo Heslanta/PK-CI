@@ -44,7 +44,7 @@ class Filters extends BaseConfig
             // 'csrf',
             // 'invalidchars',
             // login ini untuk mecek pada semua bagian apakah sudah login atau belum
-            'login',
+            // 'login',
         ],
         'after' => [
             'toolbar',
