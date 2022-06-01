@@ -88,9 +88,10 @@ class Klien extends BaseController
                     ]
                 ],
                 'npwp' => [
-                    'rules' => 'required',
+                    'rules' => 'required|is_unique[klien.npwp]',
                     'errors' => [
-                        'required' => 'NPWP klien harus diisi!'
+                        'required' => 'NPWP klien harus diisi!',
+                        'is_unique' => 'NPWP klien sudah ada.'
                     ]
                 ],
                 // $notelp => [
@@ -139,9 +140,17 @@ class Klien extends BaseController
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
             'efin' => $this->request->getVar('efin'),
+            'bidang_usaha' => $this->request->getVar('bidang_usaha'),
+            'email' => $this->request->getVar('email'),
+            'email_pass' => $this->request->getVar('email_pass'),
+            'notelp_per' => $this->request->getVar('notelp_per'),
+            'pkp' => $this->request->getVar('pkp'),
+            'enofa' => $this->request->getVar('enofa'),
             'notelp' => $notelp,
-            'catatan' => $catatan
+            'catatan' => $catatan,
+            'filedata' => $this->request->getVar('filedata')
         ];
+
         // dd($data);
         $this->klienModel->insert($data);
         $level = "klien";
@@ -227,9 +236,15 @@ class Klien extends BaseController
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
             'efin' => $this->request->getVar('efin'),
+            'bidang_usaha' => $this->request->getVar('bidang_usaha'),
+            'email' => $this->request->getVar('email'),
+            'email_pass' => $this->request->getVar('email_pass'),
+            'notelp_per' => $this->request->getVar('notelp_per'),
+            'pkp' => $this->request->getVar('pkp'),
+            'enofa' => $this->request->getVar('enofa'),
             'notelp' => $notelp,
-            'catatan' => $this->request->getVar('catatan')
-            // 'slug' => $id
+            'catatan' => $this->request->getVar('catatan'),
+            'filedata' => $this->request->getVar('filedata')
         ]);
         // $data = [
         //     'wajibpajak' => $this->request->getVar('wajibpajak'),

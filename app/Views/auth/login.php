@@ -1,4 +1,4 @@
-<?= $this->extend('layout/header'); ?>
+<?= $this->extend('layout/header_login'); ?>
 
 <?= $this->section('content'); ?>
 <div class="container-login">

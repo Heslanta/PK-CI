@@ -53,16 +53,16 @@ $routes->add('/users/create', 'Users::create');
 $routes->get('/users/save', 'Users::save');
 
 
-$routes->match(['get', 'post'], 'login', 'Users::login', ["filter" => "noauth"]);
-// Routes Admin
-$routes->group("admin", ["filter" => "auth"], function ($routes) {
-    $routes->get('/', 'Pages::index');
-});
-//  Routes Pegawai
-$routes->group("pegawai", ["filter" => "auth"], function ($routes) {
-    $routes->get('/', 'Pages::index');
-});
-$routes->get('logout', 'Users::logout');
+// $routes->match(['get', 'post'], 'login', 'Users::login', ["filter" => "noauth"]);
+// // Routes Admin
+// $routes->group("admin", ["filter" => "auth"], function ($routes) {
+//     $routes->get('/', 'Pages::index');
+// });
+// //  Routes Pegawai
+// $routes->group("pegawai", ["filter" => "auth"], function ($routes) {
+//     $routes->get('/', 'Pages::index');
+// });
+// $routes->get('logout', 'Users::logout');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
