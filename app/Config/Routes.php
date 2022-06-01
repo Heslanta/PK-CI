@@ -52,7 +52,8 @@ $routes->get('/konsul/(:num)', 'Konsul::detail/$1');
 $routes->get('/users', 'Users::index');
 $routes->add('/users/create', 'Users::create');
 $routes->get('/users/save', 'Users::save');
-
+$routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1');
+$routes->add('/users/edit/(:segment)', 'Users::edit/$1');
 
 // $routes->match(['get', 'post'], 'login', 'Users::login', ["filter" => "noauth"]);
 // // Routes Admin

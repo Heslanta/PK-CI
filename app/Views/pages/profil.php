@@ -22,18 +22,21 @@
                         <div class="col-sm-5">
                             <h5 class="card-title"> Wajib Pajak : <br><?= $session->get('nama') ?></h5>
                             <p class="card-text">Username : <br><?= $session->get('username') ?></p>
-                            <p class="card-text">Username : <br><?= $session->get('password') ?></p>
-                            <p class="card-text">Username : <br><?= $session->get('level') ?></p>
-                            <p class="card-text">Username : <br><?= $session->get('notelp') ?></p>
-                            <p class="card-text">Username : <br><?= $session->get('id') ?></p>
+                            <p class="card-text">Password : <br><?= $session->get('password') ?></p>
+                            <p class="card-text">Level : <br><?= $session->get('level') ?></p>
+                            <p class="card-text">Nomor Telpon : <br><?= $session->get('notelp') ?></p>
 
-                            <a href="/user/edit/<?= $session->get('id') ?>" class="btn btn-primary">Edit</a>
+                            <?php if ($session->get('level') !== 'klien') : ?>
+
+                                <a href="/users/editprofil/<?= $session->get('id') ?>" class="btn btn-primary">Edit</a>
+                            <?php endif; ?>
+
                             <button onclick="history.back()" class="btn btn-warning">Kembali</button>
-
                         </div>
-
                     </div>
+
                 </div>
-                <br><br>
             </div>
-            <?= $this->endSection(); ?>
+            <br><br>
+        </div>
+        <?= $this->endSection(); ?>

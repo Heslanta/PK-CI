@@ -47,7 +47,7 @@ class Klien extends BaseController
         // $id_k = $this->klienModel->getKlien($id);
 
         $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
-        $data_akun = $this->usersModel->getUser($id)->getResultArray();
+        $data_akun = $this->usersModel->getUser($id)->getResult();
         // dd($data_akun);
         $data = [
             'title' => 'Detail Klien',

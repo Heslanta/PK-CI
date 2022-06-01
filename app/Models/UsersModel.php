@@ -22,4 +22,11 @@ class UsersModel extends Model
             ->get();
         return $query;
     }
+    public function cekUser($id = false)
+    {
+        if ($id == false) {
+            return $this->findAll();
+        }
+        return $this->where(['id' => $id])->first();
+    }
 }

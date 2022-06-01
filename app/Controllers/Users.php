@@ -97,64 +97,139 @@ class Users extends BaseController
         return redirect()->to(base_url() . '/users');
     }
 
-    // public function login()
-    // {
-    //     $data = [];
+    public function edit($id)
+    {
+        $data = [
+            'title' => 'Edit Pengguna',
+            'validation' => \Config\Services::validation(),
+            'user' => $this->usersModel->getUser(($id)),
+            'css' => 'change-client-data-style'
+        ];
 
-    //     if ($this->request->getMethod() == 'post') {
+        return view('users/edit', $data);
+    }
 
-    //         $rules = [
-    //             'email' => 'required|min_length[6]|max_length[50]|valid_email',
-    //             'password' => 'required|min_length[8]|max_length[255]|validateUser[email,password]',
-    //         ];
 
-    //         $errors = [
-    //             'password' => [
-    //                 'validateUser' => "Email or Password didn't match",
-    //             ],
-    //         ];
+    public function update($id)
+    {
 
-    //         if (!$this->validate($rules, $errors)) {
+        // cek klien
+        $userlama = $this->usersModel->getUser($this->request->getVar('id'));
+        // dd($klienLama);
+        if ($userlama['username'] == $this->request->getVar('username')) {
+            $rule_wp = 'required';
+        } else {
+            $rule_wp = 'required|is_unique[user.username]';
+        }
 
-    //             return view('login', [
-    //                 "validation" => $this->validator,
-    //             ]);
-    //         } else {
-    //             $model = new UsersModel();
+        // validasi input
+        if (!$this->validate(
+            [
+                'wajibpajak' => [
+                    'rules' => $rule_wp,
+                    'errors' => [
+                        'required' => '{field} user harus diisi.',
+                        'is_unique' => '{field} user sudah ada.'
+                    ]
+                ],
+                'password' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} user harus diisi.'
+                    ]
+                ]
 
-    //             $user = $model->where('email', $this->request->getVar('email'))
-    //                 ->first();
+            ]
+        )) {
+            // validasi
+            $validation = \Config\Services::validation();
+            // redirect kembali tanpa index.php
+            return redirect()->to(base_url() . '/users/edit/' .  $this->request->getVar('id'))->withInput('validation', $validation);
+        }
 
-    //             // Stroing session values
-    //             $this->setUserSession($user);
 
-    //             // Redirecting to dashboard after login
-    //             if ($user['role'] == "admin") {
+        $this->usersModel->save([
+            'id' => $id,
+            'nama' => $this->request->getVar('nama'),
+            'username' => $this->request->getVar('username'),
+            'password' => $this->request->getVar('password'),
+            'notelp' => $this->request->getVar('notelp'),
 
-    //                 return redirect()->to(base_url('admin'));
-    //             } elseif ($user['role'] == "pegawai") {
+        ]);
 
-    //                 return redirect()->to(base_url('pegawai'));
-    //             }
-    //         }
-    //     }
-    //     return view('login');
-    // }
+        session()->setFlashdata('pesan', 'Data berhasil diubah');
+        // redirect kembali tanpa index.php
+        return redirect()->to(base_url() . '/users');
+    }
 
-    // private function setUserSession($user)
-    // {
-    //     $data = [
-    //         'id' => $user['id'],
-    //         'name' => $user['name'],
-    //         'phone_no' => $user['phone_no'],
-    //         'email' => $user['email'],
-    //         'isLoggedIn' => true,
-    //         "level" => $user['level'],
-    //     ];
+    public function editprofil($id)
+    {
+        $data = [
+            'title' => 'Edit Pengguna',
+            'validation' => \Config\Services::validation(),
+            'user' => $this->usersModel->getUser(($id)),
+            'css' => 'change-client-data-style'
+        ];
 
-    //     session()->set($data);
-    //     return true;
-    // }
+        return view('users/editprofil', $data);
+    }
+
+
+    public function updateprofil($id)
+    {
+
+        // cek klien
+        $tes = $this->request->getVar('id');
+        // dd($tes);
+        $userlama = $this->usersModel->cekUser($tes);
+        // dd($userlama['username']);
+        if ($userlama['username'] == $this->request->getVar('username')) {
+            $rule_wp = 'required';
+        } else {
+            $rule_wp = 'required|is_unique[user.username]';
+        }
+
+        // validasi input
+        if (!$this->validate(
+            [
+                'username' => [
+                    'rules' => $rule_wp,
+                    'errors' => [
+                        'required' => '{field} user harus diisi.',
+                        'is_unique' => '{field} user sudah ada.'
+                    ]
+                ],
+                'password' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} user harus diisi.'
+                    ]
+                ]
+
+            ]
+        )) {
+            // validasi
+            $validation = \Config\Services::validation();
+            // dd($validation);
+            // redirect kembali tanpa index.php
+            return redirect()->to(base_url() . '/users/editprofil/' .  $this->request->getVar('id'))->withInput('validation', $validation);
+        }
+
+        $data = $this->request->getVar();
+        // dd($data);
+        $this->usersModel->save([
+            'id' => $id,
+            'nama' => $this->request->getVar('nama'),
+            'username' => $this->request->getVar('username'),
+            'password' => $this->request->getVar('password'),
+            'notelp' => $this->request->getVar('notelp'),
+
+        ]);
+
+        session()->setFlashdata('pesan', 'Data berhasil diubah, tampilan data akan berubah saat login berikutnya!');
+        // redirect kembali tanpa index.php
+        return redirect()->to(base_url() . '/pages/profil');
+    }
 
     public function logout()
     {
