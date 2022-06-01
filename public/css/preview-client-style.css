@@ -203,3 +203,28 @@ input{
         font-size: 16px;
     }
 }
+
+.akun-container{
+    width: 100%;
+    text-align: center;
+}
+.card-header{
+    font-weight: bold;
+}
+
+@media screen and (max-width:600px) {
+    textarea{
+        width: 370px;
+        text-align: justify;
+    }
+    .card-header{
+        text-align: left;
+    }
+    .add{
+        margin-right: 200px;
+    }
+    .tabel{
+        width: 170px;
+        padding-right: 0px;
+    }
+}
