@@ -34,6 +34,7 @@
                         <th scope="col">Username</th>
                         <th scope="col">Password</th>
                         <th scope="col">Nomor HP</th>
+                        <th scope="col">Level</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +47,7 @@
                             <td><?= $u['username']; ?></td>
                             <td><?= $u['password']; ?></td>
                             <td><?= $u['notelp']; ?></td>
+                            <td><?= $u['level']; ?></td>
 
 
                         </tr>

@@ -97,64 +97,64 @@ class Users extends BaseController
         return redirect()->to(base_url() . '/users');
     }
 
-    public function login()
-    {
-        $data = [];
+    // public function login()
+    // {
+    //     $data = [];
 
-        if ($this->request->getMethod() == 'post') {
+    //     if ($this->request->getMethod() == 'post') {
 
-            $rules = [
-                'email' => 'required|min_length[6]|max_length[50]|valid_email',
-                'password' => 'required|min_length[8]|max_length[255]|validateUser[email,password]',
-            ];
+    //         $rules = [
+    //             'email' => 'required|min_length[6]|max_length[50]|valid_email',
+    //             'password' => 'required|min_length[8]|max_length[255]|validateUser[email,password]',
+    //         ];
 
-            $errors = [
-                'password' => [
-                    'validateUser' => "Email or Password didn't match",
-                ],
-            ];
+    //         $errors = [
+    //             'password' => [
+    //                 'validateUser' => "Email or Password didn't match",
+    //             ],
+    //         ];
 
-            if (!$this->validate($rules, $errors)) {
+    //         if (!$this->validate($rules, $errors)) {
 
-                return view('login', [
-                    "validation" => $this->validator,
-                ]);
-            } else {
-                $model = new UsersModel();
+    //             return view('login', [
+    //                 "validation" => $this->validator,
+    //             ]);
+    //         } else {
+    //             $model = new UsersModel();
 
-                $user = $model->where('email', $this->request->getVar('email'))
-                    ->first();
+    //             $user = $model->where('email', $this->request->getVar('email'))
+    //                 ->first();
 
-                // Stroing session values
-                $this->setUserSession($user);
+    //             // Stroing session values
+    //             $this->setUserSession($user);
 
-                // Redirecting to dashboard after login
-                if ($user['role'] == "admin") {
+    //             // Redirecting to dashboard after login
+    //             if ($user['role'] == "admin") {
 
-                    return redirect()->to(base_url('admin'));
-                } elseif ($user['role'] == "pegawai") {
+    //                 return redirect()->to(base_url('admin'));
+    //             } elseif ($user['role'] == "pegawai") {
 
-                    return redirect()->to(base_url('pegawai'));
-                }
-            }
-        }
-        return view('login');
-    }
+    //                 return redirect()->to(base_url('pegawai'));
+    //             }
+    //         }
+    //     }
+    //     return view('login');
+    // }
 
-    private function setUserSession($user)
-    {
-        $data = [
-            'id' => $user['id'],
-            'name' => $user['name'],
-            'phone_no' => $user['phone_no'],
-            'email' => $user['email'],
-            'isLoggedIn' => true,
-            "level" => $user['level'],
-        ];
+    // private function setUserSession($user)
+    // {
+    //     $data = [
+    //         'id' => $user['id'],
+    //         'name' => $user['name'],
+    //         'phone_no' => $user['phone_no'],
+    //         'email' => $user['email'],
+    //         'isLoggedIn' => true,
+    //         "level" => $user['level'],
+    //     ];
 
-        session()->set($data);
-        return true;
-    }
+    //     session()->set($data);
+    //     return true;
+    // }
 
     public function logout()
     {

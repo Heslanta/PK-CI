@@ -8,15 +8,15 @@
     <div class="row">
         <div class="col">
             <div class="card">
+
+                <div class="card-header">
+                    Detail Wajib Pajak
+                </div>
                 <?php if (session()->getFlashdata('pesan')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('pesan'); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div><?php endif; ?>
-                <div class="card-header">
-                    Detail Wajib Pajak
-                </div>
-
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-5">

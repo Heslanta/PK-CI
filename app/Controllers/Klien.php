@@ -151,20 +151,18 @@ class Klien extends BaseController
             'filedata' => $this->request->getVar('filedata')
         ];
 
-        // dd($data);
-        $user = $this->klienModel
-            ->withGroup('guests')
-            ->insert($data);
-        dd($user);
-        // $this->klienModel->insert($data);
 
+        $this->klienModel->insert($data);
+        $id_klien = $this->klienModel->insertID();
+        dd($id_klien);
         $level = "klien";
         $data_user = [
             'nama' => $this->request->getVar('wajibpajak'),
             'username' => $this->request->getVar('npwp'),
             'password' => $this->request->getVar('efin'),
             'level' => $level,
-            'notelp' => $notelp
+            'notelp' => $notelp,
+            'id_klien' => $id_klien
         ];
         $this->usersModel->insert($data_user);
 

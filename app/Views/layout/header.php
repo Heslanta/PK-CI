@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <?php $session = session() ?>
     <?= $this->renderSection('content'); ?>
 
     <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">

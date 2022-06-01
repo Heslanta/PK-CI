@@ -26,7 +26,7 @@ class Validation
         FileRules::class,
         CreditCardRules::class,
         Userrules::class,
-        \Myth\Auth\Authentication\Passwords\ValidationRules::class
+        // \Myth\Auth\Authentication\Passwords\ValidationRules::class
     ];
 
     /**

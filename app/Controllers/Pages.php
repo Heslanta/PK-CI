@@ -22,10 +22,16 @@ class Pages extends BaseController
     //     // }
     //   
     // }
+    protected $session;
+
+
+
     protected $pagesModel;
     public function __construct()
     {
         $this->pagesModel = new  PagesModel();
+        $this->session = \Config\Services::session();
+        $this->session->start();
     }
     public function index()
     {

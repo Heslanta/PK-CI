@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 // Rute ke Beranda
 $routes->get('/', 'Pages::login');
+$routes->get('/pages', 'Pages::index');
 // $routes->get('/', 'pengguna::index');
 
 // Rute untuk bagian klien

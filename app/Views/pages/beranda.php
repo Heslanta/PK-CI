@@ -1,12 +1,13 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
+<?php $session = session() ?>
 <div class="container">
     <div class="row">
         <div class="col">
             <div class="mt-4">
                 <h1>Selamat Datang di Website HLP Consultant Banjarmasin, User!</h1>
-                <p style="font-size:24px;">Anda saat ini masuk sebagai Admin, mohon gunakan sistem dengan bijaksana!</p>
+                <p style="font-size:24px;">Anda saat ini masuk sebagai <?php echo $session->get('level') ?>, mohon gunakan sistem dengan bijaksana!</p>
 
                 <section class="vh-50">
                     <div class="container py-5 h-100">
