@@ -30,7 +30,7 @@ class Users extends BaseController
             'title' => 'Daftar Pengguna | HLP',
             'users' => $user->paginate($jmldata, 'user'),
             'pager' => $this->usersModel->pager,
-            'css' => 'users',
+            'css' => 'user',
             'currentPage' => $currentPage,
             'jmldata' => $jmldata
         ];
