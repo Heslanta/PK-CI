@@ -5,8 +5,14 @@
     <div class="row">
         <div class="col">
             <div class="mt-4">
-                <h1>Selamat Datang di Website HLP Consultant Banjarmasin, User!</h1>
-                <p style="font-size:24px;">Anda saat ini masuk sebagai Admin, mohon gunakan sistem dengan bijaksana!</p>
+                <div class="opening-container">
+                    <h1>Selamat Datang di Website HLP Consultant Banjarmasin, User!</h1>
+                    <p>Anda saat ini masuk sebagai Admin, mohon gunakan sistem dengan bijaksana!</p>
+                </div>
+
+                <div class="klien-container">
+                    <h2>Klien berjumlah : <?= $jmlklien; ?> | Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
+                </div>
 
                 <section class="vh-50">
                     <div class="container py-5 h-100">
@@ -73,24 +79,15 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <ul class="list-group list-group-horizontal rounded-0">
+
+                                        <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
                                             <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                                                 <div class="form-check">
-                                                    <input class="form-check-input me-0" type="checkbox" value="" id="flexCheckChecked2" aria-label="..." />
+                                                    <input class="form-check-input me-0" type="checkbox" value="" id="flexCheckChecked1" aria-label="..." checked />
                                                 </div>
                                             </li>
                                             <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                                                <p class="lead fw-normal mb-0">Konsultasi dengan PT. ALDO SAVERO</p>
-                                            </li>
-                                            <li class="list-group-item px-3 py-1 d-flex align-items-center border-0 bg-transparent">
-                                                <div class="py-2 px-3 me-2 border border-warning rounded-3 d-flex align-items-center bg-light">
-                                                    <p class="small mb-0">
-                                                        <a href="#!" data-mdb-toggle="tooltip" title="Due on date">
-                                                            <i class="fas fa-hourglass-half me-2 text-warning"></i>
-                                                        </a>
-                                                        30 Jun 2022
-                                                    </p>
-                                                </div>
+                                                <p class="lead fw-normal mb-0">Konsultasi dengan Pak Gerhard</p>
                                             </li>
                                             <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
                                                 <div class="d-flex flex-row justify-content-end mb-1">
@@ -99,7 +96,7 @@
                                                 </div>
                                                 <div class="text-end text-muted">
                                                     <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-                                                        <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>28th Jun 2022</p>
+                                                        <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>30th Jun 2022</p>
                                                     </a>
                                                 </div>
                                             </li>
@@ -111,8 +108,7 @@
                     </div>
                 </section>
 
-                <h2>Klien berjumlah : <?= $jmlklien; ?></h2>
-                <h2>Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
+
                 <!-- <table class="table table-striped">
                     <thead>
                         <tr>
