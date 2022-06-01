@@ -191,3 +191,12 @@ input{
         margin-left: 10px;
     }
 }
+
+@media screen and (max-width:600px) {
+    .col{
+        text-align: center;
+    }
+    .col h1{
+        padding-bottom: 10px;
+    }
+}
