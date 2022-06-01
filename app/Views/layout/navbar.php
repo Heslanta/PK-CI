@@ -1,3 +1,17 @@
+<style>
+    li:last-child{
+        position: absolute;
+        right: 0;
+    }
+
+    @media screen and (max-width:600px) {
+        li:last-child{
+            position: relative;
+            left: 0;
+        }
+    }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #013B64;">
 
     <div class="container-fluid">
