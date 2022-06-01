@@ -72,3 +72,23 @@
     margin-top: 40px;
     margin-right: 20px;
 }
+
+.button-2-container{
+    float: right;
+}
+
+.container h2{
+    padding-bottom: 10px;
+    font-size: 36px;
+}
+
+@media screen and (max-width:600px) {
+    h2{
+        text-align: center;
+    }
+    .button-2-container{
+        float: none;
+        margin-left: 120px;
+        padding-top: 10px;
+    }
+}
