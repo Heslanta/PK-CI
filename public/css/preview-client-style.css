@@ -160,3 +160,72 @@ input{
     border: 1px solid black;
     border-top: none
 }
+
+.opening-container p{
+    font-size: 24px;
+}
+
+@media screen and (max-width:600px) {
+    .opening-container h1{
+        text-align: center;
+    }
+    .opening-container p{
+        text-align: center;
+        font-size: 16px;
+    }
+    .klien-container h2{
+        font-size: 18px;
+        text-align: center;
+    }
+    .card p{
+        font-size: 18px;
+        text-align: left;
+    }
+    p.small.mb-0{
+        font-size: 18px;
+    }
+    .select{
+        width: 80px;
+    }
+    .fas.fa-calendar-alt.fa-lg.me-3{
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .col{
+        text-align: center;
+    }
+    .col h1{
+        padding-bottom: 10px;
+    }
+    .col p{
+        font-size: 16px;
+    }
+}
+
+.akun-container{
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+}
+.card-header{
+    font-weight: bold;
+}
+
+@media screen and (max-width:600px) {
+    textarea{
+        width: 370px;
+        text-align: justify;
+    }
+    .card-header{
+        text-align: left;
+    }
+    .add{
+        margin-right: 200px;
+    }
+    .tabel{
+        width: 170px;
+        padding-right: 0px;
+    }
+}

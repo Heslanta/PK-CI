@@ -17,7 +17,7 @@
     margin-right: 20px;
 }
 
-table {
+/* table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 1000px;
@@ -34,7 +34,7 @@ table {
   
   tr:nth-child(odd) {
     background-color: #b4b7b9;
-}
+} */
 
 .button-edit{
     display: inline-block;
@@ -60,4 +60,19 @@ table {
     background-color: #DC3545;
     height: 30px;
     width: 70px;
+}
+
+@media screen and (max-width: 600px){
+    h1{
+        font-size: 32px;
+        text-align: center;
+    }
+    .col-6{
+        width: 100%;
+    }
+    .pagination{
+        margin: auto;
+        width: 30%;
+        padding: 10px;
+    }
 }
