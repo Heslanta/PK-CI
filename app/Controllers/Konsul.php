@@ -31,7 +31,7 @@ class Konsul extends BaseController
     public function create($id)
     {
         $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
-        dd($data_konsul);
+        // dd($data_konsul);
         $data = [
             'title' => 'Tambah Konsultasi',
             'validation' => \Config\Services::validation(),
