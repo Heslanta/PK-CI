@@ -15,20 +15,14 @@ class Jadwal extends BaseController
 
     public function index()
     {
-        $keyword = $this->request->getVar('keyword');
-        if ($keyword) {
-            $user = $this->usersModel->search($keyword);
-        } else {
-            $user = $this->usersModel;
-        }
-        // $users = $this->usersModel->findAll();
+        $jadwal = $this->jadwalMode;
         $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
             1;
         // jumlah data per halaman
         $jmldata = 10;
         $data = [
             'title' => 'Daftar Pengguna | HLP',
-            'users' => $user->paginate($jmldata, 'user'),
+            'jadwal' => $jadwal->paginate($jmldata, 'user'),
             'pager' => $this->usersModel->pager,
             'css' => 'user',
             'currentPage' => $currentPage,

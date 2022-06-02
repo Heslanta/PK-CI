@@ -12,9 +12,8 @@
                 </div>
 
                 <div class="klien-container">
-                    <h2>Klien berjumlah : <?= $jmlklien; ?> | Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
                 </div>
-
+                <h2>Klien berjumlah : <?= $jmlklien; ?> | Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
                 <table class="table table-striped">
                     <thead>
                         <tr>

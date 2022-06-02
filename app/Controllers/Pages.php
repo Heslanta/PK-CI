@@ -37,12 +37,21 @@ class Pages extends BaseController
     }
     public function index()
     {
-
+        $jadwal = $this->jadwalModel;
+        $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
+            1;
+        // jumlah data per halaman
+        $jmldata = 10;
         $data = [
-            'title' => 'Beranda | HLP',
-            'css' => 'preview-client-style',
+            'title' => 'Daftar Pengguna | HLP',
+            'jadwal' => $jadwal->paginate($jmldata, 'jadwal'),
+            'pager' => $this->jadwalModel->pager,
+            'css' => 'user',
+            'currentPage' => $currentPage,
+            'jmldata' => $jmldata,
             'jmlklien' => $this->pagesModel->getJumlahKlien(),
-            'jmlkonsul' => $this->pagesModel->getJumlahKonsul()
+            'jmlkonsul' => $this->pagesModel->getJumlahKonsul(),
+
         ];
 
         return view('pages/beranda', $data);
