@@ -46,11 +46,14 @@
 
                                     <div class="tabel-list"><?= $k['npwp']; ?></div>
                                     <div class="tabel-list"><?= $k['notelp']; ?></div>
+
+                                    <div class="tabel-proses">Sedang Proses
+                                    </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>
 
-                    </div>
+                    </div><br><br>
                     <?= $pager->links('klien', 'pagination_klien'); ?>
                 </div>
             </div>
