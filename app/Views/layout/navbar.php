@@ -1,18 +1,17 @@
+<?php $session = session() ?>
 <style>
-    .nav-item li:last-child {
+    li:last-child {
         position: absolute;
         right: 0;
     }
 
     @media screen and (max-width:600px) {
-        .nav-item li:last-child {
+        li:last-child {
             position: relative;
             left: 0;
         }
     }
 </style>
-<?php $session = session() ?>
-
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #013B64;">
 
     <div class="container-fluid">
@@ -43,6 +42,8 @@
                     <li class="nav-item">
                         <a class="nav-link" style="color:white" href="<?= base_url('/auth/logout'); ?>">Logout</a>
                     </li>
+
+
 
                 <?php endif; ?>
                 <?php if ($session->get('level') == 'klien') : ?>
