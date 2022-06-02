@@ -39,4 +39,15 @@ class JadwalModel extends Model
             ->get();
         return $query;
     }
+    public function viewKonsul()
+    {
+        $session = session();
+        $query =  $this->db->table('jadwal')
+            ->join('user', 'jadwal.id_user = user.id')
+            ->where('jadwal.id_user', $session->get('id'))
+            ->join('klien', 'user.id_klien = klien.id')
+            ->join('konsultasi', 'klien.id = konsultasi.id_klien')
+            ->get();
+        return $query;
+    }
 }

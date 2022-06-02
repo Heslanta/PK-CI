@@ -12,7 +12,7 @@
                 </div>
                 <br>
                 <h2>Jadwal Konsultasi</h2>
-                <a href="/jadwal/create" class="btn btn-success mt-3">Tambah Data Pengguna</a>
+                <a href="/jadwal/create" class="btn btn-success mt-3">Tambah Jadwal Konsultasi</a>
                 <br>
                 <!-- menunjukkan alert tambah data -->
                 <?php if (session()->getFlashdata('pesan')) : ?>

@@ -54,7 +54,7 @@
                         <a class="nav-link" style="color:white" href="<?= base_url('/pages/profil'); ?>">Profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color:white" href="<?= base_url('/jadwal'); ?>">Jadwal</a>
+                        <a class="nav-link" style="color:white" href="<?= base_url('/riwayatkonsul'); ?>">Riwayat Konsultasi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color:white" href="<?= base_url('/auth/logout'); ?>">Logout</a>

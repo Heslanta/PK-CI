@@ -35,6 +35,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Pages::login');
 $routes->get('/pages', 'Pages::index');
 $routes->get('/pages/beranda', 'Pages::klienberanda');
+$routes->get('/riwayatkonsul', 'Jadwal::riwayatkonsul');
+$routes->get('/jadwal/create', 'Jadwal::create');
 // $routes->get('/', 'pengguna::index');
 
 // Rute untuk bagian klien
