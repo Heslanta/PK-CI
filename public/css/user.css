@@ -71,8 +71,14 @@
         width: 100%;
     }
     .pagination{
-        margin: auto;
-        width: 30%;
+        margin-left: 12%;
         padding: 10px;
+    }
+    .table-striped th:nth-child(5){
+        display: none;
+    }
+
+    .table-striped td:nth-child(5){
+        display: none;
     }
 }
