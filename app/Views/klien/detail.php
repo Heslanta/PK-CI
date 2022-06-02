@@ -12,6 +12,14 @@
                 <div class="card-header">
                     Detail Wajib Pajak
                 </div>
+                <div class="akun-container-atas">
+                    <h5>Akun Klien</h5>
+                    <?php foreach (array_reverse($user) as $user) :  ?>
+                        <p class="card-text">Nama akun : <?= $user->nama ?></p>
+                        <p class="card-text">Username : <?= $user->username ?></p>
+                        <p class="card-text">Password : <?= $user->password ?></p>
+                    <?php endforeach; ?>
+                </div>
                 <?php if (session()->getFlashdata('pesan')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('pesan'); ?>

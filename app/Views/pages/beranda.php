@@ -7,7 +7,7 @@
         <div class="col">
             <div class="mt-4">
                 <div class="opening-container">
-                    <h1>Selamat Datang di Website HLP Consultant Banjarmasin, User!</h1>
+                    <h1>Selamat Datang di Website HLP Consultant Banjarmasin, <?php echo $session->get('nama') ?>!</h1>
                     <p>Anda saat ini masuk sebagai <?= $session->get('level') ?>, mohon gunakan sistem dengan bijaksana!</p>
                 </div>
 

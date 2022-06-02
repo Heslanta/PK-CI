@@ -24,7 +24,6 @@
                 <div class="main-content">
                     <h1><i class="fas fa-database"></i>
                         &nbsp;&nbsp;Data Klien</h1>
-                    <?php echo $session->get('nama') ?>
                     <?php if (session()->getFlashdata('pesan')) : ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <?= session()->getFlashdata('pesan'); ?>

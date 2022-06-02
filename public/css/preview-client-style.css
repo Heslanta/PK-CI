@@ -207,10 +207,22 @@ input{
 .akun-container{
     width: 100%;
     text-align: center;
+    padding-top: 200px;
+    display: none;
+}
+
+.akun-container-atas{
+    width: 100%;
+    text-align: center;
     padding-top: 20px;
 }
+
 .card-header{
     font-weight: bold;
+}
+
+.card-title{
+    padding-bottom: 10px;
 }
 
 @media screen and (max-width:600px) {
@@ -223,9 +235,21 @@ input{
     }
     .add{
         margin-right: 200px;
+        margin-top: 10px;
     }
     .tabel{
         width: 170px;
         padding-right: 0px;
+    }
+    .akun-container{
+        text-align: center;
+        display: inline;
+    }
+    .akun-container-atas{
+        display: none;
+        position: relative;
+    }
+    .akun-container h5{
+        padding-top: 20px;
     }
 }
