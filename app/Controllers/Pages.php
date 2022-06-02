@@ -27,11 +27,13 @@ class Pages extends BaseController
 
 
     protected $pagesModel;
+    protected $jadwalModel;
     public function __construct()
     {
         $this->pagesModel = new  PagesModel();
         $this->session = \Config\Services::session();
         $this->session->start();
+        $this->jadwalModel = new  JadwalModel();
     }
     public function index()
     {
@@ -66,5 +68,19 @@ class Pages extends BaseController
         ];
 
         return view('auth/login', $data);
+    }
+    public function klienberanda()
+    {
+        $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
+            1;
+        // jumlah data per halaman
+        $jmldata = 10;
+        $data = [
+            'title' => 'Beranda | HLP',
+            'css' => 'preview-client-style',
+
+        ];
+
+        return view('pages/klienberanda', $data);
     }
 }

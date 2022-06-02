@@ -24,24 +24,45 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" style="color:white" href="<?= base_url('/pages/index'); ?>">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:white" href="<?= base_url('/pages/profil'); ?>">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:white" href="<?= base_url('/klien'); ?>">Klien</a>
-                </li>
-                <?php if ($session->get('level') == 'admin') : ?>
+                <?php if ($session->get('level') !== 'klien') : ?>
+
                     <li class="nav-item">
-                        <a class="nav-link" style="color:white" href="<?= base_url('/users'); ?>">Pengguna</a>
+                        <a class="nav-link active" style="color:white" href="<?= base_url('/pages/index'); ?>">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/pages/profil'); ?>">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/klien'); ?>">Klien</a>
+                    </li>
+                    <?php if ($session->get('level') == 'admin') : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:white" href="<?= base_url('/users'); ?>">Pengguna</a>
+                        </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/auth/logout'); ?>">Logout</a>
                     </li>
 
                 <?php endif; ?>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:white" href="<?= base_url('/auth/logout'); ?>">Logout</a>
-                </li>
+                <?php if ($session->get('level') == 'klien') : ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color:white" href="<?= base_url('/pages/beranda'); ?>">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/pages/profil'); ?>">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/jadwal'); ?>">Jadwal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/auth/logout'); ?>">Logout</a>
+                    </li>
+
+                    </li>
+                <?php endif; ?>
+
             </ul>
 
 
