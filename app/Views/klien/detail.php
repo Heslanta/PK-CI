@@ -14,10 +14,10 @@
                 </div>
                 <div class="akun-container-atas">
                     <h5>Akun Klien</h5>
-                    <?php foreach (array_reverse($user) as $user) :  ?>
-                        <p class="card-text">Nama akun : <?= $user->nama ?></p>
-                        <p class="card-text">Username : <?= $user->username ?></p>
-                        <p class="card-text">Password : <?= $user->password ?></p>
+                    <?php foreach ($user as $user) :  ?>
+                        <p class="card-text">Nama akun : <?= $user['nama']; ?></p>
+                        <p class="card-text">Username : <?= $user['username']; ?></p>
+                        <p class="card-text">Password : <?= $user['password']; ?></p>
                     <?php endforeach; ?>
                 </div>
                 <?php if (session()->getFlashdata('pesan')) : ?>
@@ -28,7 +28,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h5 class="card-title"><b> Wajib Pajak : </b><br><?= $klien['wajibpajak']; ?></h5>
+                            <h5 class="card-title"><b> Wajib Pajak : <br>
+                                    <?= $klien['wajibpajak']; ?> &nbsp; <span class="badge bg-primary inline">Proses</span></h5>
                             <p class="card-text"><b>NPWP : </b><br><?= $klien['npwp']; ?></p>
                             <p class="card-text"><b>Nomor EFIN : </b><br><?= $klien['efin']; ?></p>
                             <p class="card-text"><b>Nomor HP Wajibpajak : </b><br><?= $klien['notelp']; ?></p>

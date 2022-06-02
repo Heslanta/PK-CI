@@ -47,7 +47,7 @@ class Klien extends BaseController
         // $id_k = $this->klienModel->getKlien($id);
 
         $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
-        $data_akun = $this->usersModel->getUser($id)->getResult();
+        $data_akun = $this->usersModel->getUser($id)->getResultArray();
         // dd($data_akun);
         $data = [
             'title' => 'Detail Klien',
@@ -56,6 +56,7 @@ class Klien extends BaseController
             'user' => $data_akun,
             'konsultasi' => $data_konsul
         ];
+
         //jika klien tidak ada di tabel
         if (empty($data['klien'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Nama Klien ' . $id . ' tidak ditemukan.');
