@@ -1,11 +1,11 @@
 <style>
-    li:last-child {
+    .nav-item li:last-child {
         position: absolute;
         right: 0;
     }
 
     @media screen and (max-width:600px) {
-        li:last-child {
+        .nav-item li:last-child {
             position: relative;
             left: 0;
         }
