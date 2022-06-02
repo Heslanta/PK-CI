@@ -98,7 +98,7 @@ class Auth extends BaseController
                 ];
                 $this->session->set($sessLogin);
                 if ($user['level'] == 'klien') {
-                    return redirect()->to('/pages');
+                    return redirect()->to('/pages/beranda');
                 } else {
                     return redirect()->to('/klien');
                 }

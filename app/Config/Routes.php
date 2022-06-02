@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 // Rute ke Beranda
 $routes->get('/', 'Pages::login');
 $routes->get('/pages', 'Pages::index');
+$routes->get('/pages/beranda', 'Pages::klienberanda');
 // $routes->get('/', 'pengguna::index');
 
 // Rute untuk bagian klien
