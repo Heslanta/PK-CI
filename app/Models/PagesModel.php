@@ -19,4 +19,12 @@ class PagesModel extends Model
         $jumlahkonsultasi = $this->db->table('konsultasi')->countAllResults();
         return $jumlahkonsultasi;
     }
+    public function viewProfil()
+    {
+        $session = session();
+        $query =  $this->db->table('user')
+            ->where('user.id', $session->get('id'))
+            ->get();
+        return $query;
+    }
 }

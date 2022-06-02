@@ -39,18 +39,18 @@
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
                             </form>
                         </div>
-                            
+
                     </div>
                 </div>
             </div>
             <div class="akun-container">
-                            <h5>Akun Klien</h5>
-                            <?php foreach (array_reverse($user) as $user) :  ?>
-                                <p class="card-text">Nama akun : <?= $user['nama']; ?></p>
-                                <p class="card-text">Username : <?= $user['username']; ?></p>
-                                <p class="card-text">Password : <?= $user['password']; ?></p>
-                            <?php endforeach; ?>
-                        </div>
+                <h5>Akun Klien</h5>
+                <?php foreach (array_reverse($user) as $user) :  ?>
+                    <p class="card-text">Nama akun : <?= $user->nama ?></p>
+                    <p class="card-text">Username : <?= $user->username ?></p>
+                    <p class="card-text">Password : <?= $user->password ?></p>
+                <?php endforeach; ?>
+            </div>
             <a href="/konsul/create/<?= $klien['id'] ?>" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
 
             <!-- <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br> -->

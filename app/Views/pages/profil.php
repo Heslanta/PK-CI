@@ -20,11 +20,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h5 class="card-title"> Wajib Pajak : <br><?= $session->get('nama') ?></h5>
-                            <p class="card-text">Username : <br><?= $session->get('username') ?></p>
-                            <p class="card-text">Password : <br><?= $session->get('password') ?></p>
-                            <p class="card-text">Level : <br><?= $session->get('level') ?></p>
-                            <p class="card-text">Nomor Telpon : <br><?= $session->get('notelp') ?></p>
+
+                            <h5 class="card-title"> Wajib Pajak : <br><?php echo $profil['nama']; ?></h5>
+                            <p class="card-text">Username : <br><?= $profil['username']; ?></p>
+                            <p class="card-text">Password : <br><?= $profil['password']; ?></p>
+                            <p class="card-text">Level : <br><?= $profil['level']; ?></p>
+                            <p class="card-text">Nomor HP : <br><?= $profil['notelp']; ?></p>
 
                             <?php if ($session->get('level') !== 'klien') : ?>
 

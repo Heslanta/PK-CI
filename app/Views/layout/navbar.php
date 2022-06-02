@@ -1,16 +1,17 @@
 <style>
-    li:last-child{
+    li:last-child {
         position: absolute;
         right: 0;
     }
 
     @media screen and (max-width:600px) {
-        li:last-child{
+        li:last-child {
             position: relative;
             left: 0;
         }
     }
 </style>
+<?php $session = session() ?>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #013B64;">
 
@@ -32,9 +33,12 @@
                 <li class="nav-item">
                     <a class="nav-link" style="color:white" href="<?= base_url('/klien'); ?>">Klien</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:white" href="<?= base_url('/users'); ?>">Pengguna</a>
-                </li>
+                <?php if ($session->get('level') == 'admin') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="<?= base_url('/users'); ?>">Pengguna</a>
+                    </li>
+
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link" style="color:white" href="<?= base_url('/auth/logout'); ?>">Logout</a>
                 </li>

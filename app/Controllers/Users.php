@@ -226,7 +226,7 @@ class Users extends BaseController
 
         ]);
 
-        session()->setFlashdata('pesan', 'Data berhasil diubah, tampilan data akan berubah saat login berikutnya!');
+        session()->setFlashdata('pesan', 'Data berhasil diubah!');
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/pages/profil');
     }

@@ -154,7 +154,7 @@ class Klien extends BaseController
 
         $this->klienModel->insert($data);
         $id_klien = $this->klienModel->insertID();
-        dd($id_klien);
+        // dd($id_klien);
         $level = "klien";
         $data_user = [
             'nama' => $this->request->getVar('wajibpajak'),
@@ -164,6 +164,7 @@ class Klien extends BaseController
             'notelp' => $notelp,
             'id_klien' => $id_klien
         ];
+        // dd($data_user);
         $this->usersModel->insert($data_user);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');

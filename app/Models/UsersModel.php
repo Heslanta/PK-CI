@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UsersModel extends Model
 {
     protected $table = 'user';
-    protected $allowedFields = ['nama', 'username', 'password', 'notelp', 'level'];
+    protected $allowedFields = ['nama', 'username', 'password', 'notelp', 'level', 'id_klien'];
     protected $useTimestamps = false;
 
     public function search($keyword)

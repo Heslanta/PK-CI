@@ -47,11 +47,14 @@ class Pages extends BaseController
     }
     public function profil()
     {
+        $profil = $this->pagesModel->viewProfil();
+        // dd($profil);
         $data = [
             'title' => 'Profil | HLP',
-            'css' => 'preview-client-style'
+            'css' => 'preview-client-style',
+            'profil' => $profil->getRowArray()
         ];
-
+        // dd($data);
         return view('pages/profil', $data);
     }
 
