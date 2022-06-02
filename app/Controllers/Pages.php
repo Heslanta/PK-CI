@@ -71,15 +71,16 @@ class Pages extends BaseController
     }
     public function klienberanda()
     {
-        $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
-            1;
-        // jumlah data per halaman
-        $jmldata = 10;
+
+        $jadwal = $this->jadwalModel->viewJadwal()->getResultArray();
+        // dd($jadwal);
         $data = [
             'title' => 'Beranda | HLP',
             'css' => 'preview-client-style',
+            'jadwal' => $jadwal,
 
         ];
+
 
         return view('pages/klienberanda', $data);
     }

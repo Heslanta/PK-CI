@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class JadwalModel extends Model
 {
     protected $table = 'jadwal';
-    protected $allowedFields = ['tujuan_jdw', 'tanggal', 'status', 'perusahaan'];
+    protected $allowedFields = ['tujuan_jdw', 'tanggal', 'status', 'nama', 'id_user'];
 
     protected $validationRules      = [];
     protected $validationMessages   = [];
@@ -30,5 +30,13 @@ class JadwalModel extends Model
     public function viewTolak($id_konsul)
     {
         return $this->where(['id_konsul' => $id_konsul])->first();
+    }
+    public function viewJadwal()
+    {
+        $session = session();
+        $query =  $this->db->table('jadwal')
+            ->where('jadwal.id_user', $session->get('id'))
+            ->get();
+        return $query;
     }
 }
