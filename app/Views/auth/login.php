@@ -26,7 +26,7 @@
 
             <p><input type="password" class="input-form" id="password" name="password" placeholder="Password" required></p>
             <div class="checkbox-container">
-                <p><input type="checkbox" onclick="myFunction()" id="checkbox">&nbsp; <label for="checkbox">Show Password</label> </p>
+                <p><input type="checkbox" onclick="myFunction()" id="checkbox">&nbsp; <label for="checkbox">Tampilkan Password</label> </p>
             </div>
 
 

@@ -123,10 +123,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Data Pemilik Saham ( kalau ada )</label>
-                        <input class="form-control <?= ($validation->hasError('filedata')) ? 'is-invalid'
-                                                        : ''; ?>" type="file" id="filedata" name="filedata">
+                        <input class="form-control <?= ($validation->hasError('filegambar')) ? 'is-invalid'
+                                                        : ''; ?>" type="file" id="filegambar" name="filegambar">
                         <div id="validationServer03Feedback" class="invalid-feedback">
-                            <?= $validation->getError('filedata'); ?>
+                            <?= $validation->getError('filegambar'); ?>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Tambah Klien</button>

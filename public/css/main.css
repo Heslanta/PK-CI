@@ -1,7 +1,11 @@
 body{
     background-color: #f8f0fa;
+    padding: 0;
+    margin: 0;
 }
-
+label{
+    color: black;
+}
 .sidebar-wrapper{
     height: 100%;
     display: inline-block;
@@ -11,8 +15,8 @@ body{
     position: fixed;
     background-color: #1A2226;
     height: 100%;
-    width: 300px;
-    margin-top: -22px;
+    width: 275px;
+    margin-top: -75px;
     margin-left: -20px;
     font-family: sans-serif;
     color: #B8C7CE;
@@ -40,7 +44,7 @@ body{
     /* border: 1px solid #B8C7CE; */
     text-align: left;
     color: #B8C7CE;
-    padding-top: 30px;
+    padding-top: 15px;
 }
 .sidebar-list:hover{
     background-color: #2d3b42;
@@ -57,15 +61,18 @@ body{
     /* border: 1px solid #B8C7CE; */
     text-align: center;
     color: #B8C7CE;
-    padding-top: 30px;
-    margin-top: 200px;
+    padding-top: 15px;
+    margin-top: 300px;
 }
 
 a {
     text-decoration: none;
     
 }
-
+.container{
+    border: 3px black solid;
+    padding-left: 250px;
+}
 
 .header-wrapper{
     width: 100%;
@@ -93,13 +100,16 @@ a {
 }
 
 .main-content{
-    /* border: 3px solid black; */
+    border: 3px solid black;
     height: 100%;
     min-height: 707px;
     margin-right: -8px;
-    padding-left: auto;
+    padding-left: 40px;
 }
-
+nav{
+    width: 83%;
+    left: 17%;
+}
 .main-content h1{
     font-family: 'Roboto';
 }
@@ -111,3 +121,56 @@ a {
 .logo-wrap{
     margin-right: 20px;
 }
+
+.logo-header img{
+   width: 70px;
+   height: 30px;
+  
+}
+.logo-sidebar img{
+   width: 50px;
+   height: 50px;
+   padding: -30px;
+}
+
+div.sticky{
+    position: sticky;
+    z-index: 1;
+    top: 0; /* required */
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+  }
+@media screen and (max-width:800px) {
+    nav{
+        width: 100%;
+        left: 0%;
+    }
+    .sidebar-menu {
+        display: none;
+    }
+    .container{
+        border: 3px black solid;
+        padding-left: 0%;
+        margin-top: 0px;
+        overflow-x: hidden;
+
+    }
+    .card-body{
+        padding-left: none;
+    }
+    
+    .main-content{
+        border: 3px solid black;
+        height: 100%;
+        min-height: 707px;
+   
+        padding-left: 0px;
+    }
+   
+} 

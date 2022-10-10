@@ -34,13 +34,15 @@ $routes->setAutoRoute(true);
 // Rute ke Beranda
 $routes->get('/', 'Pages::login');
 $routes->get('/pages', 'Pages::index');
-$routes->get('/pages/beranda', 'Pages::klienberanda');
-$routes->get('/riwayatkonsul', 'Jadwal::riwayatkonsul');
-$routes->get('/jadwal/create', 'Jadwal::create');
+$routes->post('/pages/beranda', 'Pages::klienberanda');
+$routes->post('/pages/regis', 'Pages::regis');
+$routes->post('/riwayatkonsul', 'Jadwal::riwayatkonsul');
+$routes->post('/jadwal/create', 'Jadwal::create');
 // $routes->get('/', 'pengguna::index');
 
 // Rute untuk bagian klien
-$routes->get('/klien/create', 'Klien::create');
+$routes->post('/klien', 'Klien::index');
+$routes->post('/klien/create', 'Klien::create');
 $routes->delete('/klien/(:num)', 'Klien::delete/$1');
 $routes->add('/klien/edit/(:segment)', 'Klien::edit/$1');
 $routes->get('/klien/(:num)', 'Klien::detail/$1');
@@ -52,9 +54,9 @@ $routes->add('/konsul/edit/(:segment)', 'Konsul::edit/$1');
 $routes->get('/konsul/(:num)', 'Konsul::detail/$1');
 
 // Rute untuk bagian user
-$routes->get('/users', 'Users::index');
+$routes->post('/users', 'Users::index');
 $routes->add('/users/create', 'Users::create');
-$routes->get('/users/save', 'Users::save');
+$routes->post('/users/save', 'Users::save');
 $routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1');
 $routes->add('/users/edit/(:segment)', 'Users::edit/$1');
 

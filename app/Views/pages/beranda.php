@@ -2,6 +2,9 @@
 
 <?= $this->section('content'); ?>
 <?php $session = session() ?>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="<?= base_url() . 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' ?>">
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -14,37 +17,62 @@
                 <div class="klien-container">
                 </div>
                 <h2>Klien berjumlah : <?= $jmlklien; ?> | Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tujuan Konsultasi</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; ?>
+                <br>
 
-                        <?php foreach ($jadwal as $u) : ?>
-                            <tr>
-                                <th scope="row"><?= $i++; ?></th>
-                                <td><?= $u['tujuan_jdw']; ?></td>
-                                <td><?= $u['tanggal']; ?></td>
-                                <td><?= $u['status']; ?></td>
-                                <td>Button</td>
+                <div class="col-lg-8">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-header">
+                            <h5>Grafik Jumlah Konsultasi</h5>
+                        </div>
 
-
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-
-
-
+                        <div class="card-body bg-white">
+                            <div class="form-group">
+                                <label for="">Pilih Tahun</label>
+                                <input type="number" class="form-control" id="tahun" value="<?= date('Y') ?>">
+                                <button type="button" class="btn btn-sm btn-primary" id="tombolTampil">
+                                    Tampil
+                                </button>
+                            </div>
+                            <div class="viewTampilGrafik"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
+
 </div>
+<script>
+    function tampilGrafik() {
+        $.ajax({
+            type: "post",
+            url: "/pages/tampilGrafikKonsul",
+            data: {
+                tahun: $('#tahun').val()
+            },
+            dataType: "json",
+            beforeSend: function() {
+                $('.viewTampilGrafik').html('');
+            },
+            success: function(response) {
+                if (response.data) {
+                    $('.viewTampilGrafik').html(response.data);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + '\n' + thrownError);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        tampilGrafik();
+        $('#tombolTampil').click(function(e) {
+            e.preventDefault();
+            tampilGrafik();
+        });
+    });
+</script>
+
 <?= $this->endSection(); ?>

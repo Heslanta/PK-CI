@@ -27,6 +27,7 @@
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
                     </form>
+                    <p class="card-text">Dibuat pada : <?= $konsul['created_at']; ?></p>
                 </div>
             </div>
 

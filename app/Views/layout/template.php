@@ -18,8 +18,9 @@
 <body>
 
 
-    <?= $this->include('layout/navbar'); ?>
 
+    <?= $this->include('layout/navbar'); ?>
+    <?= $this->include('layout/sidebar'); ?>
 
     <?= $this->renderSection('content'); ?>
 

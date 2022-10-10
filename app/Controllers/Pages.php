@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\PagesModel;
 use App\Models\JadwalModel;
+use App\Models\KlienModel;
+use App\Models\KonsulModel;
 
 class Pages extends BaseController
 {
@@ -34,6 +36,7 @@ class Pages extends BaseController
         $this->session = \Config\Services::session();
         $this->session->start();
         $this->jadwalModel = new  JadwalModel();
+        $this->klienModel = new  KlienModel();
     }
     public function index()
     {
@@ -43,7 +46,7 @@ class Pages extends BaseController
         // jumlah data per halaman
         $jmldata = 10;
         $data = [
-            'title' => 'Daftar Pengguna | HLP',
+            'title' => 'Beranda | HLP',
             'jadwal' => $jadwal->paginate($jmldata, 'jadwal'),
             'pager' => $this->jadwalModel->pager,
             'css' => 'user',
@@ -51,8 +54,10 @@ class Pages extends BaseController
             'jmldata' => $jmldata,
             'jmlklien' => $this->pagesModel->getJumlahKlien(),
             'jmlkonsul' => $this->pagesModel->getJumlahKonsul(),
-
+            'totalkonsul' => $this->klienModel->getData(),
         ];
+        // dd($data);
+
 
         return view('pages/beranda', $data);
     }
@@ -92,5 +97,38 @@ class Pages extends BaseController
 
 
         return view('pages/klienberanda', $data);
+    }
+    public function regis()
+    {
+
+        $data = [
+            'title' => 'Tes | HLP',
+            'css' => 'preview-client-style',
+
+        ];
+
+
+        return view('auth/register', $data);
+    }
+    public function tampilGrafikKonsul()
+    {
+        $tahun = $this->request->getPost('tahun');
+
+        $db = \Config\Database::connect();
+
+        $query = $db->query("SELECT date_format(hari_tanggal, '%Y') AS Tahun,date_format(hari_tanggal, '%M') AS Bulan, COUNT(id_konsul) 
+        AS Jumlah_Konsul FROM konsultasi WHERE DATE_FORMAT(hari_tanggal, '%Y') = '$tahun' 
+        group by date_format(hari_tanggal, '%m-%Y')")->getResult();
+
+
+        $data = [
+            'grafik' => $query
+        ];
+
+        $json = [
+            'data' => view('pages/grafikkonsul', $data)
+        ];
+
+        echo json_encode($json);
     }
 }

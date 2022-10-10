@@ -8,7 +8,13 @@ class KonsulModel extends Model
 {
     protected $table = 'konsultasi';
     protected $allowedFields =
-    ['konsul_ke', 'hari_tanggal', 'tujuan', 'hasil_konsul', 'catatan_konsul', 'id_klien'];
+    ['konsul_ke', 'hari_tanggal', 'tujuan', 'hasil_konsul', 'catatan_konsul', 'id_klien', 'id_konsul'];
+    protected $useTimestamps      = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $primaryKey     = 'id_konsul';
+
+    // protected $deletedField  = 'deleted_at';
     // public function getKonsul($id)
     // {
 

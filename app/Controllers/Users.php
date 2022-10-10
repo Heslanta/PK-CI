@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\PagesModel;
 use App\Models\UsersModel;
 
 class Users extends BaseController
@@ -11,6 +12,7 @@ class Users extends BaseController
     public function __construct()
     {
         $this->usersModel = new UsersModel();
+        $this->pagesModel = new PagesModel();
     }
 
     public function index()
@@ -164,11 +166,13 @@ class Users extends BaseController
 
     public function editprofil($id)
     {
+        $profil = $this->pagesModel->viewProfil();
         $data = [
             'title' => 'Edit Pengguna',
             'validation' => \Config\Services::validation(),
             'user' => $this->usersModel->getUser(($id)),
-            'css' => 'change-client-data-style'
+            'css' => 'change-client-data-style',
+            'profil' => $profil->getRowArray()
         ];
 
         return view('users/editprofil', $data);

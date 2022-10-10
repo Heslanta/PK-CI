@@ -13,10 +13,10 @@
                     <input type="hidden" name="id_klien" id="id_klien" value="<?= $konsultasi['id_klien'] ?>">
                     <input type="hidden" name="id_konsul" id="id_konsul" value="<?= $konsultasi['id_konsul'] ?>">
 
-                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsu1 ke- : </label>
+                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsul ke- : </label>
                     <div class="col-sm-10">
-                        <input type="text" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
-                                                                                                    : ''; ?>" value="<?= (old('konsul_ke')) ? old('konsul_ke') : $konsultasi['konsul_ke'] ?>">
+                        <input type="number" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
+                                                                                                        : ''; ?>" value="<?= (old('konsul_ke')) ? old('konsul_ke') : $konsultasi['konsul_ke'] ?>">
                         <div id="validationServer03Feedback" class="invalid-feedback">
                             <?= $validation->getError('konsul_ke'); ?>
                         </div>

@@ -98,10 +98,12 @@ body{
     margin-top: 20px;
     padding-right: 10px;
     padding-top: 20px;
+    
 }
 
 .tabel-header{
     background-color: #013B64;
+    
     height: 50px;
     width: 100%;
     text-align: center;
@@ -109,7 +111,11 @@ body{
     line-height: 50px;
     border: 1px solid black;
 }
-
+div.tabel-header{
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+}
 .tabel-list{
     height: 24px;
     width:100%;

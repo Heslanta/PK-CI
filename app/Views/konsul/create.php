@@ -14,10 +14,10 @@
 
                     <input type="hidden" name="id_klien" id="id_klien" value="<?= $klien['id'] ?>">
 
-                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsuk ke- : </label>
+                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsul ke- : </label>
                     <div class="col-sm-10">
-                        <input type="text" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
-                                                                                                    : ''; ?>" value="<?= old('konsul_ke'); ?>">
+                        <input type="number" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
+                                                                                                        : ''; ?>" value="<?= old('konsul_ke'); ?>">
                         <div id="validationServer03Feedback" class="invalid-feedback">
                             <?= $validation->getError('konsul_ke'); ?>
                         </div>
@@ -54,7 +54,7 @@
                         <textarea type="text" class="form-control" id="catatan_konsul" name="catatan_konsul" rows="10" cols="130"><?= old('catatan_konsul'); ?> </textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Tambah Klien</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
             </form>
             <br><br>
         </div>

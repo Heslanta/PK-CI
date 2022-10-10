@@ -132,17 +132,42 @@ class Konsul extends BaseController
         // dd($this->request->getVar());
         // $tujuan = $this->request->getVar('tujuan');
 
-        $this->konsulModel->save([
+        $data = [
             'id_konsul' => $id_konsul,
+            'id_klien' => $this->request->getVar('id_klien'),
             'konsul_ke' => $this->request->getVar('konsul_ke'),
             'hari_tanggal' => $this->request->getVar('hari_tanggal'),
             'tujuan' => $this->request->getVar('tujuan'),
             'hasil_konsul' => $this->request->getVar('hasil_konsul'),
             'catatan_konsul' => $this->request->getVar('catatan_konsul'),
-        ]);
-        // dd($tujuan);
+        ];
+
+        // dd($data);
+        $this->konsulModel->save($data);
+
         session()->setFlashdata('pesan', 'Data berhasil diubah');
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/klien/' . $this->request->getVar('id_klien'));
+    }
+    function tampilGrafikKonsul()
+    {
+        $tahun = $this->request->getPost('tahun');
+
+        $db = \Config\Database::connect();
+
+        $query = $db->query("SELECT date_format(hari_tanggal, '%Y') AS Tahun,date_format(hari_tanggal, '%M') AS Bulan, COUNT(id_konsul) 
+        AS Jumlah_Konsul FROM konsultasi WHERE DATE_FORMAT(hari_tanggal, '%Y') = '2022' 
+        group by date_format(hari_tanggal, '%M-%Y');")->getResult();
+        // dd($query);
+
+        $data = [
+            'grafik' => $query
+        ];
+
+        $json = [
+            'data' => view('konsul/grafikkonsul', $data)
+        ];
+
+        echo json_encode($json);
     }
 }

@@ -1,5 +1,6 @@
 <?= $this->extend('layout/template'); ?>
 
+
 <?= $this->section('content'); ?>
 
 <?php $session = session() ?>
@@ -40,15 +41,14 @@
 
                         <?php foreach (array_reverse($klien) as $k) : ?>
 
-                            <div class="tabel">
+                            <div class="tabel" title="<?= $k['wajibpajak']; ?>">
                                 <a href="/klien/<?= $k['id']; ?>">
                                     <div class="tabel-header"><?= $k['wajibpajak']; ?></div>
 
                                     <div class="tabel-list"><?= $k['npwp']; ?></div>
                                     <div class="tabel-list"><?= $k['notelp']; ?></div>
 
-                                    <div class="tabel-proses">Sedang Proses
-                                    </div>
+
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -57,7 +57,7 @@
                     <?= $pager->links('klien', 'pagination_klien'); ?>
                 </div>
             </div>
-            <br><br>
+
         </div>
     </div>
 </div>
