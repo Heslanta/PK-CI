@@ -35,7 +35,7 @@
         <div class="container-fluid">
             <div class="logo-header">
                 <a href="#">
-                    <img src="images/logo.png" alt="hlp" srcset="">
+                    <img src="../images/logo.png" alt="hlp" srcset="">
                 </a>
             </div>
 

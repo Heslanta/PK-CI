@@ -25,7 +25,7 @@
         <div class="sidebar-nama">
             <div class="logo-sidebar">
                 <a href="#">
-                    <img src="images/logo.png" alt="hlp">
+                    <img src="../images/logo.png" alt="hlp">
                 </a>
             </div>
 
@@ -51,6 +51,13 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
                 Klien
+            </div>
+        </a>
+        <a href="<?= base_url('/jadwal'); ?>">
+            <div class="sidebar-list">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
+                Jadwal
             </div>
         </a>
         <?php if ($session->get('level') == 'admin') : ?>

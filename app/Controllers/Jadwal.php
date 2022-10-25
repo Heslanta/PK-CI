@@ -15,47 +15,51 @@ class Jadwal extends BaseController
 
     public function index()
     {
-        $jadwal = $this->jadwalMode;
-        $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
-            1;
+        $jadwal = $this->jadwalModel;
+        // $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
+        1;
         // jumlah data per halaman
         $jmldata = 10;
+
+
         $data = [
             'title' => 'Daftar Pengguna | HLP',
-            'jadwal' => $jadwal->paginate($jmldata, 'user'),
-            'pager' => $this->usersModel->pager,
+            // 'jadwal' => $jadwal->paginate($jmldata, 'user'),
+            // 'pager' => $this->usersModel->pager,
             'css' => 'user',
-            'currentPage' => $currentPage,
-            'jmldata' => $jmldata
+            // 'currentPage' => $currentPage,
+            // 'jmldata' => $jmldata
         ];
 
-        return view('users/index', $data);
+        return view('jadwal/index', $data);
     }
-    public function riwayatkonsul()
-    {
-        // $keyword = $this->request->getVar('keyword');
-        // if ($keyword) {
-        //     $user = $this->usersModel->search($keyword);
-        // } else {
-        //     $user = $this->usersModel;
-        // }
-        // // $users = $this->usersModel->findAll();
-        // $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
-        //     1;
-        // // jumlah data per halaman
-        // $jmldata = 10;
-        $jadwal = $this->jadwalModel->viewKonsul()->getResultArray();
-        // dd($jadwal);
-        $data = [
-            'title' => 'Daftar Pengguna | HLP',
-            'riwayat' => $jadwal,
-            'css' => 'data-client-style',
+    // public function riwayatkonsul()
+    // {
+    //     // $keyword = $this->request->getVar('keyword');
+    //     // if ($keyword) {
+    //     //     $user = $this->usersModel->search($keyword);
+    //     // } else {
+    //     //     $user = $this->usersModel;
+    //     // }
+    //     // // $users = $this->usersModel->findAll();
+    //     // $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
+    //     //     1;
+    //     // // jumlah data per halaman
+    //     // $jmldata = 10;
+    //     $jadwal = $this->jadwalModel->viewKonsul()->getResultArray();
+    //     // dd($jadwal);
+    //     $data = [
+    //         'title' => 'Daftar Pengguna | HLP',
+    //         'riwayat' => $jadwal,
+    //         'css' => 'data-client-style',
 
-        ];
-        // dd($data);
+    //     ];
+    //     // dd($data);
 
-        return view('jadwal/riwayatkonsul', $data);
-    }
+    //     return view('jadwal/riwayatkonsul', $data);
+    // }
+
+
     public function create()
     {
         $data =

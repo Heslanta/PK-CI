@@ -60,6 +60,20 @@ $routes->post('/users/save', 'Users::save');
 $routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1');
 $routes->add('/users/edit/(:segment)', 'Users::edit/$1');
 
+// Rute untuk jadwal
+$routes->post('/jadwal', 'Jadwal::index');
+$routes->add('/jadwal/create', 'Jadwal::create');
+$routes->post('/jadwal/save', 'Jadwal::save');
+$routes->add('/jadwal/edit/(:segment)', 'Jadwal::edit/$1');
+
+
+// CALENDAR
+// $routes->get("fullcalendar", "FullcalendarController::index");
+// $routes->get("event", "FullcalendarController::loadData");
+// $routes->post("eventAjax", "FullcalendarController::ajax");
+
+
+
 // $routes->match(['get', 'post'], 'login', 'Users::login', ["filter" => "noauth"]);
 // // Routes Admin
 // $routes->group("admin", ["filter" => "auth"], function ($routes) {

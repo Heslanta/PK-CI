@@ -18,7 +18,7 @@
                 </div>
                 <h2>Klien berjumlah : <?= $jmlklien; ?> | Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
                 <br>
-
+                <!-- Start grafik -->
                 <div class="col-lg-8">
                     <div class="card text-white bg-primary mb-3">
                         <div class="card-header">
@@ -37,6 +37,35 @@
                         </div>
                     </div>
                 </div>
+                <!-- End grafik -->
+
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Tujuan</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1 + ($jmldata * ($currentPage - 1)); ?>
+
+                        <?php foreach ($jadwal as $jad) : ?>
+                            <tr>
+                                <th scope="row"><?= $i++; ?></th>
+                                <td><?= $jad['nama']; ?></td>
+                                <td><?= $jad['tujuan_jdw']; ?></td>
+                                <td><?= $jad['tanggal']; ?></td>
+                                <td><?= $jad['status']; ?></td>
+
+
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -74,5 +103,10 @@
         });
     });
 </script>
+
+
+
+
+
 
 <?= $this->endSection(); ?>
