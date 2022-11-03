@@ -14,6 +14,16 @@ class JadwalModel extends Model
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
+    public function getJadwal($id = false)
+    {
+        if ($id == false) {
+            return $this->findAll();
+        }
+        return $this->where(['id_jadwal' => $id])->first();
+    }
+
+
+
     public function viewTunggu($id)
     {
 

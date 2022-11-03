@@ -47,7 +47,7 @@ class Pages extends BaseController
         $jmldata = 10;
         $data = [
             'title' => 'Beranda | HLP',
-            'jadwal' => $jadwal->paginate($jmldata, 'jadwal'),
+            'jadwal' => $jadwal->getJadwal(),
             'pager' => $this->jadwalModel->pager,
             'css' => 'user',
             'currentPage' => $currentPage,
