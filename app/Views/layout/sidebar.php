@@ -1,4 +1,5 @@
 <?php $session = session() ?>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -24,8 +25,8 @@
 
         <div class="sidebar-nama">
             <div class="logo-sidebar">
-                <a href="#">
-                    <img src="../images/logo.png" alt="hlp">
+                <a href="/pages/index">
+                    <img src="../images/logo.png" alt="hlp"> &nbsp; HLP Banjarmasin
                 </a>
             </div>
 
@@ -53,13 +54,13 @@
                 Klien
             </div>
         </a>
-        <a href="<?= base_url('/jadwal'); ?>">
+        <!-- <a href="<?= base_url('/jadwal'); ?>">
             <div class="sidebar-list">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
                 Jadwal
             </div>
-        </a>
+        </a> -->
         <?php if ($session->get('level') == 'admin') : ?>
             <a href="<?= base_url('/users'); ?>">
                 <div class="sidebar-list">
