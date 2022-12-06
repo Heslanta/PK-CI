@@ -63,8 +63,9 @@ $routes->add('/users/edit/(:segment)', 'Users::edit/$1');
 // Rute untuk jadwal
 $routes->post('/jadwal', 'Jadwal::index');
 $routes->add('/jadwal/create', 'Jadwal::create');
+$routes->delete('/klien/(:num)', 'Klien::delete/$1');
 $routes->post('/jadwal/save', 'Jadwal::save');
-$routes->add('/jadwal/edit/(:segment)', 'Jadwal::edit/$1');
+$routes->add('/jadwal/update/', 'Jadwal::update');
 
 
 // CALENDAR
