@@ -21,8 +21,16 @@ class JadwalModel extends Model
         }
         return $this->where(['id_jadwal' => $id])->first();
     }
-
-
+    public function deleteJadwal($id)
+    {
+        $query = $this->db->table('jadwal')->delete(array('id_jadwal' => $id));
+        return $query;
+    }
+    public function updateJadwal($data, $id)
+    {
+        $query = $this->db->table('jadwal')->update($data, array('id_jadwal' => $id));
+        return $query;
+    }
 
     public function viewTunggu($id)
     {
