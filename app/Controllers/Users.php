@@ -85,14 +85,23 @@ class Users extends BaseController
             $validation = \Config\Services::validation();
             return redirect()->to(base_url() . '/users/create')->withInput();
         }
-
-        $level = "pegawai";
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+        if ((empty($username))) {
+            //hapus gambar
+            $usernamebaru = $username->getRandomName();
+        }
+        if ((empty($password))) {
+            //hapus gambar
+            $passwordbaru = $password->getRandomName();
+        }
+        // $level = "pegawai";
         $this->usersModel->save([
-            'nama' => $this->request->getVar('nama'),
-            'username' => $this->request->getVar('username'),
-            'password' => $this->request->getVar('password'),
-            'level' => $level,
-            'notelp' => $this->request->getVar('notelp')
+            'nama' => $this->request->getPost('nama'),
+            'username' => $username,
+            'password' => $password,
+            'level' => $this->request->getPost('level'),
+            'notelp' => $this->request->getPost('notelp')
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
