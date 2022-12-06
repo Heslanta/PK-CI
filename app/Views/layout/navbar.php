@@ -11,6 +11,16 @@
             left: 0;
         }
     }
+
+    .notif {
+        text-decoration: none;
+        color: inherit;
+
+    }
+
+    a:hover {
+        color: #1D1D1D;
+    }
 </style>
 <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -35,7 +45,7 @@
         <div class="container-fluid">
             <div class="logo-header">
                 <a href="#">
-                    <img src="../images/logo.png" alt="hlp" srcset="">
+                    <!-- <img src="../images/logo.png" alt="hlp" srcset=""> -->
                 </a>
             </div>
 
@@ -47,6 +57,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <a href="" class="notif"> <i class="fa-solid fa-bell fa-xl" style="margin-top: 15px;"></i></a>
+
                     <?php if ($session->get('level') !== 'klien') : ?>
 
                         <li class="nav-item">
