@@ -81,17 +81,17 @@ class Jadwal extends BaseController
         // $model->saveJadwal($data);
         return redirect()->to('pages/index');
     }
-    public function edit($id)
-    {
-        $data = [
-            'title' => 'Edit Pengguna',
-            'validation' => \Config\Services::validation(),
-            'user' => $this->usersModel->getUser(($id)),
-            'css' => 'change-client-data-style'
-        ];
+    // public function edit($id)
+    // {
+    //     $data = [
+    //         'title' => 'Edit Pengguna',
+    //         'validation' => \Config\Services::validation(),
+    //         'user' => $this->usersModel->getUser(($id)),
+    //         'css' => 'change-client-data-style'
+    //     ];
 
-        return view('users/edit', $data);
-    }
+    //     return view('users/edit', $data);
+    // }
     public function update()
     {
         $model = new JadwalModel();
@@ -102,7 +102,6 @@ class Jadwal extends BaseController
             'tanggal'     => $this->request->getPost('tanggal'),
             'status'      => $this->request->getPost('status'),
         );
-        dd($id);
         $model->updateJadwal($data, $id);
         return redirect()->to('pages/index');
     }
