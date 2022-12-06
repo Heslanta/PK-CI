@@ -109,14 +109,25 @@ function tgl_indo($tanggal)
                             width: 100%;
                             height: 100%;
                         }
+
+                        .gambar-default img {
+                            width: 22%;
+                            height: 10%;
+                        }
                     </style>
                     <!-- Pekondisian jika tidak ada gambar pada database -->
+
+
                     <?php if (!empty($klien['filegambar'])) : ?>
-                        <div class="gambar-saham">
-                            <a href="/img/<?= $klien['filegambar']; ?>" target="_blank"><img src="/img/<?= $klien['filegambar']; ?>" alt=""></a>
-                        </div>
-                    <?php else : ?>
-                        <p>Tidak ada gambar.</p>
+                        <?php if ($klien['filegambar'] == 'default.png') : ?>
+                            <div class="gambar-default">
+                                <a href="/img/<?= $klien['filegambar']; ?>" target="_blank"><img src="/img/<?= $klien['filegambar']; ?>" alt=""></a>
+                            </div>
+                        <?php else : ?>
+                            <div class="gambar-saham">
+                                <a href="/img/<?= $klien['filegambar']; ?>" target="_blank"><img src="/img/<?= $klien['filegambar']; ?>" alt=""></a>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
 
 
