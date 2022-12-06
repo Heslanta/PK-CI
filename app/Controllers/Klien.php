@@ -89,6 +89,7 @@ class Klien extends BaseController
         return view('klien/create', $data);
     }
 
+    // Untuk Menyimpan bagian create
     public function save()
     {
 
@@ -141,16 +142,27 @@ class Klien extends BaseController
         $catatan = $this->request->getVar('catatan');
 
         $file = $this->request->getFile('filegambar');
-        // dd($file);
-        if ($file == '') {
+
+        if ($file->getError() == 4) {
+            $namaGambar = 'default.png';
         } else {
-            $file->move('img');
+            //generate nama file random
+            $namaGambar = $file->getRandomName();
+            // pindahkan gambar ke folder img di public
+            $file->move('img', $namaGambar);
         }
 
-        // dd($file);
 
-        // ambil nama file sampul
-        $namafile = $file->getName();
+        // if ($file == '') {
+        //     $file = 'default.png';
+        // } else {
+        //     $file->move('img');
+        // }
+
+        // // dd($file);
+
+        // // ambil nama file sampul
+        // $namaGambar = $file->getName();
         // if (empty($catatan)) {
         //     $catatan = "Tidak ada catatan mengenai klien ini!";
         // }
@@ -161,7 +173,6 @@ class Klien extends BaseController
         //     'notelp' => $notelp,
         //     'catatan' => $catatan
         // ]);
-
         $data = [
             'wajibpajak' => $this->request->getVar('wajibpajak'),
             'npwp' => $this->request->getVar('npwp'),
@@ -174,7 +185,7 @@ class Klien extends BaseController
             'enofa' => $this->request->getVar('enofa'),
             'notelp' => $notelp,
             'catatan' => $catatan,
-            'filegambar' => $namafile
+            'filegambar' => $namaGambar
         ];
         $this->klienModel->insert($data);
         $id_klien = $this->klienModel->insertID();
@@ -202,6 +213,7 @@ class Klien extends BaseController
         // // dd($data_user);
         // $this->usersModel->insert($data_user);
 
+        // Memunculkan session flash data hijau
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
 
         // redirect kembali tanpa index.php
@@ -212,9 +224,13 @@ class Klien extends BaseController
     {
         //cari gambar berdasarkan id
         $gambar = $this->klienModel->find($id);
+        $gambarfile = $gambar['filegambar'];
+        // pekondisian jika filegambar tidak empty AND filegambar bukan default
+        if ((!empty($klien['filegambar']))  && ($klien['filegambar'] != 'default.png')) {
+            //hapus gambar
+            unlink('img/' . $gambarfile);
+        }
 
-        //hapus gambar
-        unlink('img/' . $gambar['filegambar']);
 
         //menghapus data berdasarkan id klien
         $this->klienModel->delete(($id));
@@ -298,6 +314,7 @@ class Klien extends BaseController
             $namaGambar = $fileGambar->getRandomName();
             // pindahkan gambar ke folder img di public
             $fileGambar->move('img', $namaGambar);
+
             //hapus file yang lama
             unlink('img/' . $this->request->getVar('gambarLama'));
         }
