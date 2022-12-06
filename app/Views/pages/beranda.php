@@ -72,16 +72,16 @@
                             <tr>
                                 <?php
                                 if ($jad['status'] == 'baru') {
-                                    $jad['status'] = "Baru";
+                                    $jadwal = "Baru";
                                 } else {
-                                    $jad['status'] = "Datang Kembali";
+                                    $jadwal = "Datang Kembali";
                                 }
                                 ?>
                                 <th scope="row"><?= $i++; ?></th>
                                 <td><?= $jad['nama']; ?></td>
                                 <td><?= $jad['tujuan_jdw']; ?></td>
                                 <td><?= $jad['tanggal']; ?></td>
-                                <td><?= $jad['status']; ?></td>
+                                <td><?= $jadwal; ?></td>
                                 <td>
                                     <ul class="list-inline m-0">
 
@@ -90,9 +90,6 @@
 
                                     </ul>
                                 </td>
-
-
-
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -159,7 +156,7 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <h4>Are you sure want to delete this product?</h4>
+                                    <h4>Apakah anda yakin untuk menghapus?</h4>
 
                                 </div>
                                 <div class="modal-footer">
@@ -179,21 +176,21 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Jadwal</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-
                                     <div class="form-group">
                                         <label>Nama Wajib Pajak</label>
                                         <input type="text" class="form-control nama" name="nama" placeholder="">
+
                                     </div>
 
                                     <div class="form-group">
                                         <label>Tujuan</label>
-                                        <input type="text" class="form-control tujuan" name="tujuan_jdw" placeholder="Tujuan Komsultasi">
+                                        <input type="text" class="form-control tujuan_jdw" name="tujuan_jdw" placeholder="">
                                     </div>
 
                                     <div class="form-group">
@@ -242,15 +239,16 @@
         // get Edit Product
         $('.btn-edit').on('click', function() {
             // get data from button edit
-            const id_jadwal = $(this).data('id_jadwal');
+            const id = $(this).data('id');
             const nama = $(this).data('nama');
-            const tujuan = $(this).data('tujuan_jdw');
+            const tujuan = $(this).data('tujuan');
             const tanggal = $(this).data('tanggal');
             const status = $(this).data('status');
+
             // Set data to Form Edit
-            $('.id_jadwal').val(id_jadwal);
+            $('.id_jadwal').val(id);
             $('.nama').val(nama);
-            $('.tujuan').val(tujuan);
+            $('.tujuan_jdw').val(tujuan);
             $('.tanggal').val(tanggal);
             $('.status').val(status).trigger('change');
             // Call Modal Edit
@@ -262,7 +260,7 @@
             // get data from button edit
             const id = $(this).data('id');
             // Set data to Form Edit
-            $('.productID').val(id);
+            $('.id_jadwal').val(id);
             // Call Modal Edit
             $('#deleteModal').modal('show');
         });
