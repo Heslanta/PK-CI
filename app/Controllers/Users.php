@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\JadwalModel;
 use App\Models\PagesModel;
+use App\Models\ProsesModel;
 use App\Models\UsersModel;
 
 class Users extends BaseController
@@ -54,46 +56,58 @@ class Users extends BaseController
     public function save()
     {
 
-        // validasi input
-        if (!$this->validate(
-            [
-                'username' => [
-                    'rules' => 'required|is_unique[user.username]',
-                    'errors' => [
-                        'required' => '{field} pengguna harus diisi.',
-                        'is_unique' => '{field} pengguna sudah ada'
+        // // validasi input
+        // if (!$this->validate(
+        //     [
+        //         'username' => [
+        //             'rules' => 'required|is_unique[user.username]',
+        //             'errors' => [
+        //                 'required' => '{field} pengguna harus diisi.',
+        //                 'is_unique' => '{field} pengguna sudah ada'
 
-                    ]
-                ],
-                'nama' => [
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} pengguna harus diisi.',
+        //             ]
+        //         ],
+        //         'nama' => [
+        //             'rules' => 'required',
+        //             'errors' => [
+        //                 'required' => '{field} pengguna harus diisi.',
 
 
-                    ]
-                ],
-                'password' => [
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} pengguna harus diisi.',
+        //             ]
+        //         ],
+        //         'password' => [
+        //             'rules' => 'required',
+        //             'errors' => [
+        //                 'required' => '{field} pengguna harus diisi.',
 
-                    ]
-                ]
-            ]
-        )) {
-            $validation = \Config\Services::validation();
-            return redirect()->to(base_url() . '/users/create')->withInput();
-        }
+        //             ]
+        //         ]
+        //     ]
+        // )) {
+        //     $validation = \Config\Services::validation();
+        //     return redirect()->to(base_url() . '/users/create')->withInput();
+        // }
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
+        $nama = $this->request->getPost('nama');
+        $level = $this->request->getPost('level');
+        $notelp = $this->request->getPost('notelp');
+        // dd($username);
+        // dd($username, $password, $nama, $level, $notelp);
+        // dd($nama);
+        // dd($level);
+        // dd($notelp);
         if ((empty($username))) {
-            //hapus gambar
+            // randome username
             $usernamebaru = $username->getRandomName();
         }
         if ((empty($password))) {
-            //hapus gambar
+            // random password
             $passwordbaru = $password->getRandomName();
+        }
+        if ((empty($username))) {
+            // randome username
+            $usernamebaru = $username->getRandomName();
         }
         // $level = "pegawai";
         $this->usersModel->save([
@@ -103,7 +117,6 @@ class Users extends BaseController
             'level' => $this->request->getPost('level'),
             'notelp' => $this->request->getPost('notelp')
         ]);
-
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
         return redirect()->to(base_url() . '/users');
     }
@@ -121,58 +134,87 @@ class Users extends BaseController
     }
 
 
-    public function update($id)
+    public function update()
     {
 
         // cek klien
-        $userlama = $this->usersModel->getUser($this->request->getVar('id'));
-        // dd($klienLama);
-        if ($userlama['username'] == $this->request->getVar('username')) {
-            $rule_wp = 'required';
-        } else {
-            $rule_wp = 'required|is_unique[user.username]';
-        }
+        // $userlama = $this->usersModel->getUser($this->request->getVar('id'));
+        // dd($userlama);
+        // if ($userlama['username'] == $this->request->getVar('username')) {
+        //     $rule_wp = 'required';
+        // } else {
+        //     $rule_wp = 'required|is_unique[user.username]';
+        // }
 
         // validasi input
-        if (!$this->validate(
-            [
-                'wajibpajak' => [
-                    'rules' => $rule_wp,
-                    'errors' => [
-                        'required' => '{field} user harus diisi.',
-                        'is_unique' => '{field} user sudah ada.'
-                    ]
-                ],
-                'password' => [
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} user harus diisi.'
-                    ]
-                ]
+        // if (!$this->validate(
+        //     [
+        //         'wajibpajak' => [
+        //             'rules' => $rule_wp,
+        //             'errors' => [
+        //                 'required' => '{field} user harus diisi.',
+        //                 'is_unique' => '{field} user sudah ada.'
+        //             ]
+        //         ],
+        //         'password' => [
+        //             'rules' => 'required',
+        //             'errors' => [
+        //                 'required' => '{field} user harus diisi.'
+        //             ]
+        //         ]
 
-            ]
-        )) {
-            // validasi
-            $validation = \Config\Services::validation();
-            // redirect kembali tanpa index.php
-            return redirect()->to(base_url() . '/users/edit/' .  $this->request->getVar('id'))->withInput('validation', $validation);
-        }
+        //     ]
+        // )) {
+        //     // validasi
+        //     $validation = \Config\Services::validation();
+        //     // redirect kembali tanpa index.php
+        //     return redirect()->to(base_url() . '/users/edit/' .  $this->request->getVar('id'))->withInput('validation', $validation);
+        // }
+
+        $model = new UsersModel();
+        $modeljadwal = new ProsesModel();
+        $id = $this->request->getPost('id');
+        $data = array(
+            'nama'        => $this->request->getPost('nama'),
+            'username'  => $this->request->getPost('username'),
+            'password'     => $this->request->getPost('password'),
+            'notelp'     => $this->request->getPost('notelp'),
+            'level'      => $this->request->getPost('level'),
+        );
+        $dataupdate = array(
+            'nama'        => $this->request->getPost('nama'),
+
+        );
+        $model->updateUsers($data, $id);
+        $modeljadwal->updatenamaJad($dataupdate, $id);
+        return redirect()->to('/users');
 
 
-        $this->usersModel->save([
-            'id' => $id,
-            'nama' => $this->request->getVar('nama'),
-            'username' => $this->request->getVar('username'),
-            'password' => $this->request->getVar('password'),
-            'notelp' => $this->request->getVar('notelp'),
+        // $this->usersModel->save([
+        //     'id' => $id,
+        //     'nama' => $this->request->getVar('nama'),
+        //     'username' => $this->request->getVar('username'),
+        //     'password' => $this->request->getVar('password'),
+        //     'notelp' => $this->request->getVar('notelp'),
 
-        ]);
+        // ]);
 
         session()->setFlashdata('pesan', 'Data berhasil diubah');
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/users');
     }
 
+    public function delete()
+    {
+        $model = new UsersModel();
+        $id = $this->request->getPost('id');
+        $model->deleteAkun($id);
+        return redirect()->to('users');
+    }
+
+    // Akhir bagian users
+
+    // Awal Bagian profil
     public function editprofil($id)
     {
         $profil = $this->pagesModel->viewProfil();
