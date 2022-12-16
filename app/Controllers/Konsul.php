@@ -13,6 +13,7 @@ class Konsul extends BaseController
     {
         $this->konsulModel = new  KonsulModel();
         $this->klienModel = new  KlienModel();
+        helper('date');
     }
 
     public function detail($id_konsul)
@@ -22,6 +23,8 @@ class Konsul extends BaseController
             'konsul' => $this->konsulModel->viewKonsul($id_konsul),
             'css' => 'preview-consul-style'
         ];
+
+        // dd($data);
         //jika konsultasi tidak ada di tabel
         if (empty($data['konsul'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan');
