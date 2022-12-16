@@ -35,36 +35,36 @@ class Jadwal extends BaseController
 
     //     return view('jadwal/index', $data);
     // }
-    // public function riwayatkonsul()
-    // {
-    //     // $keyword = $this->request->getVar('keyword');
-    //     // if ($keyword) {
-    //     //     $user = $this->usersModel->search($keyword);
-    //     // } else {
-    //     //     $user = $this->usersModel;
-    //     // }
-    //     // // $users = $this->usersModel->findAll();
-    //     // $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
-    //     //     1;
-    //     // // jumlah data per halaman
-    //     // $jmldata = 10;
-    //     $jadwal = $this->jadwalModel->viewKonsul()->getResultArray();
-    //     // dd($jadwal);
-    //     $data = [
-    //         'title' => 'Daftar Pengguna | HLP',
-    //         'riwayat' => $jadwal,
-    //         'css' => 'data-client-style',
+    public function riwayatkonsul()
+    {
+        // $keyword = $this->request->getVar('keyword');
+        // if ($keyword) {
+        //     $user = $this->usersModel->search($keyword);
+        // } else {
+        //     $user = $this->usersModel;
+        // }
+        // // $users = $this->usersModel->findAll();
+        // $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
+        //     1;
+        // // jumlah data per halaman
+        // $jmldata = 10;
+        $jadwal = $this->jadwalModel->viewKonsul()->getResultArray();
+        // dd($jadwal);
+        $data = [
+            'title' => 'Daftar Pengguna | HLP',
+            'riwayat' => $jadwal,
+            'css' => 'data-client-style',
 
-    //     ];
-    //     // dd($data);
+        ];
+        // dd($data);
 
-    //     return view('jadwal/riwayatkonsul', $data);
-    // }
+        return view('jadwal/riwayatkonsul', $data);
+    }
 
     public function save()
     {
         $model = new JadwalModel();
-
+        dd($this->request->getPost('search'));
         $this->jadwalModel->save([
             'nama'        => $this->request->getPost('nama'),
             'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),
@@ -80,6 +80,32 @@ class Jadwal extends BaseController
         // dd($data);
         // $model->saveJadwal($data);
         return redirect()->to('pages/index');
+    }
+    public function saveklien()
+    {
+        $model = new JadwalModel();
+        $proses = 'menunggu';
+        $test = $this->jadwalModel->save([
+            'nama'        => $this->request->getPost('nama'),
+            'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),
+            'tanggal'     => $this->request->getPost('tanggal'),
+            'status'      => $this->request->getPost('status'),
+            'id_user'      => $this->request->getPost('id'),
+            'proses'      => $proses,
+        ]);
+        // dd($test);
+        // $data = array(
+        //     'nama'        => $this->request->getPost('nama'),
+        //     'id_user'        => $this->request->getPost('id'),
+        //     'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),
+        //     'tanggal'     => $this->request->getPost('tanggal'),
+        //     'status'      => $this->request->getPost('status'),
+        // );
+        // dd($data);
+        // $model->saveJadwal($data);
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+
+        return redirect()->to('pages/klienberanda');
     }
     // public function edit($id)
     // {
@@ -104,6 +130,18 @@ class Jadwal extends BaseController
         );
         $model->updateJadwal($data, $id);
         return redirect()->to('pages/index');
+    }
+    public function upjadwalklien()
+    {
+        $model = new JadwalModel();
+        $id = $this->request->getPost('id_jadwal');
+        $data = array(
+            'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),
+            'tanggal'     => $this->request->getPost('tanggal'),
+            'status'      => $this->request->getPost('status'),
+        );
+        $model->updateJadwal($data, $id);
+        return redirect()->to('pages/klienberanda');
     }
 
 
