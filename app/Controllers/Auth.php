@@ -83,7 +83,7 @@ class Auth extends BaseController
             //cek password
             //jika salah arahkan lagi ke halaman login
             if ($user['password'] != $data['password']) {
-                session()->setFlashdata('password', 'Password salah');
+                session()->setFlashdata('password', 'Password Salah, silahkan masukkan lagi');
                 return redirect()->to('/');
             } else {
                 //jika benar, arahkan user masuk ke aplikasi 
@@ -97,15 +97,16 @@ class Auth extends BaseController
                     'level' => $user['level'],
                 ];
                 $this->session->set($sessLogin);
+                // dd($sessLogin);
                 if ($user['level'] == 'klien') {
-                    return redirect()->to('/pages/beranda');
+                    return redirect()->to('/pages/klienberanda');
                 } else {
-                    return redirect()->to('/klien');
+                    return redirect()->to('/pages');
                 }
             }
         } else {
             //jika username tidak ditemukan, balikkan ke halaman login
-            session()->setFlashdata('username', 'Username tidak ditemukan');
+            session()->setFlashdata('username', 'Username tidak ditemukan, silahkan masukkan lagi');
             return redirect()->to('/');
         }
     }
