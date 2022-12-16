@@ -9,6 +9,8 @@ use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 use App\Filters\Auth;
+use App\Filters\AuthCheckFilter;
+use App\Filters\AuthCheckFilterAdmin;
 use App\Filters\Noauth;
 
 class Filters extends BaseConfig
@@ -25,11 +27,12 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'authcheck'     => AuthCheckFilter::class,
+        'noauth'        => NoAuth::class,
+        'authadmin'        => AuthCheckFilterAdmin::class
         // 'login'      => \Myth\Auth\Filters\LoginFilter::class,
         // 'role'       => \Myth\Auth\Filters\RoleFilter::class,
         // 'permission' => \Myth\Auth\Filters\PermissionFilter::class,
-        // "auth" => Auth::class,
-        // "noauth" => Noauth::class,
     ];
 
     /**
@@ -40,6 +43,7 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
+            // 'authcheck'
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
