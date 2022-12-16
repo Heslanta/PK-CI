@@ -31,41 +31,45 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+// Rute ke Login
+$routes->get('/', 'Pages::login', ['filter' => 'noauth']);
+
 // Rute ke Beranda
-$routes->get('/', 'Pages::login');
-$routes->get('/pages', 'Pages::index');
-$routes->post('/pages/beranda', 'Pages::klienberanda');
-$routes->post('/pages/regis', 'Pages::regis');
-$routes->post('/riwayatkonsul', 'Jadwal::riwayatkonsul');
-$routes->post('/jadwal/create', 'Jadwal::create');
+$routes->match(['get', 'post'], '/pages', 'Pages::index', ['filter' => 'authcheck']);
+
+// Rute ke Beranda klien
+$routes->match(['get', 'post'], '/pages/beranda', 'Pages::klienberanda', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/riwayatkonsul', 'Jadwal::riwayatkonsul', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/jadwal/create', 'Jadwal::create');
 // $routes->get('/', 'pengguna::index');
 
 // Rute untuk bagian klien
-$routes->post('/klien', 'Klien::index');
-$routes->post('/klien/create', 'Klien::create');
-$routes->delete('/klien/(:num)', 'Klien::delete/$1');
-$routes->add('/klien/edit/(:segment)', 'Klien::edit/$1');
-$routes->get('/klien/(:num)', 'Klien::detail/$1');
+$routes->match(['get', 'post'], '/klien', 'Klien::index', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/klien/create', 'Klien::create', ['filter' => 'authcheck']);
+$routes->delete('/klien/(:num)', 'Klien::delete/$1', ['filter' => 'authcheck']);
+$routes->add('/klien/edit/(:segment)', 'Klien::edit/$1', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/klien/(:num)', 'Klien::detail/$1', ['filter' => 'authcheck']);
 
 // Rute untuk bagian konsul
-$routes->add('/konsul/create/(:num)', 'Konsul::create/$1');
-$routes->delete('/konsul/(:num)', 'Konsul::delete/$1');
-$routes->add('/konsul/edit/(:segment)', 'Konsul::edit/$1');
-$routes->get('/konsul/(:num)', 'Konsul::detail/$1');
+$routes->add('/konsul/create/(:num)', 'Konsul::create/$1', ['filter' => 'authcheck']);
+$routes->delete('/konsul/(:num)', 'Konsul::delete/$1', ['filter' => 'authcheck']);
+$routes->add('/konsul/edit/(:segment)', 'Konsul::edit/$1', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/konsul/(:num)', 'Konsul::detail/$1', ['filter' => 'authcheck']);
 
 // Rute untuk bagian user
-$routes->post('/users', 'Users::index');
-$routes->add('/users/create', 'Users::create');
-$routes->post('/users/save', 'Users::save');
-$routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1');
-$routes->add('/users/edit/(:segment)', 'Users::edit/$1');
+$routes->match(['get', 'post'], '/users', 'Users::index', ['filter' => 'authadmin']);
+$routes->add('/users/create', 'Users::create', ['filter' => 'authadmin']);
+$routes->match(['get', 'post'], '/users/save', 'Users::save', ['filter' => 'authadmin']);
+$routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1', ['filter' => 'authadmin']);
+$routes->add('/users/edit/(:segment)', 'Users::edit/$1', ['filter' => 'authadmin']);
 
 // Rute untuk jadwal
-$routes->post('/jadwal', 'Jadwal::index');
-$routes->add('/jadwal/create', 'Jadwal::create');
-$routes->delete('/klien/(:num)', 'Klien::delete/$1');
-$routes->post('/jadwal/save', 'Jadwal::save');
-$routes->add('/jadwal/update/', 'Jadwal::update');
+$routes->match(['get', 'post'], '/jadwal', 'Jadwal::index', ['filter' => 'authcheck']);
+$routes->add('/jadwal/create', 'Jadwal::create', ['filter' => 'authcheck']);
+$routes->delete('/klien/(:num)', 'Klien::delete/$1', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/jadwal/save', 'Jadwal::save', ['filter' => 'authcheck']);
+$routes->add('/jadwal/update/', 'Jadwal::update', ['filter' => 'authcheck']);
 
 
 // CALENDAR
