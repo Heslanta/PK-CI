@@ -6,6 +6,7 @@ use App\Models\PagesModel;
 use App\Models\JadwalModel;
 use App\Models\KlienModel;
 use App\Models\KonsulModel;
+use App\Models\ProsesModel;
 
 class Pages extends BaseController
 {
@@ -30,9 +31,11 @@ class Pages extends BaseController
 
     protected $pagesModel;
     protected $jadwalModel;
+    protected $prosesModel;
     public function __construct()
     {
         $this->pagesModel = new  PagesModel();
+        $this->prosesModel = new  ProsesModel();
         $this->session = \Config\Services::session();
         $this->session->start();
         $this->jadwalModel = new  JadwalModel();
@@ -41,6 +44,8 @@ class Pages extends BaseController
     public function index()
     {
         $jadwal = $this->jadwalModel;
+        $prosesjadwal = $this->prosesModel;
+        $nama = $this->klienModel;
         $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
             1;
         // jumlah data per halaman
@@ -48,6 +53,8 @@ class Pages extends BaseController
         $data = [
             'title' => 'Beranda | HLP',
             'jadwal' => $jadwal->getJadwal(),
+            'proses' => $prosesjadwal->getProsesJadwal(),
+            'nama' => $nama->getNama(),
             'pager' => $this->jadwalModel->pager,
             'css' => 'user',
             'currentPage' => $currentPage,
@@ -83,33 +90,30 @@ class Pages extends BaseController
 
         return view('auth/login', $data);
     }
+
     public function klienberanda()
     {
-
-        $jadwal = $this->jadwalModel->viewJadwal()->getResultArray();
+        $jadwal = $this->prosesModel->viewJadwal()->getResultArray();
         // dd($jadwal);
+
         $data = [
             'title' => 'Beranda | HLP',
             'css' => 'preview-client-style',
             'jadwal' => $jadwal,
 
         ];
-
-
         return view('pages/klienberanda', $data);
     }
+
     public function regis()
     {
-
         $data = [
             'title' => 'Tes | HLP',
             'css' => 'preview-client-style',
-
         ];
-
-
         return view('auth/register', $data);
     }
+
     public function tampilGrafikKonsul()
     {
         $tahun = $this->request->getPost('tahun');
