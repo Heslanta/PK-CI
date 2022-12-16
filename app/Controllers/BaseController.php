@@ -35,7 +35,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ["html", 'auth', "form", "url"];
+    protected $helpers = ["html", 'auth', "form", "url", "time", "site"];
 
 
     /**
@@ -47,7 +47,7 @@ class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-
+        date_default_timezone_set('Asia/Makassar'); // Added user timezone
         // $this->session = \Config\Services::session();
         // session();
         // $this->nama = 'Charvia';
