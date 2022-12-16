@@ -101,14 +101,14 @@ class App extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * Application Timezone
-     * --------------------------------------------------------------------------
+     * ------------------------------------------------ --------------------------
      *
      * The default timezone that will be used in your application to display
      * dates with the date helper, and can be retrieved through app_timezone()
      *
      * @var string
      */
-    public $appTimezone = 'America/Chicago';
+    public $appTimezone = 'Asia/Hong_Kong';
 
     /**
      * --------------------------------------------------------------------------
