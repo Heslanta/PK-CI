@@ -21,6 +21,7 @@ class Klien extends BaseController
 
     public function index()
     {
+
         // $klien = $this->klienModel->findAll();
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
@@ -103,18 +104,18 @@ class Klien extends BaseController
                     ]
                 ],
                 'npwp' => [
-                    'rules' => 'required|is_unique[klien.npwp]',
+                    'rules' => 'is_unique[klien.npwp]|npwp',
                     'errors' => [
-                        'required' => 'NPWP klien harus diisi!',
+                        'npwp' => 'NPWP harus berupa angka , - , dan .',
                         'is_unique' => 'NPWP klien sudah ada.'
                     ]
                 ],
-                'notelp' => [
-                    'rules' => 'numeric',
-                    'errors' => [
-                        'numeric' => 'Nomor HP klien harus berupa angka.'
-                    ]
-                ],
+                // 'notelp' => [
+                //     'rules' => 'numeric',
+                //     'errors' => [
+                //         'numeric' => 'Nomor HP klien harus berupa angka.'
+                //     ]
+                // ],
                 'filegambar' => [
                     'rules' => 'max_size[filegambar,3072]|is_image[filegambar]|mime_in[filegambar,image/jpg,image/jpeg,image/png]',
                     'errors' => [
@@ -173,9 +174,39 @@ class Klien extends BaseController
         //     'notelp' => $notelp,
         //     'catatan' => $catatan
         // ]);
+
+        // Buat random password untuk klien
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $password = array();
+        $alpha_length = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alpha_length);
+            $password[] = $alphabet[$n];
+        }
+        $password =  implode($password);
+        // dd($password);
+
+        // Buat random username untuk klien jika npwpnya kosong
+        $npwp = $this->request->getPost('npwp');
+        if (empty($npwp)) {
+            $npwp = '-';
+        }
+        $username = $this->request->getPost('npwp');
+        if (empty($username)) {
+            $angka = '1234567890';
+            $username = array();
+            $alpha_length = strlen($angka) - 1;
+            for ($i = 0; $i < 4; $i++) {
+                $n = rand(0, $alpha_length);
+                $username[] = $angka[$n];
+            }
+            $username =  implode($username);
+            $username = "user" . $username;
+        }
+
         $data = [
             'wajibpajak' => $this->request->getVar('wajibpajak'),
-            'npwp' => $this->request->getVar('npwp'),
+            'npwp' => $npwp,
             'efin' => $this->request->getVar('efin'),
             'bidang_usaha' => $this->request->getVar('bidang_usaha'),
             'email' => $this->request->getVar('email'),
@@ -194,8 +225,8 @@ class Klien extends BaseController
         $level = "klien";
         $this->usersModel->save([
             'nama' => $this->request->getVar('wajibpajak'),
-            'username' => $this->request->getVar('npwp'),
-            'password' => $this->request->getVar('efin'),
+            'username' => $username,
+            'password' => $password,
             'level' => $level,
             'notelp' => $notelp,
             'id_klien' => $id_klien
@@ -273,16 +304,17 @@ class Klien extends BaseController
                     ]
                 ],
                 'npwp' => [
-                    'rules' => 'required',
+                    'rules' => 'required|npwp',
                     'errors' => [
                         'required' => 'NPWP klien harus diisi!',
+                        'npwp' => "NPWP harus berupa angka , - , dan . "
 
                     ]
                 ],
                 'notelp' => [
-                    'rules' => 'numeric',
+                    'rules' => 'numeric_dash',
                     'errors' => [
-                        'numeric' => 'Nomor HP klien harus berupa angka atau jangan menggunakan spasi.'
+                        'numeric_dash' => 'Nomor HP klien harus berupa angka atau - '
                     ]
                 ],
                 'filegambar' => [
