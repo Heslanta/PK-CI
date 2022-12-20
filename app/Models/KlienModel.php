@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Controllers\Klien;
 use CodeIgniter\Model;
 
 class KlienModel extends Model
@@ -12,6 +13,9 @@ class KlienModel extends Model
         'wajibpajak', 'npwp', 'status', 'notelp', 'catatan', 'filegambar', 'filedata', 'efin', 'bidang_usaha', 'email', 'email_pass',
         'notelp_per', 'pkp', 'enofa'
     ];
+    protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
     public function getKlien($id = false)
     {
@@ -20,7 +24,11 @@ class KlienModel extends Model
         }
         return $this->where(['id' => $id])->first();
     }
-
+    public function getNama()
+    {
+        $nama = $this->findColumn('wajibpajak');
+        return $nama;
+    }
     public function getKonsul($id)
     {
         $query =  $this->db->table('konsultasi')

@@ -32,8 +32,8 @@
 
                                 <a href="/users/editprofil/<?= $session->get('id') ?>" class="btn btn-primary">Edit</a>
                             <?php endif; ?>
-
-                            <button onclick="history.back()" class="btn btn-warning">Kembali</button>
+                            <a href="/pages" class="btn btn-warning">Kembali</a>
+                            <!-- <button onclick="history.back()" class="btn btn-warning">Kembali</button> -->
                         </div>
                     </div>
 

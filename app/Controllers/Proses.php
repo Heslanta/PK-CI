@@ -20,16 +20,28 @@ class Proses extends BaseController
         // update di proses jadwal klien
         $model = new ProsesModel();
         $id = $this->request->getPost('id_jadwal');
+
         $proses = 'diterima';
         $data = array(
             'proses'      => $proses
         );
         $model->updateProsesJadwal($data, $id);
 
+        // $tes = [
+        //     'nama'        => $this->request->getPost('nama'),
+        //     'id_jadwal'        => $this->request->getPost('id_jadwal'),
+        //     'id_user'        => $this->request->getPost('id_user'),
+        //     'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),
+        //     'tanggal'     => $this->request->getPost('tanggal'),
+        //     'status'      => $this->request->getPost('status'),
+        //     'proses'      => $proses,
+        // ];
         // sesudah diterima, akan disimpan pada tabel jadwal sehingga muncul pada admin dan pegawai
-        $this->jadwalModel->save([
+        // dd($tes);
+        $data = $this->jadwalModel->save([
             'nama'        => $this->request->getPost('nama'),
             'id_user'        => $this->request->getPost('id_user'),
+            'id_jadwal'        => $this->request->getPost('id_jadwal'),
             'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),
             'tanggal'     => $this->request->getPost('tanggal'),
             'status'      => $this->request->getPost('status'),
@@ -108,6 +120,7 @@ class Proses extends BaseController
             'tanggal'     => $this->request->getPost('tanggal'),
             'status'      => $this->request->getPost('status'),
         );
+
         $model->updateProsesJadwal($data, $id);
         session()->setFlashdata('pesan', 'Data berhasil diperbaharui');
 

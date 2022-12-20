@@ -64,7 +64,7 @@ class Jadwal extends BaseController
     public function save()
     {
         $model = new JadwalModel();
-        dd($this->request->getPost('search'));
+        // dd($this->request->getPost('search'));
         $this->jadwalModel->save([
             'nama'        => $this->request->getPost('nama'),
             'tujuan_jdw'  => $this->request->getPost('tujuan_jdw'),

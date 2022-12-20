@@ -6,32 +6,7 @@
 
 
 
-function tgl_indo($tanggal)
-{
-    $bulan = array(
-        1 =>   'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
-    );
-    // variabel pecahkan 0 = tanggal
-    // variabel pecahkan 1 = bulan
-    // variabel pecahkan 2 = tahun
-    if ($tanggal == '0000-00-00') {
-        $tanggal = 'Kosong';
-    } else {
-        $pecahkan = explode('-', $tanggal);
-        return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
-    }
-}
+
 ?>
 <div class="container">
     <div class="row">
@@ -44,6 +19,9 @@ function tgl_indo($tanggal)
 
                 <div class="card-header">
                     Detail Wajib Pajak
+                    <div class="info-icon">
+
+                    </div>
                 </div>
 
 
@@ -73,7 +51,7 @@ function tgl_indo($tanggal)
                             <p class="card-text"><b>Tanggal PKP(Tahun/Bulan/Hari) : </b><br><?= tgl_indo($klien['pkp']) ?></p>
                             <p class="card-text"><b>Catatan : </b><?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
                             <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
-                            <button onclick="history.back()" class="btn btn-warning">Kembali</button>
+                            <a href="/klien" class="btn btn-warning">Kembali</a>
                             <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
@@ -141,4 +119,16 @@ function tgl_indo($tanggal)
     </div>
     <br><br>
 </div>
+
+
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+    var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+        trigger: 'focus'
+    })
+</script>
+
 <?= $this->endSection(); ?>

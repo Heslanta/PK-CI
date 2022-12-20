@@ -11,6 +11,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="<?= base_url(); ?>/css/style.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/css/main.css">
     <title>Login HLP</title>

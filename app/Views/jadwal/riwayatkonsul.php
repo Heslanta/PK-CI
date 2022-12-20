@@ -13,7 +13,7 @@
 
                     <div class="tabel-header">Konsultasi ke-<?= $kon['konsul_ke']; ?></div>
 
-                    <div class="tabel-list"><?= $kon['hari_tanggal']; ?></div>
+                    <div class="tabel-list"><?= tgl_indo($kon['hari_tanggal']); ?></div>
                     <div class="tabel-list"><?= $kon['tujuan']; ?></div>
                     </a>
                 </div>

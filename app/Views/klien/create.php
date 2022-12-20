@@ -105,7 +105,7 @@
                     </div>
                     <div class="row mb-3">
                         <label for="pkp" class="col-sm-2 col-form-label">Tanggal PKP
-                            <p style="font-size: 12px;">(Bulan/Hari/Tahun)</p>
+                            <p style="font-size: 12px;">(Tanggal/Bulan/Tahun)</p>
                         </label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control <?= ($validation->hasError('pkp')) ? 'is-invalid'

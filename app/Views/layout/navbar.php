@@ -86,7 +86,7 @@
                     <?php if ($session->get('level') == 'klien') : ?>
 
                         <li class="nav-item">
-                            <a class="nav-link active" style="color:white" href="<?= base_url('/pages/beranda'); ?>">Beranda</a>
+                            <a class="nav-link active" style="color:white" href="<?= base_url('/pages/klienberanda'); ?>">Beranda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" style="color:white" href="<?= base_url('/pages/profil'); ?>">Profil</a>

@@ -61,7 +61,7 @@ $routes->match(['get', 'post'], '/konsul/(:num)', 'Konsul::detail/$1', ['filter'
 $routes->match(['get', 'post'], '/users', 'Users::index', ['filter' => 'authadmin']);
 $routes->add('/users/create', 'Users::create', ['filter' => 'authadmin']);
 $routes->match(['get', 'post'], '/users/save', 'Users::save', ['filter' => 'authadmin']);
-$routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1', ['filter' => 'authadmin']);
+$routes->add('/users/editprofil/(:segment)', 'Users::editprofil/$1', ['filter' => 'authcheck']);
 $routes->add('/users/edit/(:segment)', 'Users::edit/$1', ['filter' => 'authadmin']);
 
 // Rute untuk jadwal

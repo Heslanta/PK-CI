@@ -29,4 +29,16 @@ class UsersModel extends Model
         }
         return $this->where(['id' => $id])->first();
     }
+    public function updateUsers($data, $id)
+    {
+        $query = $this->db->table('user')
+
+            ->update($data, array('id' => $id));
+        return $query;
+    }
+    public function deleteAkun($id)
+    {
+        $query = $this->db->table('user')->delete(array('id' => $id));
+        return $query;
+    }
 }

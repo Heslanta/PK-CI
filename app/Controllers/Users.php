@@ -56,7 +56,7 @@ class Users extends BaseController
     public function save()
     {
 
-        // // validasi input
+        // // validasi input yang masuk
         // if (!$this->validate(
         //     [
         //         'username' => [

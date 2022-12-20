@@ -10076,7 +10076,7 @@ var dropdownCheck = renderer.create('<div class="note-dropdown-menu dropdown-men
     $node.addClass('note-codeview-keep');
   }
 });
-var dialog = renderer.create('<div class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog"></div>', function ($node, options) {
+var dialog = renderer.create('<div class="modal note-modal"ut aria-hidden="false" tabindex="-1" role="dialog"></div>', function ($node, options) {
   if (options.fade) {
     $node.addClass('fade');
   }

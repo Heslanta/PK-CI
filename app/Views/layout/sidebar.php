@@ -31,45 +31,94 @@
             </div>
 
         </div>
+        <?php $level = $session->get('level') ?>
+        <p>Dashboard <?= $level; ?></p>
 
-        <p>Dashboard</p>
-        <a href="<?= base_url('/pages/index'); ?>">
-            <div class="sidebar-list">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fas fa-house"></i>&nbsp;&nbsp;
-                Beranda
+        <!-- Jika session klien, muncul sidebar klien  -->
+        <?php if ($session->get('level') == 'klien') : ?>
+            <div class="sidebar-klien">
+                <a href="<?= base_url('/pages/klienberanda'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fas fa-house"></i>&nbsp;&nbsp;
+                        Beranda
+                    </div>
+                </a>
+                <a href="<?= base_url('/pages/profil'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                        Profil
+                    </div>
+                </a>
+                <a href="<?= base_url('/jadwal/riwayatkonsul'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                        Riwayat Konsultasi
+                    </div>
+                </a>
+
+
             </div>
-        </a>
-        <a href="<?= base_url('/pages/profil'); ?>">
-            <div class="sidebar-list">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
-                Profil
-            </div>
-        </a>
-        <a href="<?= base_url('/klien'); ?>">
-            <div class="sidebar-list">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
-                Klien
-            </div>
-        </a>
-        <!-- <a href="<?= base_url('/jadwal'); ?>">
+
+            <!-- Jika buhan session klien =  session admin or pegawai, muncul sidebar  -->
+        <?php else : ?>
+            <div class="sidebar-admin">
+                <a href="<?= base_url('/pages/index'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fas fa-house"></i>&nbsp;&nbsp;
+                        Beranda
+                    </div>
+                </a>
+                <a href="<?= base_url('/pages/profil'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                        Profil
+                    </div>
+                </a>
+                <a href="<?= base_url('/klien'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
+                        Klien
+                    </div>
+                </a>
+
+                <!-- <a href="<?= base_url('/jadwal'); ?>">
             <div class="sidebar-list">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
                 Jadwal
             </div>
-        </a> -->
-        <?php if ($session->get('level') == 'admin') : ?>
-            <a href="<?= base_url('/users'); ?>">
-                <div class="sidebar-list">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="fa-solid fa-image-portrait"></i>&nbsp;&nbsp;
-                    Pengguna
-                </div>
-            </a>
+                </a> -->
+
+                <!-- Jika session admin, tampilkan bagian user -->
+                <?php if ($session->get('level') == 'admin') : ?>
+                    <a href="<?= base_url('/users'); ?>">
+                        <div class="sidebar-list">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fa-solid fa-image-portrait"></i>&nbsp;&nbsp;
+                            Pengguna
+                        </div>
+                    </a>
+                <?php endif; ?>
+            </div>
+
+            <!-- End sidebar admin dan pegawai -->
         <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
         <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <div class="sidebar-footer">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;
