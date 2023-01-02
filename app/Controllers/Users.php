@@ -56,37 +56,37 @@ class Users extends BaseController
     public function save()
     {
 
-        // // validasi input yang masuk
-        // if (!$this->validate(
-        //     [
-        //         'username' => [
-        //             'rules' => 'required|is_unique[user.username]',
-        //             'errors' => [
-        //                 'required' => '{field} pengguna harus diisi.',
-        //                 'is_unique' => '{field} pengguna sudah ada'
+        // validasi input yang masuk
+        if (!$this->validate(
+            [
+                'username' => [
+                    'rules' => 'required|is_unique[user.username]',
+                    'errors' => [
+                        'required' => '{field} pengguna harus diisi.',
+                        'is_unique' => '{field} pengguna sudah ada'
 
-        //             ]
-        //         ],
-        //         'nama' => [
-        //             'rules' => 'required',
-        //             'errors' => [
-        //                 'required' => '{field} pengguna harus diisi.',
+                    ]
+                ],
+                'nama' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} pengguna harus diisi.',
 
 
-        //             ]
-        //         ],
-        //         'password' => [
-        //             'rules' => 'required',
-        //             'errors' => [
-        //                 'required' => '{field} pengguna harus diisi.',
+                    ]
+                ],
+                'password' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '{field} pengguna harus diisi.',
 
-        //             ]
-        //         ]
-        //     ]
-        // )) {
-        //     $validation = \Config\Services::validation();
-        //     return redirect()->to(base_url() . '/users/create')->withInput();
-        // }
+                    ]
+                ]
+            ]
+        )) {
+            $validation = \Config\Services::validation();
+            return redirect()->to(base_url() . '/users/create')->withInput();
+        }
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
         $nama = $this->request->getPost('nama');
