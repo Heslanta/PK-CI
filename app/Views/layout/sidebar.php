@@ -58,7 +58,13 @@
                         Riwayat Konsultasi
                     </div>
                 </a>
-
+                <a href="<?= base_url('/pages/bantuan'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-question"></i>&nbsp;&nbsp;
+                        Bantuan
+                    </div>
+                </a>
 
             </div>
 
@@ -87,6 +93,7 @@
                     </div>
                 </a>
 
+
                 <!-- <a href="<?= base_url('/jadwal'); ?>">
             <div class="sidebar-list">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -113,6 +120,13 @@
                     </a>
 
                 <?php endif; ?>
+                <a href="<?= base_url('/pages/bantuan'); ?>">
+                    <div class="sidebar-list">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-question"></i>&nbsp;&nbsp;
+                        Bantuan
+                    </div>
+                </a>
             </div>
 
             <!-- End sidebar admin dan pegawai -->
