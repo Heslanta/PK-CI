@@ -146,7 +146,11 @@ input{
     line-height: 30px;
     border: 1px solid black;
 }
-
+div.tabel-list{
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+}
 .tabel-list{
     height: 25px;
     width:100%;
