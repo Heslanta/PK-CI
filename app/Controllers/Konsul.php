@@ -137,28 +137,28 @@ class Konsul extends BaseController
         // $data_konsul =  $this->konsulModel->editKonsul($id_konsul);
         // cek validasi
         // validasi input
-        // if (!$this->validate(
-        //     [
-        //         'konsul_ke' => [
-        //             'rules' => 'required',
-        //             'errors' => [
-        //                 'required' => '{field} konsultasi harus diisi.'
-        //                 // 'is_unique' => '{field} klien sudah ada.'
-        //             ]
-        //         ]
-        //         // 'npwp' => [
-        //         //     'rules' => 'required',
-        //         //     'errors' => [
-        //         //         'required' => '{field} klien harus diisi.'
-        //         //     ]
-        //         // ]
-        //     ]
-        // )) {
-        // validasi
-        //     $validation = \Config\Services::validation();
-        //     // redirect kembali tanpa index.php
-        //     return redirect()->to(base_url() . '/konsul/edit/' .  $this->request->getVar('id_konsul'))->withInput('validation', $validation);
-        // }
+        if (!$this->validate(
+            [
+                'konsul_ke' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Tidak boleh kosong!.'
+                        // 'is_unique' => '{field} klien sudah ada.'
+                    ]
+                ]
+                // 'npwp' => [
+                //     'rules' => 'required',
+                //     'errors' => [
+                //         'required' => '{field} klien harus diisi.'
+                //     ]
+                // ]
+            ]
+        )) {
+            // validasi
+            $validation = \Config\Services::validation();
+            // redirect kembali tanpa index.php
+            return redirect()->to(base_url() . '/konsul/edit/' .  $this->request->getVar('id_konsul'))->withInput('validation', $validation);
+        }
         // dd($this->request->getVar());
         // $tujuan = $this->request->getVar('tujuan');
         $cektujuan = $this->request->getPost('tujuan_jdw');
