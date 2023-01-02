@@ -126,6 +126,7 @@ class Konsul extends BaseController
             'validation' => \Config\Services::validation(),
             // 'klien' => $this->konsulModel->editKonsul($id_konsul),
             'css' => 'add-consul-style',
+            'tujuan' => $this->tujuanModel->getNama(),
             'konsultasi' => $data_konsul
         ];
         return view('konsul/edit', $data);
@@ -160,13 +161,18 @@ class Konsul extends BaseController
         // }
         // dd($this->request->getVar());
         // $tujuan = $this->request->getVar('tujuan');
-
+        $cektujuan = $this->request->getPost('tujuan_jdw');
+        if ($cektujuan == 1) {
+            $tujuan = $this->request->getPost('tujuan_dll');
+        } else {
+            $tujuan = $this->request->getPost('tujuan_jdw');
+        }
         $data = [
             'id_konsul' => $id_konsul,
             'id_klien' => $this->request->getVar('id_klien'),
             'konsul_ke' => $this->request->getVar('konsul_ke'),
             'hari_tanggal' => $this->request->getVar('hari_tanggal'),
-            'tujuan' => $this->request->getVar('tujuan'),
+            'tujuan' => $tujuan,
             'hasil_konsul' => $this->request->getVar('hasil_konsul'),
             'catatan_konsul' => $this->request->getVar('catatan_konsul'),
         ];

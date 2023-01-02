@@ -38,7 +38,20 @@
                 <div class="row mb-3">
                     <label for="tujuan" class="col-sm-2 col-form-label">Tujuan Konsultasi :</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="tujuan" name="tujuan" value="<?= (old('tujuan')) ? old('tujuan') : $konsultasi['tujuan'] ?>">
+                        <select name="tujuan_jdw" class="form-control tujuan_jdw" onchange="showDiv('dll', this)" value="<?= old('tujuan_jdw'); ?>" required>
+                            <?php if ($tujuan != "") : ?>
+                                <?php foreach ($tujuan as $tuju) : ?>
+                                    <option><?= $tuju ?></option>
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <option value="1">dan lain-lain</option>
+                        </select>
+                        <br>
+                        <input type="text" id="dll" class="form-control" name="tujuan_dll" placeholder="Tujuan Konsultasi" style="display: none;" value="<?= old('tujuan_dll'); ?>">
+                        <div id="validationServer03Feedback" class="invalid-feedback">
+                            <?= $validation->getError('tujuan'); ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">
