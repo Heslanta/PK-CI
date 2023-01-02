@@ -9,6 +9,7 @@ use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 use App\Filters\Auth;
+use App\Filters\AuthCheckAdminPegawai;
 use App\Filters\AuthCheckFilter;
 use App\Filters\AuthCheckFilterAdmin;
 use App\Filters\Noauth;
@@ -29,7 +30,8 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'authcheck'     => AuthCheckFilter::class,
         'noauth'        => NoAuth::class,
-        'authadmin'        => AuthCheckFilterAdmin::class
+        'authadmin'        => AuthCheckFilterAdmin::class,
+        'authadminpegawai' => AuthCheckAdminPegawai::class
         // 'login'      => \Myth\Auth\Filters\LoginFilter::class,
         // 'role'       => \Myth\Auth\Filters\RoleFilter::class,
         // 'permission' => \Myth\Auth\Filters\PermissionFilter::class,

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\KlienModel;
 use App\Models\UsersModel;
+use Dompdf\Dompdf;
 
 class Klien extends BaseController
 {
@@ -15,13 +16,8 @@ class Klien extends BaseController
         $this->usersModel = new  UsersModel();
     }
 
-
-
-
-
     public function index()
     {
-
         // $klien = $this->klienModel->findAll();
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
@@ -34,7 +30,6 @@ class Klien extends BaseController
                 'jumlah' => $this->klienModel->getJumlah()
             ];
         } else {
-
             $klien = $this->klienModel;
             $data = [
                 'title' => 'Klien | HLP',
@@ -44,13 +39,8 @@ class Klien extends BaseController
                 'jumlah' => $this->klienModel->getJumlah()
             ];
         }
-
-
-
-
+        // dd($data);
         // $klienModel = new  KlienModel();
-
-
         return view('klien/index', $data);
     }
 
@@ -76,9 +66,49 @@ class Klien extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Nama Klien ' . $id . ' tidak ditemukan.');
         }
 
-
         return view('klien/detail', $data);
     }
+
+    function laporan($id)
+    {
+        $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $data = [
+            'title' => 'Detail Klien',
+            'klien' => $this->klienModel->getKlien($id),
+            'konsultasi' => $data_konsul
+        ];
+        return view('klien/laporan', $data);
+    }
+    public function generate($id)
+    {
+
+        $filename = date('y-m-d') . '-qadr-labs-report';
+        $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $data = [
+            'title' => 'Detail Klien',
+            'klien' => $this->klienModel->getKlien($id),
+            'konsultasi' => $data_konsul
+        ];
+        // dd($data);
+        // load HTML content
+        $dompdf->loadHtml(view('klien/laporan', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'potrait');
+
+        // render html as PDF
+        $dompdf->render();
+
+        // output the generated pdf
+        $dompdf->stream($filename);
+    }
+
     public function create()
     {
         $data = [
@@ -86,36 +116,53 @@ class Klien extends BaseController
             'validation' => \Config\Services::validation(),
             'css' => 'add-client-style'
         ];
-
         return view('klien/create', $data);
     }
 
     // Untuk Menyimpan bagian create
     public function save()
     {
-
         // validasi input tambah klien
         if (!$this->validate(
             [
                 'wajibpajak' => [
-                    'rules' => 'required',
+                    'rules' => 'required|max_length[60]',
                     'errors' => [
-                        'required' => 'Nama klien harus diisi!'
+                        'required' => 'Nama klien harus diisi!',
+                        'max_length' => 'Nama klien tidak boleh terlalu panjang'
                     ]
                 ],
                 'npwp' => [
-                    'rules' => 'is_unique[klien.npwp]|npwp',
+                    'rules' => 'permit_empty|is_unique[klien.npwp]|npwp',
                     'errors' => [
                         'npwp' => 'NPWP harus berupa angka , - , dan .',
                         'is_unique' => 'NPWP klien sudah ada.'
                     ]
                 ],
-                // 'notelp' => [
-                //     'rules' => 'numeric',
-                //     'errors' => [
-                //         'numeric' => 'Nomor HP klien harus berupa angka.'
-                //     ]
-                // ],
+                'notelp' => [
+                    'rules' => 'permit_empty|numeric_dash',
+                    'errors' => [
+                        'numeric_dash' => 'Nomor HP klien harus berupa angka.'
+                    ]
+                ],
+                'notelp_per' => [
+                    'rules' => 'permit_empty|numeric_dash',
+                    'errors' => [
+                        'numeric_dash' => 'Nomor HP klien harus berupa angka.'
+                    ]
+                ],
+                'efin' => [
+                    'rules' => 'permit_empty|numeric',
+                    'errors' => [
+                        'numeric' => 'EFIN klien harus berupa angka.'
+                    ]
+                ],
+                'email' => [
+                    'rules' => 'permit_empty|valid_email',
+                    'errors' => [
+                        'valid_email' => 'Masukkan Email yang benar!.'
+                    ]
+                ],
                 'filegambar' => [
                     'rules' => 'max_size[filegambar,3072]|is_image[filegambar]|mime_in[filegambar,image/jpg,image/jpeg,image/png]',
                     'errors' => [
@@ -141,9 +188,7 @@ class Klien extends BaseController
             $notelp = url_title($this->request->getVar('notelp'), '-', true);
         }
         $catatan = $this->request->getVar('catatan');
-
         $file = $this->request->getFile('filegambar');
-
         if ($file->getError() == 4) {
             $namaGambar = 'default.png';
         } else {
@@ -152,28 +197,6 @@ class Klien extends BaseController
             // pindahkan gambar ke folder img di public
             $file->move('img', $namaGambar);
         }
-
-
-        // if ($file == '') {
-        //     $file = 'default.png';
-        // } else {
-        //     $file->move('img');
-        // }
-
-        // // dd($file);
-
-        // // ambil nama file sampul
-        // $namaGambar = $file->getName();
-        // if (empty($catatan)) {
-        //     $catatan = "Tidak ada catatan mengenai klien ini!";
-        // }
-        // dd($catatan);
-        // $this->klienModel->save([
-        //     'wajibpajak' => $this->request->getVar('wajibpajak'),
-        //     'npwp' => $this->request->getVar('npwp'),
-        //     'notelp' => $notelp,
-        //     'catatan' => $catatan
-        // ]);
 
         // Buat random password untuk klien
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -232,17 +255,6 @@ class Klien extends BaseController
             'id_klien' => $id_klien
         ]);
 
-        // $level = "klien";
-        // $data_user = [
-        //     'nama' => $this->request->getVar('wajibpajak'),
-        //     'username' => $this->request->getVar('npwp'),
-        //     'password' => $this->request->getVar('efin'),
-        //     'level' => $level,
-        //     'notelp' => $notelp,
-        //     'id_klien' => $id_klien
-        // ];
-        // // dd($data_user);
-        // $this->usersModel->insert($data_user);
 
         // Memunculkan session flash data hijau
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
@@ -262,7 +274,6 @@ class Klien extends BaseController
             unlink('img/' . $gambarfile);
         }
 
-
         //menghapus data berdasarkan id klien
         $this->klienModel->delete(($id));
         session()->setFlashdata('pesan-hapus', 'Data berhasil dihapus');
@@ -281,10 +292,8 @@ class Klien extends BaseController
         return view('klien/edit', $data);
     }
 
-
     public function update($id)
     {
-
         // cek klien
         $klienLama = $this->klienModel->getKlien($this->request->getVar('id'));
         // dd($klienLama);
@@ -298,27 +307,45 @@ class Klien extends BaseController
         if (!$this->validate(
             [
                 'wajibpajak' => [
-                    'rules' => 'required',
+                    'rules' => 'required|max_length[60]',
                     'errors' => [
-                        'required' => 'Nama klien harus diisi!'
+                        'required' => 'Nama klien harus diisi!',
+                        'max_length' => 'Nama klien tidak boleh terlalu panjang'
                     ]
                 ],
                 'npwp' => [
-                    'rules' => 'required|npwp',
+                    'rules' => 'permit_empty|required|npwp',
                     'errors' => [
-                        'required' => 'NPWP klien harus diisi!',
-                        'npwp' => "NPWP harus berupa angka , - , dan . "
-
+                        'npwp' => 'NPWP harus berupa angka , - , dan .',
+                        'required' => 'NPWP klien harus diisi.'
                     ]
                 ],
                 'notelp' => [
-                    'rules' => 'numeric_dash',
+                    'rules' => 'permit_empty|numeric_dash',
                     'errors' => [
-                        'numeric_dash' => 'Nomor HP klien harus berupa angka atau - '
+                        'numeric_dash' => 'Nomor HP klien harus berupa angka.'
+                    ]
+                ],
+                'notelp_per' => [
+                    'rules' => 'permit_empty|numeric_dash',
+                    'errors' => [
+                        'numeric_dash' => 'Nomor HP klien harus berupa angka.'
+                    ]
+                ],
+                'efin' => [
+                    'rules' => 'permit_empty|numeric',
+                    'errors' => [
+                        'numeric' => 'EFIN klien harus berupa angka.'
+                    ]
+                ],
+                'email' => [
+                    'rules' => 'permit_empty|valid_email',
+                    'errors' => [
+                        'valid_email' => 'Masukkan Email yang benar!.'
                     ]
                 ],
                 'filegambar' => [
-                    'rules' => 'max_size[filegambar,3072]|is_image[filegambar]|mime_in[filegambar,image/jpg,image/jpeg,image/png]',
+                    'rules' => 'mime_in[filegambar,image/jpg,image/jpeg,image/png]|max_size[filegambar,3072]|is_image[filegambar]',
                     'errors' => [
                         'max_size' => 'Ukuran gambar terlalu besar',
                         'is_image' => 'Yang anda pilih bukan gambar, pilihlah gambar berupa jpg/jpeg/png',
@@ -369,13 +396,7 @@ class Klien extends BaseController
             'catatan' => $this->request->getVar('catatan'),
             'filegambar' => $namaGambar
         ]);
-        // $data = [
-        //     'wajibpajak' => $this->request->getVar('wajibpajak'),
-        //     'npwp' => $this->request->getVar('npwp'),
-        //     'notelp' => $notelp,
-        //     'catatan' => $this->request->getVar('catatan')
-        // ];
-        // $this->klienModel->replace($data);
+
         session()->setFlashdata('pesan', 'Data berhasil diubah');
         // redirect kembali tanpa index.php
         return redirect()->to(base_url() . '/klien/detail/' .  $this->request->getVar('id'));

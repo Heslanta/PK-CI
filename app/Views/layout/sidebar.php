@@ -26,7 +26,7 @@
         <div class="sidebar-nama">
             <div class="logo-sidebar">
                 <a href="/pages/index">
-                    <img src="../images/logo.png" alt="hlp"> &nbsp; HLP Banjarmasin
+                    <img src="../../images/logo.png" alt="hlp"> &nbsp; HLP Banjarmasin
                 </a>
             </div>
 
@@ -104,6 +104,14 @@
                             Pengguna
                         </div>
                     </a>
+                    <a href="<?= base_url('/tujuan-konsul'); ?>">
+                        <div class="sidebar-list">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fa-solid fa-cog"></i>&nbsp;&nbsp;
+                            Tujuan Konsul
+                        </div>
+                    </a>
+
                 <?php endif; ?>
             </div>
 

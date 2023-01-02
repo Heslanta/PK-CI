@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ProsesModel extends Model
 {
     protected $table = 'proses';
-    protected $allowedFields = ['tujuan_jdw', 'tanggal', 'status', 'nama', 'id_user', 'proses', 'alasan', 'id_jadwal'];
+    protected $allowedFields = ['tujuan_jdw', 'tanggal', 'jam', 'status', 'nama', 'id_user', 'proses', 'alasan', 'id_jadwal'];
 
     protected $validationRules      = [];
     protected $validationMessages   = [];

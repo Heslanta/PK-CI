@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class JadwalModel extends Model
 {
     protected $table = 'jadwal';
-    protected $allowedFields = ['tujuan_jdw', 'tanggal', 'status', 'nama', 'id_user', 'proses'];
+    protected $allowedFields = ['tujuan_jdw', 'tanggal', 'status', 'nama', 'id_user', 'proses', 'jam'];
 
     protected $validationRules      = [];
     protected $validationMessages   = [];
@@ -19,7 +19,7 @@ class JadwalModel extends Model
     public function getJadwal($id = false)
     {
         if ($id == false) {
-            return $this->orderBy('tanggal', "ASC")->findAll();
+            return $this->where('tanggal >= CURDATE()')->orderBy('tanggal', "ASC")->findAll();
         }
         return $this->where(['id_jadwal' => $id])->first();
 
@@ -29,7 +29,37 @@ class JadwalModel extends Model
 
         // return $query;
     }
+    public function getJadwalBefore($id = false)
+    {
+        if ($id == false) {
+            return $this->where('tanggal BETWEEN (NOW() - INTERVAL 1 DAY) - INTERVAL 2 YEAR AND (NOW() - INTERVAL 1 DAY)', "", false)->orderBy('tanggal', "ASC")->findAll();
+        }
+        return $this->where(['id_jadwal' => $id])->first();
+
+        // $query =  $this->db->table('jadwal')
+        //     ->orderBy('tanggal', 'ASC')
+        //     ->get();
+
+        // return $query;
+    }
+    // public function getJadwalToday($id = false)
+    // {
+    //     if ($id == false) {
+    //         return $this->where('date(tanggal)', date('Y-m-d'))->orderBy('tanggal', "ASC")->findAll();
+    //     }
+    //     return $this->where(['id_jadwal' => $id])->first();
+
+    //     // $query =  $this->db->table('jadwal')
+    //     //     ->orderBy('tanggal', 'ASC')
+    //     //     ->get();
+
+    //     // return $query;
+    // }
     // menampilkan jadwal pada pages klien
+    public function hapusJadwalBefore()
+    {
+    }
+
     public function viewJadwal()
     {
         $session = session();

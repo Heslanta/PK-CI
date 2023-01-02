@@ -51,6 +51,14 @@ body{
     padding-right: 50px;
 }
 
+.tabel-header > span{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    transform: translate(50%, -50%);
+
+}
+
 .search {
     width: 100%;
     position: relative;
@@ -103,7 +111,7 @@ body{
 
 .tabel-header{
     background-color: #013B64;
-    
+    position: relative;
     height: 50px;
     width: 100%;
     text-align: center;

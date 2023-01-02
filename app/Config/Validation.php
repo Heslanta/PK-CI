@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Validation\NPWPRules;
 use App\Validation\NumericDashRules;
+use App\Validation\TanggalRules;
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
@@ -29,7 +30,8 @@ class Validation
         CreditCardRules::class,
         Userrules::class,
         NumericDashRules::class,
-        NPWPRules::class
+        NPWPRules::class,
+        TanggalRules::class
         // \Myth\Auth\Authentication\Passwords\ValidationRules::class
     ];
 

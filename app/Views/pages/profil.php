@@ -28,10 +28,9 @@
                             <p class="card-text"><b>Level : </b><br><?= $profil['level']; ?></p>
                             <p class="card-text"><b>Nomor HP : </b><br><?= $profil['notelp']; ?></p>
 
-                            <?php if ($session->get('level') !== 'klien') : ?>
 
-                                <a href="/users/editprofil/<?= $session->get('id') ?>" class="btn btn-primary">Edit</a>
-                            <?php endif; ?>
+
+                            <a href="/users/editprofil/<?= $session->get('id') ?>" class="btn btn-primary">Edit</a>
                             <a href="/pages" class="btn btn-warning">Kembali</a>
                             <!-- <button onclick="history.back()" class="btn btn-warning">Kembali</button> -->
                         </div>

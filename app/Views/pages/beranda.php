@@ -29,12 +29,29 @@
                 </div>
                 <h2>Klien berjumlah : <?= $jmlklien; ?> | Konsultasi berjumlah : <?= $jmlkonsul; ?></h2>
                 <br>
-
+                <?php if (session()->getFlashdata('pesan')) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('pesan'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div><?php endif; ?>
+                <?php if (session()->getFlashdata('pesan-hapus')) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('pesan-hapus'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+                <?php if (session()->getFlashdata('errors')) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('errors'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
                 <!-- Bagian tabel jadwal konsultasi klien -->
                 <!-- Mulai -->
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">
                         <h5>Jadwal Konsultasi Klien</h5>
+
                     </div>
 
                     <div class="card-body bg-white">
@@ -47,8 +64,11 @@
                                     <th>Nama</th>
                                     <th>Tujuan</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
-                                    <th>Info</th>
+                                    <?php if ($session->get('level') == 'admin') : ?>
+                                        <th>Info</th>
+                                    <?php endif; ?>
 
                                 </tr>
                             </thead>
@@ -64,19 +84,35 @@
                                                 $status = "Datang Kembali";
                                             }
                                             ?>
+                                            <?php if ($jad['jam'] == 'pagi') {
+                                                $jam = "Jam 09:00-11:00 Pagi";
+                                            }
+                                            if ($jad['jam'] == 'siang') {
+                                                $jam = "Jam 12:00-14:00 Siang ";
+                                            }
+                                            if ($jad['jam'] == 'sore') {
+                                                $jam = "Jam 15:00-17:00 Sore ";
+                                            }
+                                            if ($jad['jam'] == '') {
+                                                $jam = "";
+                                            } ?>
                                             <th scope="row"><?= $i++; ?></th>
                                             <td><?= $jad['nama']; ?></td>
                                             <td><?= $jad['tujuan_jdw']; ?></td>
                                             <td><?= tgl_indo($jad['tanggal']); ?></td>
+                                            <td><?= $jam; ?></td>
                                             <td><?= $status; ?></td>
-                                            <td>
-                                                <ul class="list-inline m-0">
+                                            <?php if ($session->get('level') == 'admin') : ?>
+                                                <td>
+                                                    <ul class="list-inline m-0">
+                                                        <?php if (strtotime($jad['tanggal']) < time() + 172800) :  ?>
 
-                                                    <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-id="<?= $jad['id_jadwal']; ?>" data-nama="<?= $jad['nama']; ?>" data-tanggal="<?= $jad['tanggal']; ?>" data-tujuan="<?= $jad['tujuan_jdw']; ?>" data-status="<?= $jad['status']; ?>"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jad['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
-
-                                                </ul>
-                                            </td>
+                                                            <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit tanggal jadwal" data-id="<?= $jad['id_jadwal']; ?>" data-nama="<?= $jad['nama']; ?>" data-tanggal="<?= $jad['tanggal']; ?>" data-tujuan="<?= $jad['tujuan_jdw']; ?>" data-jam="<?= $jad['jam']; ?>" data-status="<?= $jad['status']; ?>"><i class="fa fa-edit"></i></a>
+                                                            <!-- <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jad['id_jadwal']; ?>"><i class="fa fa-trash"></i></a> -->
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -97,20 +133,23 @@
                     <div class="card-body bg-white">
                         <!-- <button type="button" class="btn btn-success mb-2 btn-add" data-toggle="modal" data-target="#addModal">Tambah Jadwal</button> -->
 
-                        <table id="example1" class="table table-striped" style="width:100%">
+                        <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama</th>
                                     <th>Tujuan</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status</th>
                                     <th>Proses</th>
-                                    <th>Info</th>
-
+                                    <?php if ($session->get('level') == 'admin') : ?>
+                                        <th>Info</th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <?php $i = 1 + ($jmldata * ($currentPage - 1)); ?>
 
                                 <?php foreach ($proses as $jad) : ?>
@@ -135,17 +174,32 @@
                                                 $proses = "Ditolak ";
                                             }
                                             ?>
+                                            <?php if ($jad['jam'] == 'pagi') {
+                                                $jam = "Jam 09:00-11:00 Pagi";
+                                            }
+                                            if ($jad['jam'] == 'siang') {
+                                                $jam = "Jam 12:00-14:00 Siang ";
+                                            }
+                                            if ($jad['jam'] == 'sore') {
+                                                $jam = "Jam 15:00-17:00 Sore ";
+                                            }
+                                            if ($jad['jam'] == '') {
+                                                $jam = "";
+                                            } ?>
                                             <th scope="row"><?= $i++; ?></th>
                                             <td><?= $jad['nama']; ?></td>
                                             <td><?= $jad['tujuan_jdw']; ?></td>
                                             <td><?= tgl_indo($jad['tanggal']); ?></td>
+                                            <td><?= $jam; ?></td>
                                             <td><?= $status; ?></td>
                                             <td><?= $proses ?></td>
                                             <td>
-                                                <ul class="list-inline m-0">
-                                                    <a href="#" class="btn btn-success btn-sm btn-terima" data-placement="top" title="Terima" data-id_jadwal="<?= $jad['id_jadwal']; ?>" data-id_user="<?= $jad['id_user']; ?>" data-nama="<?= $jad['nama']; ?>" data-tanggal="<?= $jad['tanggal']; ?>" data-tujuan="<?= $jad['tujuan_jdw']; ?>" data-status="<?= $jad['status']; ?>">Terima</i></a>
-                                                    <a href="#" class="btn btn-danger btn-sm btn-tolak" data-toggle="tooltip" data-placement="top" title="Tolak" data-id="<?= $jad['id_jadwal']; ?>">Tolak</i></a>
-                                                </ul>
+                                                <?php if ($session->get('level') == 'admin') : ?>
+                                                    <ul class="list-inline m-0">
+                                                        <a href="#" class="btn btn-success btn-sm btn-terima" data-placement="top" title="Terima" data-id_jadwal="<?= $jad['id_jadwal']; ?>" data-id_user="<?= $jad['id_user']; ?>" data-nama="<?= $jad['nama']; ?>" data-tanggal="<?= $jad['tanggal']; ?>" data-jam="<?= $jad['jam']; ?>" data-tujuan="<?= $jad['tujuan_jdw']; ?>" data-status="<?= $jad['status']; ?>">Terima</i></a>
+                                                        <a href="#" class="btn btn-danger btn-sm btn-tolak" data-toggle="tooltip" data-placement="top" title="Tolak" data-id="<?= $jad['id_jadwal']; ?>">Tolak</i></a>
+                                                    </ul>
+                                                <?php endif; ?>
                                             </td>
                                         <?php endif; ?>
 
@@ -155,6 +209,7 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
                 <!-- End dari tabel jadwal konsul klien -->
@@ -215,13 +270,32 @@
 
                                     <div class="form-group">
                                         <label>Tujuan</label>
-                                        <input type="text" class="form-control" name="tujuan_jdw" placeholder="Tujuan Konsultasi">
+                                        <select name="tujuan_jdw" class="form-control" onchange="showDiv('dll', this)" required>
+                                            <?php if ($tujuan != "") : ?>
+                                                <?php foreach ($tujuan as $tuju) : ?>
+                                                    <option><?= $tuju ?></option>
+
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+
+                                            <option value="1">dan lain-lain</option>
+                                        </select>
                                     </div>
+                                    <br>
+                                    <input type="text" id="dll" class="form-control" name="tujuan_dll" placeholder="Tujuan Konsultasi" style="display: none;">
 
                                     <div class="form-group">
                                         <label>Tanggal</label>
                                         <input type="date" class="form-control" name="tanggal" placeholder="">
 
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Jam</label>
+                                        <select name="jam" class="form-control" required>
+                                            <option value="pagi">Jam 09:00-11:00 Pagi</option>
+                                            <option value="siang">Jam 12:00-14:00 Siang</option>
+                                            <option value="sore">Jam 15:00-17:00 Sore</option>
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
@@ -235,8 +309,8 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                 </div>
                             </div>
                         </div>
@@ -291,14 +365,32 @@
 
                                     <div class="form-group">
                                         <label>Tujuan</label>
-                                        <input type="text" class="form-control tujuan_jdw" name="tujuan_jdw" placeholder="">
+                                        <select name="tujuan_jdw" class="form-control tujuan_jdw" onchange="showDivUpdate('dllupdate', this)" required>
+                                            <?php if ($tujuan != "") : ?>
+                                                <?php foreach ($tujuan as $tuju) : ?>
+                                                    <option><?= $tuju ?></option>
+
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                            <option value="1">dan lain-lain</option>
+                                        </select>
                                     </div>
+                                    <br>
+                                    <input type="text" id="dllupdate" class="form-control tujuan_dll" name="tujuan_dll" placeholder="Tujuan Konsultasi" style="display: none;">
 
                                     <div class="form-group">
                                         <label>Tanggal</label>
                                         <input type="date" class="form-control tanggal" name="tanggal" placeholder="">
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Jam</label>
+                                        <select name="jam" class="form-control jam" required>
+                                            <option value="pagi">Jam 09:00-11:00 Pagi</option>
+                                            <option value="siang">Jam 12:00-14:00 Siang</option>
+                                            <option value="sore">Jam 15:00-17:00 Sore</option>
+                                        </select>
+                                    </div>
 
                                     <div class="form-group">
                                         <label>Status</label>
@@ -311,8 +403,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="hidden" name="id_jadwal" class="id_jadwal">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Ubah</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                 </div>
                             </div>
                         </div>
@@ -342,6 +434,7 @@
                                     <input type="hidden" name="nama" class="nama">
                                     <input type="hidden" name="tujuan_jdw" class="tujuan_jdw">
                                     <input type="hidden" name="tanggal" class="tanggal">
+                                    <input type="hidden" name="jam" class="jam">
                                     <input type="hidden" name="status" class="status">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
                                     <button type="submit" class="btn btn-primary">Ya</button>
@@ -369,7 +462,12 @@
                                     <div class="form-group">
                                         <label>Alasan Menolak Permintaan Jadwal</label>
                                         <!-- <input type="text" class="form-control tujuan_jdw" placeholder=""> -->
-                                        <textarea class="form-control" name="alasan" aria-label="With textarea"></textarea>
+                                        <select name="alasan" class="form-control">
+                                            <option value="Berhalangan">Berhalangan</option>
+                                            <option value="Bukan hari kerja">Bukan hari kerja</option>
+                                            <option value="Kuota konsultasi penuh">Kuota konsultasi penuh </option>
+
+                                        </select>
                                     </div>
                                 </div>
 
@@ -390,13 +488,24 @@
 
 </div>
 <script>
-    function myFunction() {
-        document.getElementById("Pilihan").value = "baru";
+    //function hidden input danlainlain
+    function showDiv(dll, element) {
+        document.getElementById(dll).style.display = element.value == 1 ? 'block' : 'none';
     }
+    //function hidden input danlainlain
+    function showDivUpdate(dllupdate, element) {
+        document.getElementById(dllupdate).style.display = element.value == 1 ? 'block' : 'none';
+    }
+    //function pilihan baru
+    // function myFunction() {
+    //     document.getElementById("Pilihan").value = "baru";
+    // }
     // function data table
     $(document).ready(function() {
         $('#example').DataTable({
             ordering: false,
+
+
             // info: false
         });
 
@@ -404,21 +513,26 @@
 
     // get Terima Jadwal
     $('.btn-terima').on('click', function() {
-        // get data from button terima
+        // get data from button edit
         const id_jadwal = $(this).data('id_jadwal');
         const id_user = $(this).data('id_user');
         const nama = $(this).data('nama');
         const tujuan = $(this).data('tujuan');
         const tanggal = $(this).data('tanggal');
+        const jam = $(this).data('jam');
         const status = $(this).data('status');
+
 
         // Set data to Form Edit
         $('.id_jadwal').val(id_jadwal);
         $('.id_user').val(id_user);
         $('.nama').val(nama);
-        $('.tujuan_jdw').val(tujuan);
+        $('.tujuan_jdw').val(tujuan).trigger('change');
         $('.tanggal').val(tanggal);
+        $('.jam').val(jam).trigger('change');
         $('.status').val(status).trigger('change');
+
+
         // Call Modal Edit
         $('#terimaModal').modal('show');
     });
@@ -448,13 +562,16 @@
             const nama = $(this).data('nama');
             const tujuan = $(this).data('tujuan');
             const tanggal = $(this).data('tanggal');
+            const jam = $(this).data('jam');
             const status = $(this).data('status');
 
             // Set data to Form Edit
             $('.id_jadwal').val(id);
             $('.nama').val(nama);
-            $('.tujuan_jdw').val(tujuan);
+            $('.tujuan_jdw').val(tujuan).trigger('change');
             $('.tanggal').val(tanggal);
+            $('.tujuan_dll').val(tujuan);
+            $('.jam').val(jam).trigger('change');
             $('.status').val(status).trigger('change');
             // Call Modal Edit
             $('#editModal').modal('show');

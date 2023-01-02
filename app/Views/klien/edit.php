@@ -71,7 +71,6 @@
                     <?= $validation->getError('notelp'); ?>
                 </div>
             </div>
-            <h6>Memasukan nomor hp jangan menggunakan spasi (Contoh : 08123456789)</h6>
         </div>
 
         <div class="row mb-3">
@@ -84,6 +83,9 @@
             <label for="email" class="col-sm-2 col-form-label"><b>Email</b></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="email" name="email" value="<?= (old('email')) ? old('email') : $klien['email'] ?>">
+                <div id="validationServer03Feedback" class="invalid-feedback">
+                    <?= $validation->getError('email'); ?>
+                </div>
             </div>
         </div>
         <div class="row mb-3">
@@ -96,6 +98,9 @@
             <label for="notelp_per" class="col-sm-2 col-form-label"><b>Nomor HP Perusahaan</b></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="notelp_per" name="notelp_per" value="<?= (old('notelp_per')) ? old('notelp_per') : $klien['notelp_per'] ?>">
+                <div id="validationServer03Feedback" class="invalid-feedback">
+                    <?= $validation->getError('notelp_per'); ?>
+                </div>
             </div>
         </div>
         <div class="row mb-3">

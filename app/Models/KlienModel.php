@@ -32,7 +32,7 @@ class KlienModel extends Model
     public function getKonsul($id)
     {
         $query =  $this->db->table('konsultasi')
-            ->join('klien', 'konsultasi.id_klien = klien.id')
+            // ->join('klien', 'konsultasi.id_klien = klien.id')
             ->where('konsultasi.id_klien', $id)
             ->get();
 

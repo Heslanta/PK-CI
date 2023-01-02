@@ -11,25 +11,32 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <h1 class="mt-2">Daftar Pengguna </h1>
-            <form action="" method="POST">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Masukkan pencarian..." name="keyword">
-                    <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
-                </div>
-            </form>
+            <h1 class="mt-2">Tujuan Konsultasi </h1>
+
         </div>
     </div>
     <div class="row">
         <div class="col">
             <!-- <a href="/users/create" class="btn btn-success mt-3">Tambah Data Pengguna</a> -->
             <br><br>
-            <button type="button" class="btn btn-success mb-2 btn-add" data-toggle="modal" data-target="#addModal">Tambah User</button>
+            <button type="button" class="btn btn-success mb-2 btn-add" data-toggle="modal" data-target="#addModal">Tambah Tujuan Konsultasi</button>
 
             <!-- menunjukkan alert tambah data -->
             <?php if (session()->getFlashdata('pesan')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= session()->getFlashdata('pesan'); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            <?php if (session()->getFlashdata('pesan-hapus')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= session()->getFlashdata('pesan-hapus'); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            <?php if (session()->getFlashdata('errors')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= session()->getFlashdata('errors'); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
@@ -39,43 +46,25 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Nomor HP</th>
-                        <th scope="col">Level</th>
+                        <th scope="col">Keterangan</th>
+
                         <th scope="col">Info</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1 + ($jmldata * ($currentPage - 1)); ?>
+                    <?php $i = 1; ?>
+                    <?php foreach ($tujuan as $tuju) : ?>
 
-                    <?php foreach ($users as $u) : ?>
                         <tr>
-                            <?php
-                            if ($u['level'] == 'admin') {
-                                $level = "Admin";
-                            }
-                            if ($u['level'] == 'pegawai') {
-                                $level = "Pegawai";
-                            }
-                            if ($u['level'] == 'klien') {
-                                $level = "Klien";
-                            }
-                            ?>
+
                             <th scope="row"><?= $i++; ?></th>
-                            <td><?= $u['nama']; ?></td>
-                            <td><?= $u['username']; ?></td>
-                            <td><?= $u['password']; ?></td>
-                            <td><?= $u['notelp']; ?></td>
-                            <td><?= $level; ?></td>
+                            <td><?= $tuju['tujuan_konsul']; ?></td>
+
                             <td>
                                 <ul class="list-inline m-0">
 
-                                    <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-id="<?= $u['id']; ?>" data-nama="<?= $u['nama']; ?>" data-username="<?= $u['username']; ?>" data-password="<?= $u['password']; ?>" data-notelp="<?= $u['notelp']; ?>" data-level="<?= $u['level']; ?>"><i class="fa fa-edit"></i></a>
-                                    <?php if ($u['level'] != 'admin') : ?>
-                                        <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $u['id']; ?>"><i class="fa fa-trash"></i></a>
-                                    <?php endif; ?>
+                                    <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-tujuan_konsul="<?= $tuju['tujuan_konsul']; ?>" data-id="<?= $tuju['id']; ?>"><i class="fa fa-edit"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $tuju['id']; ?>"><i class="fa fa-trash"></i></a>
                                 </ul>
                             </td>
 
@@ -83,19 +72,18 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <?= $pager->links('user', 'pagination_user'); ?>
             <!-- End Tabel -->
 
 
             <!-- Bagian Model Popup -->
             <!-- Modal Add Akun-->
-            <form action="/users/save" method="post">
+            <form action="/tujuan/save" method="post">
                 <?= csrf_field(); ?>
                 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tambah Akun</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Tambah Tujuan Konsultasi</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -103,35 +91,11 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label>Nama</label>
-                                    <input type="text" class="form-control" name="nama" placeholder="Nama Akun" required>
+                                    <label>Keterangan</label>
+                                    <input type="text" class="form-control" name="tujuan_konsul" placeholder="Nama Konsultasi" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control" name="username" placeholder="Username" required>
-                                </div>
 
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="text" class="form-control" name="password" placeholder="Password" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Nomor Hp</label>
-                                    <input type="text" class="form-control" name="notelp" placeholder="Nomor Hp">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Level</label>
-                                    <select name="level" class="form-control">
-                                        <option value="admin">Admin</option>
-                                        <option value="pegawai">Pegawai</option>
-                                        <!-- <option value="klien">Klien</option> -->
-
-                                    </select>
-
-                                </div>
 
                             </div>
                             <div class="modal-footer">
@@ -145,7 +109,7 @@
             <!-- End Modal Add Akun-->
 
             <!-- Modal Delete Akun-->
-            <form action="/users/delete" method="post">
+            <form action="/tujuan/delete" method="post">
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -162,8 +126,9 @@
                             </div>
                             <div class="modal-footer">
                                 <input type="hidden" name="id" class="id">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <button type="submit" class="btn btn-primary">Yes</button>
+
+                                <button type="submit" class="btn btn-primary">Ya</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             </div>
                         </div>
                     </div>
@@ -172,44 +137,21 @@
             <!-- End Modal Delete Akun-->
 
             <!-- Modal Edit Akun-->
-            <form action="/users/update" method="post">
+            <form action="/tujuan/update" method="post">
                 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Edit Akun</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Tujuan</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label>Nama Akun</label>
-                                    <input type="text" class="form-control nama" name="nama" placeholder="" required />
+                                    <label>Keterangan Tujuan Konsul</label>
+                                    <input type="text" class="form-control tujuan_konsul" name="tujuan_konsul" placeholder="" required />
 
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control username" name="username" placeholder="" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="text" class="form-control password" name="password" placeholder="" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nomor HP</label>
-                                    <input type="text" class="form-control notelp" name="notelp" placeholder="">
-                                </div>
-
-                                <div class="form-group" id="level">
-                                    <label>Level</label>
-                                    <select name="level" class="form-control level" id="Pilihan" onchange="displayDivDemo('level', this)">
-                                        <option value="admin">Admin</option>
-                                        <option value="pegawai">Pegawai</option>
-                                        <option hidden value="klien">Klien</option>
-                                    </select>
                                 </div>
 
                             </div>
@@ -244,19 +186,13 @@
         $('.btn-edit').on('click', function() {
             // get data from button edit
             const id = $(this).data('id');
-            const nama = $(this).data('nama');
-            const username = $(this).data('username');
-            const password = $(this).data('password');
-            const notelp = $(this).data('notelp');
-            const level = $(this).data('level');
+            const tujuan_konsul = $(this).data('tujuan_konsul');
+
 
             // Set data to Form Edit
             $('.id').val(id);
-            $('.nama').val(nama);
-            $('.username').val(username);
-            $('.password').val(password);
-            $('.notelp').val(notelp);
-            $('.level').val(level).trigger('change');
+            $('.tujuan_konsul').val(tujuan_konsul);
+
             // Call Modal Edit
             $('#editModal').modal('show');
         });

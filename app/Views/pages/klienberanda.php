@@ -39,6 +39,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php endif; ?>
+                <?php if (session()->getFlashdata('errors')) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('errors'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+
+
+
                 <br>
                 <table class="table table-striped">
                     <thead>
@@ -46,6 +55,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Tujuan Konsultasi</th>
                             <th scope="col">Tanggal</th>
+                            <th scope="col">Jam</th>
                             <th scope="col">Status</th>
                             <th scope="col">Proses</th>
                             <th scope="col">Aksi</th>
@@ -75,22 +85,38 @@
                                     $proses = "Ditolak ";
                                     $warna = 'danger';
                                 }
+
                                 ?>
+                                <?php if ($jadwalklien['jam'] == 'pagi') {
+                                    $jam = "Jam 09:00-11:00 Pagi";
+                                }
+                                if ($jadwalklien['jam'] == 'siang') {
+                                    $jam = "Jam 12:00-14:00 Siang ";
+                                }
+                                if ($jadwalklien['jam'] == 'sore') {
+                                    $jam = "Jam 15:00-17:00 Sore ";
+                                }
+                                if ($jadwalklien['jam'] == '') {
+                                    $jam = "";
+                                } ?>
                                 <th scope="row"><?= $i++; ?></th>
                                 <td><?= $jadwalklien['tujuan_jdw']; ?></td>
                                 <td><?= tgl_indo($jadwalklien['tanggal']); ?></td>
+                                <td><?= $jam; ?></td>
                                 <td><?= $status; ?></td>
                                 <td><span class="badge bg-<?= $warna; ?>"><?= $proses; ?></span></td>
                                 <td>
                                     <ul class="list-inline m-0">
                                         <?php if ($jadwalklien['proses'] == 'menunggu') : ?>
 
-                                            <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-id="<?= $jadwalklien['id_jadwal']; ?>" data-nama="<?= $jadwalklien['nama']; ?>" data-tanggal="<?= $jadwalklien['tanggal']; ?>" data-tujuan="<?= $jadwalklien['tujuan_jdw']; ?>" data-status="<?= $jadwalklien['status']; ?>"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-id="<?= $jadwalklien['id_jadwal']; ?>" data-nama="<?= $jadwalklien['nama']; ?>" data-tanggal="<?= $jadwalklien['tanggal']; ?>" data-jam="<?= $jadwalklien['jam']; ?>" data-tujuan="<?= $jadwalklien['tujuan_jdw']; ?>" data-status="<?= $jadwalklien['status']; ?>"><i class="fa fa-edit"></i></a>
                                             <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
                                             &nbsp;
                                         <?php endif; ?>
                                         <?php if ($jadwalklien['proses'] == 'ditolak') : ?>
                                             <a tabindex="0" type="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Alasan ditolak" data-bs-content="<?= $jadwalklien['alasan']; ?>"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
+
                                         <?php endif; ?>
                                     </ul>
                                 </td>
@@ -102,7 +128,7 @@
         </div>
     </div>
     <!-- Modal Add Jadwal-->
-    <form action="/proses/saveklien" method="post">
+    <form action="/proses/saveklien" method="post" class="validation-add_jadwal">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -115,11 +141,30 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Tujuan</label>
-                            <input type="text" class="form-control" name="tujuan_jdw" placeholder="Tujuan Konsultasi">
+                            <select name="tujuan_jdw" class="form-control" onchange="showDiv('dll', this)" required>
+                                <?php if ($tujuan != "") : ?>
+                                    <?php foreach ($tujuan as $tuju) : ?>
+                                        <option><?= $tuju ?></option>
+
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                <option value="1">Dan lain-lain</option>
+                            </select>
                         </div>
+                        <br>
+                        <input type="text" id="dll" class="form-control" name="tujuan_dll" placeholder="Tujuan Konsultasi" style="display: none;">
+
                         <div class="form-group">
                             <label>Tanggal</label>
-                            <input type="date" class="form-control" name="tanggal" placeholder="">
+                            <input type="date" class="form-control" name="tanggal" placeholder="" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jam</label>
+                            <select name="jam" class="form-control" required>
+                                <option value="pagi">Jam 09:00-11:00 Pagi</option>
+                                <option value="siang">Jam 12:00-14:00 Siang</option>
+                                <option value="sore">Jam 15:00-17:00 Sore</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Status</label>
@@ -132,8 +177,8 @@
                     <div class="modal-footer">
                         <input type="hidden" name="id" class="id_user" value="<?= $session->get('id') ?>">
                         <input type="hidden" name="nama" class="nama" value="<?= $session->get('nama') ?>">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </div>
             </div>
@@ -181,11 +226,30 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Tujuan</label>
-                            <input type="text" class="form-control tujuan_jdw" name="tujuan_jdw" placeholder="">
+                            <select name="tujuan_jdw" class="form-control tujuan_jdw" onchange="showDivUpdate('dllupdate', this)" required>
+                                <?php if ($tujuan != "") : ?>
+                                    <?php foreach ($tujuan as $tuju) : ?>
+                                        <option><?= $tuju ?></option>
+
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                <option value="1">dan lain-lain</option>
+                            </select>
                         </div>
+                        <br>
+                        <input type="text" id="dllupdate" class="form-control tujuan_dll" name="tujuan_dll" placeholder="Tujuan Konsultasi" style="display: none;">
+
                         <div class="form-group">
                             <label>Tanggal</label>
-                            <input type="date" class="form-control tanggal" name="tanggal" placeholder="">
+                            <input type="date" class="form-control tanggal" name="tanggal" placeholder="" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jam</label>
+                            <select name="jam" class="form-control jam" required>
+                                <option value="pagi">Jam 09:00-11:00 Pagi</option>
+                                <option value="siang">Jam 12:00-14:00 Siang</option>
+                                <option value="sore">Jam 15:00-17:00 Sore</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Status</label>
@@ -199,8 +263,8 @@
                         <input type="hidden" name="id_user" class="id_user">
                         <input type="hidden" name="id_jadwal" class="id_jadwal">
                         <input type="hidden" name="nama" class="nama">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </div>
             </div>
@@ -212,6 +276,17 @@
 
 
 <script>
+    //function hidden input danlainlain
+    function showDiv(dll, element) {
+        document.getElementById(dll).style.display = element.value == 1 ? 'block' : 'none';
+    }
+
+    function showDivUpdate(dllupdate, element) {
+        document.getElementById(dllupdate).style.display = element.value == 1 ? 'block' : 'none';
+    }
+
+
+
     function myFunction() {
         document.getElementById("Pilihan").value = "baru";
     }
@@ -227,18 +302,19 @@
         $('.btn-edit').on('click', function() {
             // get data from button edit
             const id = $(this).data('id');
-            const id_user = $(this).data('id_user');
             const nama = $(this).data('nama');
             const tujuan = $(this).data('tujuan');
             const tanggal = $(this).data('tanggal');
+            const jam = $(this).data('jam');
             const status = $(this).data('status');
 
             // Set data to Form Edit
             $('.id_jadwal').val(id);
-            $('.id_user').val(id_user);
             $('.nama').val(nama);
-            $('.tujuan_jdw').val(tujuan);
+            $('.tujuan_jdw').val(tujuan).trigger('change');
             $('.tanggal').val(tanggal);
+            $('.tujuan_dll').val(tujuan);
+            $('.jam').val(jam).trigger('change');
             $('.status').val(status).trigger('change');
             // Call Modal Edit
             $('#editModal').modal('show');

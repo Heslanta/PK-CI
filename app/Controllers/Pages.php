@@ -7,6 +7,7 @@ use App\Models\JadwalModel;
 use App\Models\KlienModel;
 use App\Models\KonsulModel;
 use App\Models\ProsesModel;
+use App\Models\TujuanModel;
 
 class Pages extends BaseController
 {
@@ -40,7 +41,13 @@ class Pages extends BaseController
         $this->session->start();
         $this->jadwalModel = new  JadwalModel();
         $this->klienModel = new  KlienModel();
+        $this->tujuanModel = new  TujuanModel();
     }
+    public function home()
+    {
+        return view('pages/home');
+    }
+
     public function index()
     {
         $jadwal = $this->jadwalModel;
@@ -50,12 +57,20 @@ class Pages extends BaseController
             1;
         // jumlah data per halaman
         $jmldata = 10;
+        // ambil jadwal sebelum hari ini
+        $jadwalbefore = $jadwal->getJadwalBefore();
+        if (!empty($jadwalbefore)) {
+            $this->$jadwalbefore->hapusJadwalBefore();
+        }
+        // dd($jadwalbefore);
         $data = [
             'title' => 'Beranda | HLP',
+            'jadwalbefore' => $jadwal->getJadwalBefore(),
             'jadwal' => $jadwal->getJadwal(),
             'proses' => $prosesjadwal->getProsesJadwal(),
             'nama' => $nama->getNama(),
-            'pager' => $this->jadwalModel->pager,
+            'tujuan' => $this->tujuanModel->getNama(),
+            'pager' => $this->prosesModel->pager,
             'css' => 'user',
             'currentPage' => $currentPage,
             'jmldata' => $jmldata,
@@ -63,7 +78,7 @@ class Pages extends BaseController
             'jmlkonsul' => $this->pagesModel->getJumlahKonsul(),
             'totalkonsul' => $this->klienModel->getData(),
         ];
-        // dd($data);
+        dd($data);
 
 
         return view('pages/beranda', $data);
@@ -100,19 +115,31 @@ class Pages extends BaseController
             'title' => 'Beranda | HLP',
             'css' => 'preview-client-style',
             'jadwal' => $jadwal,
+            'tujuan' => $this->tujuanModel->getNama(),
+
 
         ];
         return view('pages/klienberanda', $data);
     }
 
-    public function regis()
+    public function bantuan()
     {
         $data = [
-            'title' => 'Tes | HLP',
-            'css' => 'preview-client-style',
+            'title' => 'Halaman Bantuan | HLP',
+            'css' => 'preview-client-style'
+
         ];
-        return view('auth/register', $data);
+        return view('pages/bantuan', $data);
     }
+
+    // public function regis()
+    // {
+    //     $data = [
+    //         'title' => 'Tes | HLP',
+    //         'css' => 'preview-client-style',
+    //     ];
+    //     return view('auth/register', $data);
+    // }
 
     public function tampilGrafikKonsul()
     {

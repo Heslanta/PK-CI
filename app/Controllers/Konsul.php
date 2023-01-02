@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\KonsulModel;
 use App\Models\KlienModel;
+use App\Models\TujuanModel;
+use Dompdf\Dompdf;
 
 class Konsul extends BaseController
 {
@@ -13,6 +15,7 @@ class Konsul extends BaseController
     {
         $this->konsulModel = new  KonsulModel();
         $this->klienModel = new  KlienModel();
+        $this->tujuanModel = new  TujuanModel();
         helper('date');
     }
 
@@ -40,6 +43,7 @@ class Konsul extends BaseController
             'validation' => \Config\Services::validation(),
             'klien' => $this->klienModel->getKlien($id),
             'css' => 'add-consul-style',
+            'tujuan' => $this->tujuanModel->getNama(),
             'konsultasi' => $data_konsul
         ];
 
@@ -55,14 +59,34 @@ class Konsul extends BaseController
                     'errors' => [
                         'required' => 'Tidak boleh kosong!'
                     ]
-                ]
+                ],
+                'hari_tanggal' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Tidak boleh kosong!'
+                    ]
+                ],
+                'tujuan_jdw' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Tidak boleh kosong!'
+                    ]
+                ],
 
             ]
         )) {
             // validasi
+            $id = $this->request->getVar('id_klien');
+
             $validation = \Config\Services::validation();
             // redirect kembali tanpa index.php
-            return redirect()->to(base_url() . '/konsul/create')->withInput();
+            return redirect()->to(base_url() . '/konsul/create/' . $id)->withInput();
+        }
+        $cektujuan = $this->request->getPost('tujuan_jdw');
+        if ($cektujuan == 1) {
+            $tujuan = $this->request->getPost('tujuan_dll');
+        } else {
+            $tujuan = $this->request->getPost('tujuan_jdw');
         }
         // masukan ke database
         // $id = url_title($this->request->getVar('wajibpajak'), '-', true);
@@ -70,7 +94,7 @@ class Konsul extends BaseController
         $this->konsulModel->save([
             'konsul_ke' => $this->request->getVar('konsul_ke'),
             'hari_tanggal' => $this->request->getVar('hari_tanggal'),
-            'tujuan' => $this->request->getVar('tujuan'),
+            'tujuan' => $tujuan,
             'hasil_konsul' => $this->request->getVar('hasil_konsul'),
             'catatan_konsul' => $this->request->getVar('catatan_konsul'),
             'id_klien' => $id
@@ -78,16 +102,18 @@ class Konsul extends BaseController
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
         // redirect kembali tanpa index.php
-        return redirect()->to(base_url() . '/klien/' . $id);
+        return redirect()->to(base_url() . '/klien/detail/' . $id);
     }
 
     public function delete($id_konsul)
     {
-
+        $id = $this->request->getVar('id_klien');
+        dd($id);
         $this->konsulModel->deleteKonsul(($id_konsul));
 
+
         session()->setFlashdata('pesan-hapus', 'Data berhasil dihapus');
-        return redirect()->to(base_url() . '/klien');
+        return redirect()->to(base_url() . '/klien/detail/' . $id)->withInput();
     }
 
     public function edit($id_konsul)

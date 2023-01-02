@@ -37,23 +37,29 @@
                         </div>
                     <?php endif; ?>
                     <h1>Klien berjumlah : <?= $jumlah; ?></h1>
-                    <div class="tabel-wrap">
 
+                    <div class="tabel-wrap">
                         <?php foreach (array_reverse($klien) as $k) : ?>
 
                             <div class="tabel" title="<?= $k['wajibpajak']; ?>">
-                                <a href="/klien/<?= $k['id']; ?>">
-                                    <div class="tabel-header"><?= $k['wajibpajak']; ?></div>
 
+                                <a href="/klien/<?= $k['id']; ?>">
+                                    <div class="tabel-header"><?= $k['wajibpajak']; ?>
+                                        <?php if ($k['status'] == 'Proses') :  ?>
+                                            <span class="badge rounded-pill bg-primary inline"><?= $k['status']; ?></span>
+                                        <?php endif; ?>
+                                        <?php if ($k['status'] == 'Selesai') :  ?>
+                                            <span class="badge rounded-pill bg-success inline"><?= $k['status']; ?></span>
+                                        <?php endif; ?>
+                                    </div>
                                     <div class="tabel-list"><?= $k['npwp']; ?></div>
                                     <div class="tabel-list"><?= $k['notelp']; ?></div>
-
-
                                 </a>
                             </div>
                         <?php endforeach; ?>
+                    </div>
+                    <br><br>
 
-                    </div><br><br>
                     <?= $pager->links('klien', 'pagination_klien'); ?>
                 </div>
             </div>

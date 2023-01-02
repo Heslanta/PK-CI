@@ -31,18 +31,29 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/pages/home', 'Pages::home');
 
 // Rute ke Login
 $routes->get('/', 'Pages::login', ['filter' => 'noauth']);
+$routes->get('/konsul/generate/(:num)', 'Konsul::generate/$1');
+// $routes->get('/klien/laporan/(:num)', 'Klien::generate/$1');
+$routes->get('/klien/laporan/(:num)', 'Klien::laporan/$1');
 
-// Rute ke Beranda
-$routes->match(['get', 'post'], '/pages', 'Pages::index', ['filter' => 'authcheck']);
+
+// Rute ke Beranda admin dan pegawai
+$routes->match(['get', 'post'], '/pages', 'Pages::index', ['filter' => 'authadminpegawai']);
+$routes->match(['get', 'post'], '/pages/index', 'Pages::index', ['filter' => 'authadminpegawai']);
 
 // Rute ke Beranda klien
 $routes->match(['get', 'post'], '/pages/beranda', 'Pages::klienberanda', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/pages/klienberanda', 'Pages::klienberanda', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/pages/bantuan', 'Pages::bantuan', ['filter' => 'authcheck']);
 $routes->match(['get', 'post'], '/riwayatkonsul', 'Jadwal::riwayatkonsul', ['filter' => 'authcheck']);
 $routes->match(['get', 'post'], '/jadwal/create', 'Jadwal::create');
 // $routes->get('/', 'pengguna::index');
+
+$routes->match(['get', 'post'], '/tujuan-konsul', 'Tujuan::index', ['filter' => 'authadmin']);
+$routes->match(['get', 'post'], '/tujuan-konsul/create', 'Tujuan::create', ['filter' => 'authadmin']);
 
 // Rute untuk bagian klien
 $routes->match(['get', 'post'], '/klien', 'Klien::index', ['filter' => 'authcheck']);
@@ -52,7 +63,7 @@ $routes->add('/klien/edit/(:segment)', 'Klien::edit/$1', ['filter' => 'authcheck
 $routes->match(['get', 'post'], '/klien/(:num)', 'Klien::detail/$1', ['filter' => 'authcheck']);
 
 // Rute untuk bagian konsul
-$routes->add('/konsul/create/(:num)', 'Konsul::create/$1', ['filter' => 'authcheck']);
+$routes->add('/konsul/create/(:num)', 'Konsul::create/$1', ['filter' => 'authadminpegawai']);
 $routes->delete('/konsul/(:num)', 'Konsul::delete/$1', ['filter' => 'authcheck']);
 $routes->add('/konsul/edit/(:segment)', 'Konsul::edit/$1', ['filter' => 'authcheck']);
 $routes->match(['get', 'post'], '/konsul/(:num)', 'Konsul::detail/$1', ['filter' => 'authcheck']);

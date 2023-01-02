@@ -2,12 +2,8 @@
 
 <?= $this->section('content'); ?>
 
-<?php
+<?php $session = session() ?>
 
-
-
-
-?>
 <div class="container">
     <div class="row">
         <div class="col"><?php if (session()->getFlashdata('pesan')) : ?>
@@ -19,9 +15,9 @@
 
                 <div class="card-header">
                     Detail Wajib Pajak
-                    <div class="info-icon">
-
-                    </div>
+                    <a href="/klien/generate/<?= $klien['id']; ?>">
+                        Download PDF
+                    </a>
                 </div>
 
 
@@ -42,21 +38,24 @@
 
                             <p class="card-text"><b>NPWP : </b><br><?= $klien['npwp']; ?></p>
                             <p class="card-text"><b>Nomor EFIN : </b><br><?= $klien['efin']; ?></p>
-                            <p class="card-text"><b>Nomor HP Wajibpajak : </b><br><?= $klien['notelp']; ?></p>
+                            <p class="card-text"><b>Nomor HP Wajib pajak : </b><br><?= $klien['notelp']; ?></p>
                             <p class="card-text"><b>Nomor HP Perusahaan : </b><br><?= $klien['notelp_per']; ?></p>
                             <p class="card-text"><b>Bidang Usaha : </b><br><?= $klien['bidang_usaha']; ?></p>
                             <p class="card-text"><b>Email : </b><br><?= $klien['email']; ?></p>
                             <p class="card-text"><b>Password Email : </b><br><?= $klien['email_pass']; ?></p>
                             <p class="card-text"><b>ENOFA : </b><br><?= $klien['enofa']; ?></p>
-                            <p class="card-text"><b>Tanggal PKP(Tahun/Bulan/Hari) : </b><br><?= tgl_indo($klien['pkp']) ?></p>
+                            <p class="card-text"><b>Tanggal PKP : </b><br><?= tgl_indo($klien['pkp']) ?></p>
                             <p class="card-text"><b>Catatan : </b><?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
                             <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
-                            <a href="/klien" class="btn btn-warning">Kembali</a>
-                            <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
-                                <?= csrf_field(); ?>
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
-                            </form>
+
+                            <?php if ($session->get('level') == 'admin') : ?>
+
+                                <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
+                                    <?= csrf_field(); ?>
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
+                                </form>
+                            <?php endif; ?>
                         </div>
 
                     </div>

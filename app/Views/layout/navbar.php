@@ -57,7 +57,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <a href="" class="notif"> <i class="fa-solid fa-bell fa-xl" style="margin-top: 15px;"></i></a>
+                    <a href="" class="notif"> <i class="fa-solid fa-bars fa-xl" style="margin-top: 15px;color:wh"></i></a>
 
                     <?php if ($session->get('level') !== 'klien') : ?>
 
