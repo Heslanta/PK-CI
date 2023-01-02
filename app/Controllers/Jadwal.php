@@ -189,6 +189,7 @@ class Jadwal extends BaseController
             'tujuan_jdw'  => $tujuan,
             'tanggal'     => $this->request->getPost('tanggal'),
             'status'      => $this->request->getPost('status'),
+            'jam'      => $this->request->getPost('jam'),
         );
         $model->updateJadwal($data, $id);
         session()->setFlashdata('pesan', 'Data berhasil diubah');

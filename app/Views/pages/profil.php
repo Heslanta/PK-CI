@@ -25,7 +25,9 @@
                             <h5 class="card-title"><b> Wajib Pajak : </b><br><?php echo $profil['nama']; ?></h5>
                             <p class="card-text"><b>Username : </b><br><?= $profil['username']; ?></p>
                             <p class="card-text"><b>Password : </b><br><?= $profil['password']; ?></p>
-                            <p class="card-text"><b>Level : </b><br><?= $profil['level']; ?></p>
+                            <?php if ($profil['level'] != 'klien') : ?>
+                                <p class="card-text"><b>Level : </b><br><?= $profil['level']; ?></p>
+                            <?php endif; ?>
                             <p class="card-text"><b>Nomor HP : </b><br><?= $profil['notelp']; ?></p>
 
 

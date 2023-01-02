@@ -85,7 +85,8 @@ class Klien extends BaseController
     public function generate($id)
     {
 
-        $filename = date('y-m-d') . '-qadr-labs-report';
+        $filename = 'Laporan Konsultasi ' . $this->request->getVar('wajibpajak');
+        // $filename = tgl_indo(date('y-m-d')) . ' Laporan Konsultasi';
         $data_konsul =  $this->klienModel->getKonsul($id)->getResult();
 
         // instantiate and use the dompdf class
@@ -97,6 +98,8 @@ class Klien extends BaseController
         ];
         // dd($data);
         // load HTML content
+
+
         $dompdf->loadHtml(view('klien/laporan', $data));
 
         // (optional) setup the paper size and orientation
@@ -106,7 +109,7 @@ class Klien extends BaseController
         $dompdf->render();
 
         // output the generated pdf
-        $dompdf->stream($filename);
+        $dompdf->stream($filename, array("Attachment" => false));
     }
 
     public function create()
@@ -297,10 +300,10 @@ class Klien extends BaseController
         // cek klien
         $klienLama = $this->klienModel->getKlien($this->request->getVar('id'));
         // dd($klienLama);
-        if ($klienLama['wajibpajak'] == $this->request->getVar('wajibpajak')) {
-            $rule_wp = 'required';
+        if ($klienLama['npwp'] == $this->request->getVar('npwp') || $this->request->getVar('npwp') == '-') {
+            $rule_wp = 'required|permit_empty|npwp';
         } else {
-            $rule_wp = 'required|is_unique[klien.wajibpajak]';
+            $rule_wp = 'required|is_unique[klien.npwp]|npwp';
         }
 
         // validasi input
@@ -314,10 +317,13 @@ class Klien extends BaseController
                     ]
                 ],
                 'npwp' => [
-                    'rules' => 'permit_empty|required|npwp',
+                    'rules' => $rule_wp,
                     'errors' => [
                         'npwp' => 'NPWP harus berupa angka , - , dan .',
-                        'required' => 'NPWP klien harus diisi.'
+                        'required' => 'NPWP klien harus diisi.',
+                        'is_unique' => 'NPWP klien sudah ada.'
+
+
                     ]
                 ],
                 'notelp' => [

@@ -32,7 +32,9 @@ class JadwalModel extends Model
     public function getJadwalBefore($id = false)
     {
         if ($id == false) {
-            return $this->where('tanggal BETWEEN (NOW() - INTERVAL 1 DAY) - INTERVAL 2 YEAR AND (NOW() - INTERVAL 1 DAY)', "", false)->orderBy('tanggal', "ASC")->findAll();
+            $query = $this->where('tanggal BETWEEN (NOW() - INTERVAL 1 DAY) - INTERVAL 2 YEAR AND (NOW() - INTERVAL 1 DAY)', "", false)->orderBy('tanggal', "ASC")->findAll();
+            // $this->db->table('jadwal')->delete(array($query));
+            return $query;
         }
         return $this->where(['id_jadwal' => $id])->first();
 
@@ -41,6 +43,16 @@ class JadwalModel extends Model
         //     ->get();
 
         // return $query;
+    }
+
+    public function hapusJadwalBefore($id = false)
+    {
+        if ($id == false) {
+            $query = $this->where('tanggal BETWEEN (NOW() - INTERVAL 1 DAY) - INTERVAL 2 YEAR AND (NOW() - INTERVAL 1 DAY)', "", false)->orderBy('tanggal', "ASC")->delete();
+            // $this->db->table('jadwal')->delete(array($query));
+            return $query;
+        }
+        return $this->where(['id_jadwal' => $id])->first();
     }
     // public function getJadwalToday($id = false)
     // {
@@ -56,9 +68,6 @@ class JadwalModel extends Model
     //     // return $query;
     // }
     // menampilkan jadwal pada pages klien
-    public function hapusJadwalBefore()
-    {
-    }
 
     public function viewJadwal()
     {

@@ -39,7 +39,6 @@
 <body>
 
 
-
     <h2 class="judul_laporan">Laporan Konsultasi Pajak</h2>
 
     <hr>
@@ -91,7 +90,7 @@
         <hr>
         <br>
         <?php foreach ($konsultasi as $kon) :  ?>
-            <h3>Konsultasi ke- <?= $kon->konsul_ke; ?></h3>
+            <h3>Konsultasi ke - <?= $kon->konsul_ke; ?></h3>
             <h4>Tanggal : <?= tgl_indo($kon->hari_tanggal); ?></h4>
             <h4>Tujuan Konsultasi : <?= $kon->tujuan; ?></h4>
             <h4>Hasil Konsultasi : <p><?= nl2br($kon->hasil_konsul); ?></p>

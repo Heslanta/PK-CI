@@ -59,10 +59,10 @@ class Pages extends BaseController
         $jmldata = 10;
         // ambil jadwal sebelum hari ini
         $jadwalbefore = $jadwal->getJadwalBefore();
-        if (!empty($jadwalbefore)) {
-            $this->$jadwalbefore->hapusJadwalBefore();
-        }
         // dd($jadwalbefore);
+        if (!empty($jadwalbefore)) {
+            $jadwal->hapusJadwalBefore();
+        }
         $data = [
             'title' => 'Beranda | HLP',
             'jadwalbefore' => $jadwal->getJadwalBefore(),
@@ -78,7 +78,7 @@ class Pages extends BaseController
             'jmlkonsul' => $this->pagesModel->getJumlahKonsul(),
             'totalkonsul' => $this->klienModel->getData(),
         ];
-        dd($data);
+        // dd($data);
 
 
         return view('pages/beranda', $data);

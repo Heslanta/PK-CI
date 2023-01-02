@@ -12,14 +12,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div><?php endif; ?>
             <div class="card">
+                <form action="/klien/generate/<?= $klien['id']; ?>" method="post">
+                    <div class="card-header">
+                        Detail Wajib Pajak
+                        <input type="hidden" name="wajibpajak" value="<?= $klien['wajibpajak']; ?>">
 
-                <div class="card-header">
-                    Detail Wajib Pajak
-                    <a href="/klien/generate/<?= $klien['id']; ?>">
-                        Download PDF
-                    </a>
-                </div>
-
+                        <button type="submit" class="btn btn-primary btn-sm" formtarget="_blank">Download PDF</button>
+                        </a>
+                    </div>
+                </form>
 
                 <div class="card-body">
                     <div class="row">
