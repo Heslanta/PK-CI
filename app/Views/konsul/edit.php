@@ -73,5 +73,9 @@
     </div>
 </div>
 
-
+<script>
+    function showDiv(dll, element) {
+        document.getElementById(dll).style.display = element.value == 1 ? 'block' : 'none';
+    }
+</script>
 <?= $this->endSection(); ?>
