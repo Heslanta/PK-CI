@@ -379,9 +379,11 @@ class Klien extends BaseController
             $namaGambar = $fileGambar->getRandomName();
             // pindahkan gambar ke folder img di public
             $fileGambar->move('img', $namaGambar);
+            if ($this->request->getVar('gambarLama') != 'default.png') {
 
+                unlink('img/' . $this->request->getVar('gambarLama'));
+            }
             //hapus file yang lama
-            unlink('img/' . $this->request->getVar('gambarLama'));
         }
 
         // $id = url_title($this->request->getVar('wajibpajak'), '-', true);
