@@ -13,11 +13,7 @@
                 <div class="card-header">
                     Profil Saya
                 </div>
-                <?php if (session()->getFlashdata('pesan')) : ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?= session()->getFlashdata('pesan'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div><?php endif; ?>
+
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-5">
@@ -33,7 +29,6 @@
 
 
                             <a href="/users/editprofil/<?= $session->get('id') ?>" class="btn btn-primary">Edit</a>
-                            <a href="/pages" class="btn btn-warning">Kembali</a>
                             <!-- <button onclick="history.back()" class="btn btn-warning">Kembali</button> -->
                         </div>
                     </div>
@@ -42,4 +37,17 @@
             </div>
             <br><br>
         </div>
+        <script>
+            $(function() {
+
+                <?php if (session()->has("pesan")) { ?>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: '<?= session("pesan") ?>'
+                    })
+                <?php } ?>
+
+            });
+        </script>
         <?= $this->endSection(); ?>

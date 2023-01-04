@@ -9,18 +9,23 @@
         <form action="/users/updateprofil/<?= $session->get('id') ?>" method="POST">
             <?= csrf_field(); ?>
             <?php $type = 'hidden'; ?>
+
             <input type="hidden" name="id" value="<?= $session->get('id') ?>">
 
-
             <div class="row mb-3">
-                <?php if ($session->get('level') !== 'klien') : ?>
-                    <?php $type = 'text'; ?>
-                    <label for="nama" type="hidden" class="col-sm-2 col-form-label"><b>Nama :</b></label>
+                <?php if ($session->get('level') == 'klien') : ?>
+                    <?php $type = 'disabled readonly'; ?>
+                    <input type="hidden" name="nama" value="<?= (old('nama')) ? old('nama') : $profil['nama']; ?>">
 
                 <?php endif; ?>
+                <?php if ($session->get('level') != 'klien') : ?>
+                    <?php $type = 'type="text"'; ?>
+
+                <?php endif; ?>
+                <label for="nama" type="hidden" class="col-sm-2 col-form-label"><b>Nama :</b></label>
                 <div class="col-sm-10">
-                    <input type="<?= $type; ?>" id=" nama" name="nama" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid'
-                                                                                                : ''; ?>" value="<?= (old('nama')) ? old('nama') : $profil['nama']; ?>">
+                    <input <?= $type; ?> id=" nama" name="nama" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid'
+                                                                                        : ''; ?>" value="<?= (old('nama')) ? old('nama') : $profil['nama']; ?>">
                     <div id="validationServer03Feedback" class="invalid-feedback">
                         <?= $validation->getError('nama'); ?>
                     </div>
@@ -49,11 +54,16 @@
             <div class="row mb-3">
                 <label for="notelp" class="col-sm-2 col-form-label"><b>Nomor HP :</b></label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="notelp" name="notelp" value="<?= (old('notelp')) ? old('notelp') : $profil['notelp']; ?>">
+                    <input type="text" class="form-control <?= ($validation->hasError('notelp')) ? 'is-invalid'
+                                                                : ''; ?>" value="<?= (old('notelp')) ? old('notelp') : $profil['notelp']; ?>" id=" notelp" name="notelp">
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                        <?= $validation->getError('notelp'); ?>
+                    </div>
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Ubah Data</button>
+
         </form>
         <!-- </div> -->
         <!-- </div> -->

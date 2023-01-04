@@ -22,6 +22,15 @@ function timestamp_indo($tanggal)
 <div class="container">
     <div class="row">
         <div class="col">
+            <?php if ($session->get('level') !== 'klien') : ?>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/klien">Klien</a></li>
+                        <li class="breadcrumb-item"><a href="/klien/<?= $klien['id']; ?>"> <?= $klien['wajibpajak']; ?></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Konsultasi ke-<?= $konsul['konsul_ke']; ?></li>
+                    </ol>
+                </nav>
+            <?php endif; ?>
             <div class="card">
                 <div class="card-header">
                     <span class="header-text"> Detail Konsultasi</span>
@@ -53,12 +62,10 @@ function timestamp_indo($tanggal)
                             <a href="/konsul/edit/<?= $konsul['id_konsul']; ?>" class="btn btn-primary">Edit</a>
 
 
-                            <form action="/konsul/<?= $konsul['id_konsul']; ?>" method="post" class="d-inline">
-                                <?= csrf_field(); ?>
-                                <input type="hidden" value="<?= $konsul['id_klien']; ?>" name="id_klien" id="id_klien">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
-                            </form>
+
+                            <?= csrf_field(); ?>
+                            <button type="submit" class="btn btn-danger btn-delete">Hapus</button>
+
                         <?php endif; ?>
                     <?php endif; ?>
 
@@ -66,7 +73,32 @@ function timestamp_indo($tanggal)
                     <?php if (!empty($konsul['updated_at'])) : ?>
                         <p class="card-text">Diperbarui pada : <?= tglwaktu_indo($konsul['updated_at']); ?></p>
                     <?php endif; ?>
+                    <form action="/konsul/<?= $konsul['id_konsul']; ?>" method="post">
+                        <?= csrf_field(); ?>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Hapus Konsultasi</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
+                                        <h4>Apakah anda yakin untuk menghapus?</h4>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" value="<?= $konsul['id_klien']; ?>" name="id_klien" id="id_klien">
+                                        <button type="submit" class="btn btn-primary">Hapus</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
             </div>
@@ -85,4 +117,14 @@ function timestamp_indo($tanggal)
         })
     </script>
 </div>
+<script>
+    $('.btn-delete').on('click', function() {
+        // get data from button edit
+        const id = $(this).data('id');
+        // Set data to Form Edit
+        $('.id').val(id);
+        // Call Modal Edit
+        $('#deleteModal').modal('show');
+    });
+</script>
 <?= $this->endSection(); ?>

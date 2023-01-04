@@ -155,7 +155,7 @@ div.tabel-list{
     height: 25px;
     width:100%;
     border: 1px solid black;
-    
+    color: black;
 }
 
 .tabel-bot{
@@ -167,6 +167,15 @@ div.tabel-list{
 
 .opening-container p{
     font-size: 24px;
+}
+
+.opening-container{
+    background-color: rgb(38, 86, 150);
+    color: white;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 @media screen and (max-width:600px) {
@@ -231,7 +240,7 @@ div.tabel-list{
 
 @media screen and (max-width:600px) {
     textarea{
-        width: 370px;
+        width: 330px;
         text-align: justify;
     }
     .card-header{

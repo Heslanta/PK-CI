@@ -29,6 +29,13 @@ class JadwalModel extends Model
 
         // return $query;
     }
+    public function getJadwalInti($id_jadwal = false)
+    {
+        if ($id_jadwal == false) {
+            return $this->findAll();
+        }
+        return $this->where(['id_jadwal' => $id_jadwal])->first();
+    }
     public function getJadwalBefore($id = false)
     {
         if ($id == false) {

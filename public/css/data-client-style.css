@@ -22,7 +22,7 @@ body{
     background-color: #00B000;
     height: 40px;
     width: 140px;
-    margin-top: 40px;
+    margin-top: 10px;
     margin-right: 20px;
 }
 #tombol:hover{
@@ -95,8 +95,15 @@ body{
     font-size: 20px;
 }
 .tabel-wrap{
-    width: auto;
+    width: 100%;
 }
+
+.card-1{
+    width:fit-content;
+    padding: 20px 50px 20px 20px;
+    border-radius: 5px;
+}
+
 .tabel{
     display: inline-block;
     width:300px;

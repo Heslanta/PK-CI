@@ -33,8 +33,8 @@
                 Apakah anda yakin mau keluar?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                 <a type="button" class="btn btn-primary" href="<?= base_url('/auth/logout'); ?>">Keluar</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <a href="" class="notif"> <i class="fa-solid fa-bars fa-xl" style="margin-top: 15px;color:wh"></i></a>
+                    <a href="" class="notif"> <i class="fa-solid fa-bars fa-xl" style="margin-top: 15px;color:white"></i></a>
 
                     <?php if ($session->get('level') !== 'klien') : ?>
 
@@ -93,6 +93,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" style="color:white" href="<?= base_url('/riwayatkonsul'); ?>">Riwayat Konsultasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:white" href="<?= base_url('/pages/bantuan'); ?>">Bantuan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" style="color:white" data-bs-toggle="modal" data-bs-target="#exampleModal">Keluar</a>

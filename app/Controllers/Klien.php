@@ -18,13 +18,14 @@ class Klien extends BaseController
 
     public function index()
     {
+
         // $klien = $this->klienModel->findAll();
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $klien = $this->klienModel->search($keyword);
             $data = [
                 'title' => 'Klien | HLP',
-                'klien' => $klien->paginate(50, 'klien'),
+                'klien' => $klien->paginate(12, 'klien'),
                 'pager' => $this->klienModel->pager,
                 'css' => 'data-client-style',
                 'jumlah' => $this->klienModel->getJumlah()
@@ -151,13 +152,19 @@ class Klien extends BaseController
                 'notelp_per' => [
                     'rules' => 'permit_empty|numeric_dash',
                     'errors' => [
-                        'numeric_dash' => 'Nomor HP klien harus berupa angka.'
+                        'numeric_dash' => 'Nomor HP Perusahaan harus berupa angka.'
                     ]
                 ],
                 'efin' => [
                     'rules' => 'permit_empty|numeric',
                     'errors' => [
                         'numeric' => 'EFIN klien harus berupa angka.'
+                    ]
+                ],
+                'enofa' => [
+                    'rules' => 'permit_empty|numeric',
+                    'errors' => [
+                        'numeric' => 'ENOFA klien harus berupa angka.'
                     ]
                 ],
                 'email' => [
@@ -219,7 +226,7 @@ class Klien extends BaseController
         }
         $username = $this->request->getPost('npwp');
         if (empty($username)) {
-            $angka = '1234567890';
+            $angka = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
             $username = array();
             $alpha_length = strlen($angka) - 1;
             for ($i = 0; $i < 4; $i++) {
@@ -227,7 +234,7 @@ class Klien extends BaseController
                 $username[] = $angka[$n];
             }
             $username =  implode($username);
-            $username = "user" . $username;
+            $username = "user-" . $username;
         }
 
         $data = [
@@ -335,13 +342,19 @@ class Klien extends BaseController
                 'notelp_per' => [
                     'rules' => 'permit_empty|numeric_dash',
                     'errors' => [
-                        'numeric_dash' => 'Nomor HP klien harus berupa angka.'
+                        'numeric_dash' => 'Nomor HP perusahaan harus berupa angka.'
                     ]
                 ],
                 'efin' => [
                     'rules' => 'permit_empty|numeric',
                     'errors' => [
                         'numeric' => 'EFIN klien harus berupa angka.'
+                    ]
+                ],
+                'enofa' => [
+                    'rules' => 'permit_empty|numeric',
+                    'errors' => [
+                        'numeric' => 'ENOFA klien harus berupa angka.'
                     ]
                 ],
                 'email' => [

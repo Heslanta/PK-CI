@@ -87,7 +87,7 @@ class Proses extends BaseController
                 'tanggal' => [
                     'rules' => 'tanggal_nanti',
                     'errors' => [
-                        'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelum hari ini!'
+                        'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelum hari ini!sebelum hari ini!'
                     ]
                 ]
             ]
@@ -95,7 +95,7 @@ class Proses extends BaseController
             // validasi
             $validation = \Config\Services::validation();
             // redirect kembali tanpa index.php
-            session()->setFlashdata('errors', 'Tidak bisa memasukkan tanggal sebelumnya');
+            session()->setFlashdata('errors', 'Tidak bisa memasukkan tanggal sebelum hari ini!');
 
             return redirect()->to(base_url() . '/pages/klienberanda')->withInput();
         }
@@ -167,7 +167,7 @@ class Proses extends BaseController
         $model = new ProsesModel();
         $id = $this->request->getPost('id_jadwal');
         $model->deleteProsesJadwal($id);
+        session()->setFlashdata('delete', 'Data berhasil dihapus');
         return redirect()->to('pages/klienberanda');
-        session()->setFlashdata('pesan-hapus', 'Data berhasil dihapus');
     }
 }

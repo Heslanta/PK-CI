@@ -2,6 +2,12 @@
 
 <?= $this->section('content'); ?>
 
+<style>
+    span {
+        color: red;
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -13,7 +19,7 @@
                     <br>
                     <div class="row mb-3">
 
-                        <label for="wajibpajak" class="col-sm-2 col-form-label">Wajib Pajak</label>
+                        <label for="wajibpajak" class="col-sm-2 col-form-label">Wajib Pajak<span>*</span></label>
                         <div class="col-sm-10">
                             <input type="text" id=" wajibpajak" name="wajibpajak" class="form-control <?= ($validation->hasError('wajibpajak')) ? 'is-invalid'
                                                                                                             : ''; ?>" value="<?= old('wajibpajak'); ?>">

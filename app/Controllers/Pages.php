@@ -43,11 +43,69 @@ class Pages extends BaseController
         $this->klienModel = new  KlienModel();
         $this->tujuanModel = new  TujuanModel();
     }
-    public function home()
+    public function ambildata()
     {
-        return view('pages/home');
+        if ($this->request->isAJAX()) {
+            $jadwal = new JadwalModel();
+            $data = [
+                'tampildata' => $jadwal->getJadwal(),
+                'css' => 'user',
+            ];
+            $msg = [
+                'data' => view('jadwal/datajadwal', $data)
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('gg gaming');
+        }
     }
+    public function formtambah()
+    {
+        $nama = $this->klienModel;
+        if ($this->request->isAJAX()) {
+            $data = [
+                'nama' => $nama->getNama(),
+                'tujuan' => $this->tujuanModel->getNama(),
+            ];
+            $msg = [
 
+                'data' => view('jadwal/modaltambah', $data),
+
+
+
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('gg gaming');
+        }
+    }
+    public function formedit()
+    {
+        if ($this->request->isAJAX()) {
+            $nama = $this->klienModel;
+            $id_jadwal = $this->request->getVar('id_jadwal');
+            $row = $this->jadwalModel->getJadwalInti($id_jadwal);
+            $data = [
+                'id_jadwal' => $row['id_jadwal'],
+                'nama' => $row['nama'],
+                'tujuan_jdw' => $row['tujuan_jdw'],
+                'tanggal' => $row['tanggal'],
+                'jam' => $row['jam'],
+                'status' => $row['status'],
+                'proses' => $row['proses'],
+                'id_user' => $row['id_user'],
+                // 'nama' => $nama->getNama(),
+                'tujuan' => $this->tujuanModel->getNama(),
+            ];
+            // dd($data);
+            $msg = [
+                'sukses' => view('jadwal/modaledit', $data)
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('gg gaming');
+        }
+    }
     public function index()
     {
         $jadwal = $this->jadwalModel;

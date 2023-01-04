@@ -33,6 +33,14 @@ class KonsulModel extends Model
     {
         return $this->where(['id_konsul' => $id_konsul])->first();
     }
+    public function viewKlien($id_konsul)
+    {
+        $query =  $this->db->table('konsultasi')
+            ->join('klien', 'konsultasi.id_klien = klien.id')
+            ->where('konsultasi.id_konsul', $id_konsul)
+            ->get();
+        return $query;
+    }
     public function deleteKonsul($id_konsul)
     {
         $this->db->table('konsultasi')

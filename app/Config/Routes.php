@@ -56,11 +56,11 @@ $routes->match(['get', 'post'], '/tujuan-konsul', 'Tujuan::index', ['filter' => 
 $routes->match(['get', 'post'], '/tujuan-konsul/create', 'Tujuan::create', ['filter' => 'authadmin']);
 
 // Rute untuk bagian klien
-$routes->match(['get', 'post'], '/klien', 'Klien::index', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/klien', 'Klien::index', ['filter' => 'authadminpegawai']);
 $routes->match(['get', 'post'], '/klien/create', 'Klien::create', ['filter' => 'authcheck']);
 $routes->delete('/klien/(:num)', 'Klien::delete/$1', ['filter' => 'authcheck']);
 $routes->add('/klien/edit/(:segment)', 'Klien::edit/$1', ['filter' => 'authcheck']);
-$routes->match(['get', 'post'], '/klien/(:num)', 'Klien::detail/$1', ['filter' => 'authcheck']);
+$routes->match(['get', 'post'], '/klien/(:num)', 'Klien::detail/$1', ['filter' => 'authadminpegawai']);
 
 // Rute untuk bagian konsul
 $routes->add('/konsul/create/(:num)', 'Konsul::create/$1', ['filter' => 'authadminpegawai']);

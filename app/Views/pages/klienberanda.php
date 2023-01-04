@@ -7,7 +7,11 @@
 <link rel="stylesheet" href="<?= base_url() . 'https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css' ?>">
 <link rel="stylesheet" href="<?= base_url() . 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css' ?>">
 
-
+<style>
+    span {
+        color: red;
+    }
+</style>
 
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
@@ -27,18 +31,7 @@
                 <br>
                 <button type="button" class="btn btn-success mb-2 btn-add" data-toggle="modal" title="Tambah Jadwal" data-target="#addModal">Tambah Jadwal</button>
                 <!-- menunjukkan alert tambah data -->
-                <?php if (session()->getFlashdata('pesan')) : ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?= session()->getFlashdata('pesan'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
-                <?php if (session()->getFlashdata('pesan-hapus')) : ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= session()->getFlashdata('pesan-hapus'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
+
                 <?php if (session()->getFlashdata('errors')) : ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('errors'); ?>
@@ -49,81 +42,89 @@
 
 
                 <br>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tujuan Konsultasi</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Jam</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Proses</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($jadwal as $jadwalklien) : ?>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <?php
-                                if ($jadwalklien['status'] == 'baru') {
-                                    $status = "Baru";
-                                } else {
-                                    $status = "Datang Kembali";
-                                }
-                                ?>
-                                <?php
-                                if ($jadwalklien['proses'] == 'menunggu') {
-                                    $proses = "Menunggu";
-                                    $warna = 'secondary';
-                                }
-                                if ($jadwalklien['proses'] == 'diterima') {
-                                    $proses = "Diterima ";
-                                    $warna = 'success';
-                                }
-                                if ($jadwalklien['proses'] == 'ditolak') {
-                                    $proses = "Ditolak ";
-                                    $warna = 'danger';
-                                }
-
-                                ?>
-                                <?php if ($jadwalklien['jam'] == 'pagi') {
-                                    $jam = "Jam 09:00-11:00 Pagi";
-                                }
-                                if ($jadwalklien['jam'] == 'siang') {
-                                    $jam = "Jam 12:00-14:00 Siang ";
-                                }
-                                if ($jadwalklien['jam'] == 'sore') {
-                                    $jam = "Jam 15:00-17:00 Sore ";
-                                }
-                                if ($jadwalklien['jam'] == '') {
-                                    $jam = "";
-                                } ?>
-                                <th scope="row"><?= $i++; ?></th>
-                                <td><?= $jadwalklien['tujuan_jdw']; ?></td>
-                                <td><?= tgl_indo($jadwalklien['tanggal']); ?></td>
-                                <td><?= $jam; ?></td>
-                                <td><?= $status; ?></td>
-                                <td><span class="badge bg-<?= $warna; ?>"><?= $proses; ?></span></td>
-                                <td>
-                                    <ul class="list-inline m-0">
-                                        <?php if ($jadwalklien['proses'] == 'menunggu') : ?>
-
-                                            <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-id="<?= $jadwalklien['id_jadwal']; ?>" data-nama="<?= $jadwalklien['nama']; ?>" data-tanggal="<?= $jadwalklien['tanggal']; ?>" data-jam="<?= $jadwalklien['jam']; ?>" data-tujuan="<?= $jadwalklien['tujuan_jdw']; ?>" data-status="<?= $jadwalklien['status']; ?>"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
-                                            &nbsp;
-                                        <?php endif; ?>
-                                        <?php if ($jadwalklien['proses'] == 'ditolak') : ?>
-                                            <a tabindex="0" type="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Alasan ditolak" data-bs-content="<?= $jadwalklien['alasan']; ?>"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
-
-                                        <?php endif; ?>
-                                    </ul>
-                                </td>
+                                <th scope="col">#</th>
+                                <th scope="col">Tujuan Konsultasi</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Jam</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Proses</th>
+                                <th scope="col">Aksi</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1; ?>
+                            <?php foreach ($jadwal as $jadwalklien) : ?>
+                                <tr>
+                                    <?php
+                                    if ($jadwalklien['status'] == 'baru') {
+                                        $status = "Baru";
+                                    } else {
+                                        $status = "Datang Kembali";
+                                    }
+                                    ?>
+                                    <?php
+                                    if ($jadwalklien['proses'] == 'menunggu') {
+                                        $proses = "Menunggu";
+                                        $warna = 'secondary';
+                                    }
+                                    if ($jadwalklien['proses'] == 'diterima') {
+                                        $proses = "Diterima ";
+                                        $warna = 'success';
+                                    }
+                                    if ($jadwalklien['proses'] == 'ditolak') {
+                                        $proses = "Ditolak ";
+                                        $warna = 'danger';
+                                    }
+
+                                    ?>
+                                    <?php if ($jadwalklien['jam'] == 'pagi') {
+                                        $jam = "Jam 09:00-11:00 Pagi";
+                                    }
+                                    if ($jadwalklien['jam'] == 'siang') {
+                                        $jam = "Jam 12:00-14:00 Siang ";
+                                    }
+                                    if ($jadwalklien['jam'] == 'sore') {
+                                        $jam = "Jam 15:00-17:00 Sore ";
+                                    }
+                                    if ($jadwalklien['jam'] == '') {
+                                        $jam = "";
+                                    } ?>
+                                    <th scope="row"><?= $i++; ?></th>
+                                    <td><?= $jadwalklien['tujuan_jdw']; ?></td>
+                                    <td><?= tgl_indo($jadwalklien['tanggal']); ?></td>
+                                    <td><?= $jam; ?></td>
+                                    <td><?= $status; ?></td>
+                                    <td><span class="badge bg-<?= $warna; ?>"><?= $proses; ?></span></td>
+                                    <td>
+                                        <ul class="list-inline m-0">
+                                            <?php if ($jadwalklien['proses'] == 'menunggu') : ?>
+
+                                                <a href="#" class="btn btn-primary btn-sm btn-edit" data-toggle=" tooltip" data-placement="top" title="Edit" data-id="<?= $jadwalklien['id_jadwal']; ?>" data-nama="<?= $jadwalklien['nama']; ?>" data-tanggal="<?= $jadwalklien['tanggal']; ?>" data-jam="<?= $jadwalklien['jam']; ?>" data-tujuan="<?= $jadwalklien['tujuan_jdw']; ?>" data-status="<?= $jadwalklien['status']; ?>"><i class="fa fa-edit"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
+                                                &nbsp;
+                                            <?php endif; ?>
+                                            <?php if ($jadwalklien['proses'] == 'ditolak') : ?>
+                                                <a tabindex="0" type="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Alasan ditolak" data-bs-content="<?= $jadwalklien['alasan']; ?>"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
+
+                                            <?php endif; ?>
+                                            <ul class=" list-inline m-0">
+                                                <?php if (strtotime($jadwalklien['tanggal']) < time() - 100000 && $jadwalklien['proses'] == 'diterima') :  ?>
+                                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $jadwalklien['id_jadwal']; ?>"><i class="fa fa-trash"></i></a>
+
+                                                <?php endif; ?>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -155,7 +156,7 @@
                         <input type="text" id="dll" class="form-control" name="tujuan_dll" placeholder="Tujuan Konsultasi" style="display: none;">
 
                         <div class="form-group">
-                            <label>Tanggal</label>
+                            <label>Tanggal<span>*</span></label>
                             <input type="date" class="form-control" name="tanggal" placeholder="" required>
                         </div>
                         <div class="form-group">
@@ -284,7 +285,23 @@
     function showDivUpdate(dllupdate, element) {
         document.getElementById(dllupdate).style.display = element.value == 1 ? 'block' : 'none';
     }
+    $(function() {
 
+        <?php if (session()->has("pesan")) { ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '<?= session("pesan") ?>'
+            })
+        <?php } ?>
+        <?php if (session()->has("delete")) { ?>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Hapus!',
+                text: '<?= session("delete") ?>'
+            })
+        <?php } ?>
+    });
 
 
     function myFunction() {

@@ -176,6 +176,7 @@
 
     }
     $(document).ready(function() {
+
         $('.btn-add').on('click', function() {
 
             // Call Modal tambah akun
@@ -218,7 +219,8 @@
     $(document).ready(function() {
         $('#example').DataTable({
             ordering: true,
-            info: false
+            info: false,
+            responsive: true
         });
     });
 </script>

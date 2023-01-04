@@ -6,18 +6,20 @@
 
 <div class="container">
     <div class="row">
-        <div class="col"><?php if (session()->getFlashdata('pesan')) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= session()->getFlashdata('pesan'); ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div><?php endif; ?>
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/klien">Klien</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> <?= $klien['wajibpajak']; ?></li>
+                </ol>
+            </nav>
             <div class="card">
                 <form action="/klien/generate/<?= $klien['id']; ?>" method="post">
-                    <div class="card-header">
-                        Detail Wajib Pajak
+                    <div class="card-header" style="height: 50px;">
+                        <b style="font-size: 24px; font-weight:600;">Detail Wajib Pajak</b>
                         <input type="hidden" name="wajibpajak" value="<?= $klien['wajibpajak']; ?>">
 
-                        <button type="submit" class="btn btn-primary btn-sm" formtarget="_blank">Download PDF</button>
+                        <button type="submit" class="btn btn-primary btn-sm" formtarget="_blank" style="float: right;">Download PDF</button>
                         </a>
                     </div>
                 </form>
@@ -46,16 +48,13 @@
                             <p class="card-text"><b>Password Email : </b><br><?= $klien['email_pass']; ?></p>
                             <p class="card-text"><b>ENOFA : </b><br><?= $klien['enofa']; ?></p>
                             <p class="card-text"><b>Tanggal PKP : </b><br><?= tgl_indo($klien['pkp']) ?></p>
-                            <p class="card-text"><b>Catatan : </b><?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"130\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
+                            <p class="card-text"><b>Catatan : </b><?php echo "<table><tbody><tr><td><textarea disabled rows=\"10\" cols=\"100\" >" . $klien['catatan'] . "</textarea></td></tr></tbody></table>"; ?> </p>
                             <a href="/klien/edit/<?= $klien['id']; ?>" class="btn btn-primary">Edit</a>
 
                             <?php if ($session->get('level') == 'admin') : ?>
 
-                                <form action="/klien/<?= $klien['id']; ?>" method="post" class="d-inline">
-                                    <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?');">Hapus</button>
-                                </form>
+                                <a href="#" class="btn btn-danger btn-delete" data-toggle="tooltip" data-placement="top" title="Hapus" data-id="<?= $klien['id']; ?>">Hapus</a>
+
                             <?php endif; ?>
                         </div>
 
@@ -63,8 +62,34 @@
                 </div>
             </div>
 
-            <a href="/konsul/create/<?= $klien['id'] ?>" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br>
+            <a href="/konsul/create/<?= $klien['id'] ?>" class="add" id="tombol" style="font-family:sans-serif;">Tambah</a><br>
 
+            <form action="/klien/<?= $klien['id']; ?>" method="post">
+                <?= csrf_field(); ?>
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Hapus Klien</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <h4>Apakah anda yakin untuk menghapus?</h4>
+
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="id" class="id">
+                                <button type="submit" class="btn btn-primary">Hapus</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <!-- <a href="/konsul/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a><br> -->
             <?php foreach (array_reverse($konsultasi) as $kon) :  ?>
 
@@ -122,6 +147,31 @@
 
 
 <script>
+    $(function() {
+
+        <?php if (session()->has("pesan")) { ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '<?= session("pesan") ?>'
+            })
+        <?php } ?>
+        <?php if (session()->has("pesan-hapus")) { ?>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Hapus!',
+                text: '<?= session("pesan-hapus") ?>'
+            })
+        <?php } ?>
+    });
+    $('.btn-delete').on('click', function() {
+        // get data from button edit
+        const id = $(this).data('id');
+        // Set data to Form Edit
+        $('.id').val(id);
+        // Call Modal Edit
+        $('#deleteModal').modal('show');
+    });
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
     var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl)

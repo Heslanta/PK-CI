@@ -24,7 +24,8 @@ class Konsul extends BaseController
         $data = [
             'title' => 'Detail Konsultasi',
             'konsul' => $this->konsulModel->viewKonsul($id_konsul),
-            'css' => 'preview-consul-style'
+            'css' => 'preview-consul-style',
+            'klien' => $this->konsulModel->viewKlien($id_konsul)->getRowArray()
         ];
 
         // dd($data);
@@ -108,7 +109,7 @@ class Konsul extends BaseController
     public function delete($id_konsul)
     {
         $id = $this->request->getVar('id_klien');
-        dd($id);
+        // dd($id);
         $this->konsulModel->deleteKonsul(($id_konsul));
 
 

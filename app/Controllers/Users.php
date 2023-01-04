@@ -7,6 +7,7 @@ use App\Models\JadwalModel;
 use App\Models\PagesModel;
 use App\Models\ProsesModel;
 use App\Models\UsersModel;
+use Myth\Auth\Models\UserModel;
 
 class Users extends BaseController
 {
@@ -16,7 +17,212 @@ class Users extends BaseController
         $this->usersModel = new UsersModel();
         $this->pagesModel = new PagesModel();
     }
+    public function ambildata()
+    {
+        if ($this->request->isAJAX()) {
+            $user = new UsersModel();
+            $data = [
+                'tampildata' => $user->findAll(),
+                'css' => 'user',
+            ];
+            $msg = [
+                'data' => view('users/datauser', $data)
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('gg gaming');
+        }
+    }
+    public function formtambah()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = [
+                'data' => view('users/modaltambah')
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('gg gaming');
+        }
+    }
+    public function formedit()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $row = $this->usersModel->find($id);
+            $data = [
+                'id' => $row['id'],
+                'nama' => $row['nama'],
+                'username' => $row['username'],
+                'password' => $row['password'],
+                'notelp' => $row['notelp'],
+                'level' => $row['level'],
+            ];
+            $msg = [
+                'sukses' => view('users/modaledit', $data)
+            ];
+            echo json_encode($msg);
+        } else {
+            exit('gg gaming');
+        }
+    }
 
+    public function simpandata()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $valid = $this->validate(
+                [
+                    'username' => [
+                        'rules' => 'required|is_unique[user.username]|min_length[8]|max_length[20]',
+                        'errors' => [
+                            'required' => 'Username pengguna harus diisi.',
+                            'is_unique' => 'Username pengguna sudah ada, silahkan pilih yang lain!',
+                            'min_length' => 'Username minimal mempunyai 8 karakter',
+                            'max_length' => 'Username maksimal mempunyai 20 karakter',
+                        ]
+                    ],
+                    'nama' => [
+                        'rules' => 'required|max_length[40]',
+                        'errors' => [
+                            'required' => 'Nama pengguna harus diisi.',
+                            'max_length' => 'Nama maksimal mempunyai 40 karakter',
+                        ]
+                    ],
+                    'notelp' => [
+                        'rules' => 'permit_empty|numeric_dash|min_length[10]|max_length[16]',
+                        'errors' => [
+                            'numeric_dash' => 'No Hp harus berupa angka!.',
+                            'min_length' => 'No Hp  minimal mempunyai 10 angka',
+                            'max_length' => 'No Hp  maksimal mempunyai 16 angka',
+                        ]
+                    ],
+                    'password' => [
+                        'rules' => 'required|min_length[8]|max_length[15]',
+                        'errors' => [
+                            'required' => 'Password pengguna harus diisi.',
+                            'min_length' => 'Password minimal mempunyai 8 karakter',
+                            'max_length' => 'Password maksimal mempunyai 15 karakter',
+                        ]
+                    ]
+                ]
+            );
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'username' => $validation->getError('username'),
+                        'password' => $validation->getError('password'),
+                        'nama' => $validation->getError('nama'),
+                        'notelp' => $validation->getError('notelp'),
+                    ]
+                ];
+            } else {
+                $this->usersModel->save([
+                    'nama' => $this->request->getPost('nama'),
+                    'username' => $this->request->getPost('username'),
+                    'password' => $this->request->getPost('password'),
+                    'level' => $this->request->getPost('level'),
+                    'notelp' => $this->request->getPost('notelp')
+                ]);
+                $msg = [
+                    'sukses' => 'Data akun berhasil tersimpan'
+                ];
+            }
+            echo json_encode($msg);
+        }
+    }
+    public function updatedata()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $usernamelama = $this->usersModel->getAkun($this->request->getVar('id'));
+            // dd($klienLama);
+            if ($usernamelama['username'] == $this->request->getVar('username')) {
+                $rule_wp = 'required|min_length[8]|max_length[20]';
+            } else {
+                $rule_wp = 'required|is_unique[user.username]|min_length[8]|max_length[20]';
+            }
+            $valid = $this->validate(
+                [
+                    'username' => [
+                        'rules' => $rule_wp,
+                        'errors' => [
+                            'required' => 'Username pengguna harus diisi.',
+                            'is_unique' => 'Username pengguna sudah ada, silahkan pilih yang lain!',
+                            'min_length' => 'Username minimal mempunyai 8 karakter',
+                            'max_length' => 'Username maksimal mempunyai 20 karakter',
+                        ]
+                    ],
+                    'nama' => [
+                        'rules' => 'required|max_length[40]',
+                        'errors' => [
+                            'required' => 'Nama pengguna harus diisi.',
+                            'max_length' => 'Nama maksimal mempunyai 40 karakter',
+                        ]
+                    ],
+                    'notelp' => [
+                        'rules' => 'permit_empty|numeric_dash|min_length[10]|max_length[16]',
+                        'errors' => [
+                            'numeric_dash' => 'No Hp harus berupa angka!.',
+                            'min_length' => 'No Hp  minimal mempunyai 10 angka',
+                            'max_length' => 'No Hp  maksimal mempunyai 16 angka',
+                        ]
+                    ],
+                    'password' => [
+                        'rules' => 'required|min_length[8]|max_length[15]',
+                        'errors' => [
+                            'required' => 'Password pengguna harus diisi.',
+                            'min_length' => 'Password minimal mempunyai 8 karakter',
+                            'max_length' => 'Password maksimal mempunyai 15 karakter',
+                        ]
+                    ]
+                ]
+            );
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'username' => $validation->getError('username'),
+                        'password' => $validation->getError('password'),
+                        'nama' => $validation->getError('nama'),
+                        'notelp' => $validation->getError('notelp'),
+                    ]
+                ];
+            } else {
+
+                $model = new UsersModel();
+                $modeljadwal = new ProsesModel();
+                $id = $this->request->getPost('id');
+                $data = array(
+                    'nama'        => $this->request->getPost('nama'),
+                    'username'  => $this->request->getPost('username'),
+                    'password'     => $this->request->getPost('password'),
+                    'notelp'     => $this->request->getPost('notelp'),
+                    'level'      => $this->request->getPost('level'),
+                );
+                $dataupdate = array(
+                    'nama'        => $this->request->getPost('nama'),
+
+                );
+                $model->updateUsers($data, $id);
+                $modeljadwal->updatenamaJad($dataupdate, $id);
+                $msg = [
+                    'sukses' => 'Data akun berhasil diubah'
+                ];
+            }
+            echo json_encode($msg);
+        }
+    }
+    public function delete()
+    {
+        if ($this->request->isAJAX()) {
+            $model = new UsersModel();
+            $id = $this->request->getPost('id');
+            $model->deleteAkun($id);
+            $msg = [
+                'sukses' => 'Data akun berhasil dihapus'
+            ];
+            echo json_encode($msg);
+        }
+    }
     public function index()
     {
         $keyword = $this->request->getVar('keyword');
@@ -204,19 +410,15 @@ class Users extends BaseController
         return redirect()->to(base_url() . '/users');
     }
 
-    public function delete()
-    {
-        $model = new UsersModel();
-        $id = $this->request->getPost('id');
-        $model->deleteAkun($id);
-        return redirect()->to('users');
-    }
+
 
     // Akhir bagian users
 
     // Awal Bagian profil
     public function editprofil($id)
     {
+        // cek klien
+
         $profil = $this->pagesModel->viewProfil();
         $data = [
             'title' => 'Edit Pengguna',
@@ -234,14 +436,13 @@ class Users extends BaseController
     {
 
         // cek klien
-        $tes = $this->request->getVar('id');
-        // dd($tes);
-        $userlama = $this->usersModel->cekUser($tes);
-        // dd($userlama['username']);
-        if ($userlama['username'] == $this->request->getVar('username')) {
-            $rule_wp = 'required';
+        $validation = \Config\Services::validation();
+        $usernamelama = $this->usersModel->getAkun($this->request->getVar('id'));
+        // dd($klienLama);
+        if ($usernamelama['username'] == $this->request->getVar('username')) {
+            $rule_wp = 'required|min_length[8]|max_length[20]';
         } else {
-            $rule_wp = 'required|is_unique[user.username]';
+            $rule_wp = 'required|is_unique[user.username]|min_length[8]|max_length[20]';
         }
 
         // validasi input
@@ -250,14 +451,27 @@ class Users extends BaseController
                 'username' => [
                     'rules' => $rule_wp,
                     'errors' => [
-                        'required' => '{field} user harus diisi.',
-                        'is_unique' => '{field} user sudah ada.'
+                        'required' => 'Username pengguna harus diisi.',
+                        'is_unique' => 'Username pengguna sudah ada, silahkan pilih yang lain!',
+                        'min_length' => 'Username minimal mempunyai 8 karakter',
+                        'max_length' => 'Username maksimal mempunyai 20 karakter',
+                    ]
+                ],
+
+                'notelp' => [
+                    'rules' => 'permit_empty|numeric_dash|min_length[10]|max_length[16]',
+                    'errors' => [
+                        'numeric_dash' => 'No Hp harus berupa angka!.',
+                        'min_length' => 'No Hp  minimal mempunyai 10 angka',
+                        'max_length' => 'No Hp  maksimal mempunyai 16 angka',
                     ]
                 ],
                 'password' => [
-                    'rules' => 'required',
+                    'rules' => 'required|min_length[8]|max_length[15]',
                     'errors' => [
-                        'required' => '{field} user harus diisi.'
+                        'required' => 'Password pengguna harus diisi.',
+                        'min_length' => 'Password minimal mempunyai 8 karakter',
+                        'max_length' => 'Password maksimal mempunyai 15 karakter',
                     ]
                 ]
 

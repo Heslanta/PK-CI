@@ -13,28 +13,149 @@ class Jadwal extends BaseController
         $this->jadwalModel = new JadwalModel();
     }
 
+    public function simpandata()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $tujuan_jdw = $this->request->getVar('tujuan_jdw');
+            $tujuan_dll = $this->request->getVar('tujuan_dll');
+
+            // dd($klienLama);
+            if ($tujuan_jdw == '1') {
+                $rule_wp = 'required';
+            } else {
+                $rule_wp = 'permit_empty';
+            }
+            $valid = $this->validate(
+                [
+                    'nama' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Nama harus diisi.',
+                        ]
+                    ],
+                    'tujuan_dll' => [
+                        'rules' => $rule_wp,
+                        'errors' => [
+                            'required' => 'Tujuan Konsul harus diisi.',
 
 
-    // public function index()
-    // {
-    //     $jadwal = $this->jadwalModel;
-    //     // $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') :
-    //     1;
-    //     // jumlah data per halaman
-    //     $jmldata = 10;
+                        ]
+                    ],
+                    'tanggal' => [
+                        'rules' => 'tanggal_nanti|required',
+                        'errors' => [
+                            'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelum hari ini!',
+                            'required' => 'Tanggal harus diisi.',
+                        ]
+                    ],
+
+                ]
+            );
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'nama' => $validation->getError('nama'),
+                        'tanggal' => $validation->getError('tanggal'),
+                        'tujuan' => $validation->getError('tujuan_dll'),
+                    ]
+                ];
+            } else {
+
+                $cektujuan = $this->request->getPost('tujuan_jdw');
+                if ($cektujuan == 1) {
+                    $tujuan = $this->request->getPost('tujuan_dll');
+                } else {
+                    $tujuan = $this->request->getPost('tujuan_jdw');
+                }
+                $this->jadwalModel->save([
+                    'nama'        => $this->request->getPost('nama'),
+                    'tujuan_jdw'  => $tujuan,
+                    'tanggal'     => $this->request->getPost('tanggal'),
+                    'jam'     => $this->request->getPost('jam'),
+                    'status'      => $this->request->getPost('status'),
+                ]);
+                $msg = [
+                    'sukses' => 'Data akun berhasil tersimpan'
+                ];
+            }
+            echo json_encode($msg);
+        }
+    }
+
+    public function updatedata()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            $tujuan_jdw = $this->request->getVar('tujuan_jdw');
+            $tujuan_dll = $this->request->getVar('tujuan_dll');
+
+            // dd($klienLama);
+            if ($tujuan_jdw == '1') {
+                $rule_wp = 'required';
+            } else {
+                $rule_wp = 'permit_empty';
+            }
+            $valid = $this->validate(
+                [
+                    'nama' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Nama harus diisi.',
+                        ]
+                    ],
+                    'tujuan_dll' => [
+                        'rules' => $rule_wp,
+                        'errors' => [
+                            'required' => 'Tujuan Konsul harus diisi.',
 
 
-    //     $data = [
-    //         'title' => 'Daftar Pengguna | HLP',
-    //         // 'jadwal' => $jadwal->paginate($jmldata, 'user'),
-    //         // 'pager' => $this->usersModel->pager,
-    //         'css' => 'user',
-    //         // 'currentPage' => $currentPage,
-    //         // 'jmldata' => $jmldata
-    //     ];
+                        ]
+                    ],
+                    'tanggal' => [
+                        'rules' => 'tanggal_nanti|required',
+                        'errors' => [
+                            'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelum hari ini!',
+                            'required' => 'Tanggal harus diisi.',
+                        ]
+                    ],
 
-    //     return view('jadwal/index', $data);
-    // }
+                ]
+            );
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'nama' => $validation->getError('nama'),
+                        'tanggal' => $validation->getError('tanggal'),
+                        'tujuan' => $validation->getError('tujuan_dll'),
+                    ]
+                ];
+            } else {
+                $model = new JadwalModel();
+                $id = $this->request->getPost('id_jadwal');
+                $cektujuan = $this->request->getPost('tujuan_jdw');
+                if ($cektujuan == 1) {
+                    $tujuan = $this->request->getPost('tujuan_dll');
+                } else {
+                    $tujuan = $this->request->getPost('tujuan_jdw');
+                }
+                $data = array(
+                    'nama'        => $this->request->getPost('nama'),
+                    'tujuan_jdw'  => $tujuan,
+                    'tanggal'     => $this->request->getPost('tanggal'),
+                    'status'      => $this->request->getPost('status'),
+                    'jam'      => $this->request->getPost('jam'),
+                );
+                $model->updateJadwal($data, $id);
+                $msg = [
+                    'sukses' => 'Data akun berhasil diubah'
+                ];
+            }
+            echo json_encode($msg);
+        }
+    }
+
+
     public function riwayatkonsul()
     {
         // $keyword = $this->request->getVar('keyword');
@@ -68,7 +189,7 @@ class Jadwal extends BaseController
                 'tanggal' => [
                     'rules' => 'tanggal_nanti',
                     'errors' => [
-                        'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelumnya',
+                        'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelum hari ini!',
                     ]
                 ],
 
@@ -77,7 +198,7 @@ class Jadwal extends BaseController
             // validasi
             $validation = \Config\Services::validation();
             // redirect kembali tanpa index.php
-            session()->setFlashdata('errors', 'Tidak bisa memasukkan tanggal sebelumnya');
+            session()->setFlashdata('errors', 'Tidak bisa memasukkan tanggal sebelum hari ini!');
 
             return redirect()->to(base_url() . '/pages')->withInput();
         }
@@ -119,7 +240,7 @@ class Jadwal extends BaseController
                 'tanggal' => [
                     'rules' => 'required|tanggal_nanti',
                     'errors' => [
-                        'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelumnya',
+                        'tanggal_nanti' => 'Tidak bisa memasukkan tanggal sebelum hari ini!',
                         'required' => 'Tidak boleh kosong'
                     ]
                 ],
@@ -134,7 +255,7 @@ class Jadwal extends BaseController
             // validasi
             $validation = \Config\Services::validation();
             // redirect kembali tanpa index.php
-            session()->setFlashdata('errors', 'Tidak bisa memasukkan tanggal sebelumnya');
+            session()->setFlashdata('errors', 'Tidak bisa memasukkan tanggal sebelum hari ini!');
 
             return redirect()->to(base_url() . '/pages/klienberanda')->withInput();
         }

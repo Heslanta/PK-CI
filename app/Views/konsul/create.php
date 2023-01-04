@@ -2,6 +2,12 @@
 
 <?= $this->section('content'); ?>
 
+<style>
+    span {
+        color: red;
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -14,7 +20,7 @@
 
                     <input type="hidden" name="id_klien" id="id_klien" value="<?= $klien['id'] ?>">
 
-                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsul ke- : </label>
+                    <label for="konsul_ke" class="col-sm-2 col-form-label">Konsul ke- :<span>*</span> </label>
                     <div class="col-sm-10">
                         <input type="number" id=" konsul_ke" name="konsul_ke" class="form-control <?= ($validation->hasError('konsul_ke')) ? 'is-invalid'
                                                                                                         : ''; ?>" value="<?= old('konsul_ke'); ?>">
@@ -24,7 +30,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="hari_tanggal" class="col-sm-2 col-form-label">Tanggal Konsultasi :
+                    <label for="hari_tanggal" class="col-sm-2 col-form-label">Tanggal Konsultasi :<span>*</span>
                         <p style="font-size: 12px;">(Tanggal/Bulan/Tahun)</p>
                     </label>
                     <div class="col-sm-10">

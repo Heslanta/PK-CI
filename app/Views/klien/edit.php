@@ -82,7 +82,8 @@
         <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label"><b>Email</b></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="email" name="email" value="<?= (old('email')) ? old('email') : $klien['email'] ?>">
+                <input type="text" class="form-control <?= ($validation->hasError('email')) ? 'is-invalid'
+                                                            : ''; ?>" id=" email" name="email" value="<?= (old('email')) ? old('email') : $klien['email'] ?>">
                 <div id="validationServer03Feedback" class="invalid-feedback">
                     <?= $validation->getError('email'); ?>
                 </div>
@@ -97,7 +98,8 @@
         <div class="row mb-3">
             <label for="notelp_per" class="col-sm-2 col-form-label"><b>Nomor HP Perusahaan</b></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="notelp_per" name="notelp_per" value="<?= (old('notelp_per')) ? old('notelp_per') : $klien['notelp_per'] ?>">
+                <input type="text" class="form-control <?= ($validation->hasError('notelp_per')) ? 'is-invalid'
+                                                            : ''; ?>" id=" notelp_per" name="notelp_per" value="<?= (old('notelp_per')) ? old('notelp_per') : $klien['notelp_per'] ?>">
                 <div id="validationServer03Feedback" class="invalid-feedback">
                     <?= $validation->getError('notelp_per'); ?>
                 </div>
@@ -106,7 +108,11 @@
         <div class="row mb-3">
             <label for="enofa" class="col-sm-2 col-form-label"><b>ENOFA</b></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="enofa" name="enofa" value="<?= (old('enofa')) ? old('enofa') : $klien['enofa'] ?>">
+                <input type="text" class="form-control <?= ($validation->hasError('enofa')) ? 'is-invalid'
+                                                            : ''; ?>" id=" enofa" name="enofa" value="<?= (old('enofa')) ? old('enofa') : $klien['enofa'] ?>">
+                <div id="validationServer03Feedback" class="invalid-feedback">
+                    <?= $validation->getError('enofa'); ?>
+                </div>
             </div>
         </div>
         <div class="row mb-3">

@@ -21,6 +21,7 @@ label{
     margin-left: -20px;
     font-family: sans-serif;
     color: #B8C7CE;
+    /* transform: translateX(-100%); */
 }
 
 .sidebar-menu p{
@@ -46,6 +47,7 @@ label{
     text-align: left;
     color: #B8C7CE;
     padding-top: 15px;
+    padding-left: 60px;
 }
 .sidebar-list:hover{
     background-color: #2d3b42;
@@ -103,7 +105,7 @@ a {
     height: 100%;
     min-height: 707px;
     margin-right: -8px;
-    padding-left: 40px;
+    /* padding-left: 40px; */
 }
 nav{
     width: 83%;
@@ -125,6 +127,15 @@ nav{
    width: 70px;
    height: 30px;
   
+}
+
+.logo-sidebar{
+    margin-top: -30px;
+}
+
+.logo-dashboard{
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .logo-sidebar img{

@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col-6">
             <h1 class="mt-2">Daftar Klien </h1>
+            <br>
             <form action="" method="POST">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Masukkan pencarian..." name="keyword">
@@ -19,24 +20,18 @@
 
     <div class="row">
         <div class="col">
-            <a href="/klien/create" class="add" id="tombol"><i class="fa-solid fa-square-plus fa-lg"></i>&nbsp;&nbsp;Tambah</a>
+            <a href="/klien/create" class="add" id="tombol"><b style="font-family: sans-serif;">Tambah</b></a>
             <div class="main-content-wrapper">
                 <br>
                 <div class="main-content">
-                    <h1><i class="fas fa-database"></i>
-                        &nbsp;&nbsp;Data Klien</h1>
-                    <?php if (session()->getFlashdata('pesan')) : ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('pesan'); ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div><?php endif; ?>
-                    <?php if (session()->getFlashdata('pesan-hapus')) : ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('pesan-hapus'); ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                    <div class="card-1 bg-warning">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div style="display: inline-block;">
+                            <i class="fa fa-user" aria-hidden="true" style="display:inline-block; font-size:30px">&nbsp;</i>
+                            <h2 style="font-family:sans-serif; display:inline-block;"><b>Klien berjumlah : <?= $jumlah; ?></b> </h2>
                         </div>
-                    <?php endif; ?>
-                    <h1>Klien berjumlah : <?= $jumlah; ?></h1>
+                    </div>
 
                     <div class="tabel-wrap">
                         <?php foreach (array_reverse($klien) as $k) : ?>
@@ -67,4 +62,23 @@
         </div>
     </div>
 </div>
+<script>
+    $(function() {
+
+        <?php if (session()->has("pesan")) { ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '<?= session("pesan") ?>'
+            })
+        <?php } ?>
+        <?php if (session()->has("pesan-hapus")) { ?>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Hapus!',
+                text: '<?= session("pesan-hapus") ?>'
+            })
+        <?php } ?>
+    });
+</script>
 <?= $this->endSection(); ?>

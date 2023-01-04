@@ -25,42 +25,41 @@
 
         <div class="sidebar-nama">
             <div class="logo-sidebar">
-                <a href="/pages/index">
+                <a href="/pages/index" style="color: #B8C7CE;">
                     <img src="../../images/logo.png" alt="hlp"> &nbsp; HLP Banjarmasin
                 </a>
             </div>
 
         </div>
-        <?php $level = $session->get('level') ?>
-        <p>Dashboard <?= $level; ?></p>
 
+        <div class="logo-dashboard">
+            <?php $level = $session->get('level') ?>
+            <p style="margin-left:20px;">Dashboard <?= $level; ?></p>
+        </div>
         <!-- Jika session klien, muncul sidebar klien  -->
         <?php if ($session->get('level') == 'klien') : ?>
             <div class="sidebar-klien">
                 <a href="<?= base_url('/pages/klienberanda'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        
                         <i class="fas fa-house"></i>&nbsp;&nbsp;
                         Beranda
                     </div>
                 </a>
                 <a href="<?= base_url('/pages/profil'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
                         Profil
                     </div>
                 </a>
                 <a href="<?= base_url('/jadwal/riwayatkonsul'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
                         Riwayat Konsultasi
                     </div>
                 </a>
                 <a href="<?= base_url('/pages/bantuan'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-question"></i>&nbsp;&nbsp;
                         Bantuan
                     </div>
@@ -73,21 +72,18 @@
             <div class="sidebar-admin">
                 <a href="<?= base_url('/pages/index'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fas fa-house"></i>&nbsp;&nbsp;
                         Beranda
                     </div>
                 </a>
                 <a href="<?= base_url('/pages/profil'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
                         Profil
                     </div>
                 </a>
                 <a href="<?= base_url('/klien'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-user-group"></i>&nbsp;&nbsp;
                         Klien
                     </div>
@@ -106,14 +102,12 @@
                 <?php if ($session->get('level') == 'admin') : ?>
                     <a href="<?= base_url('/users'); ?>">
                         <div class="sidebar-list">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="fa-solid fa-image-portrait"></i>&nbsp;&nbsp;
+                            <i class="fa-solid fa-image-portrait"></i>&nbsp;&nbsp;&nbsp;
                             Pengguna
                         </div>
                     </a>
                     <a href="<?= base_url('/tujuan-konsul'); ?>">
                         <div class="sidebar-list">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="fa-solid fa-cog"></i>&nbsp;&nbsp;
                             Tujuan Konsul
                         </div>
@@ -122,8 +116,7 @@
                 <?php endif; ?>
                 <a href="<?= base_url('/pages/bantuan'); ?>">
                     <div class="sidebar-list">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa-solid fa-question"></i>&nbsp;&nbsp;
+                        &nbsp;<i class="fa-solid fa-question"></i>&nbsp;&nbsp;
                         Bantuan
                     </div>
                 </a>

@@ -49,7 +49,7 @@ class KlienModel extends Model
 
     public function search($keyword)
     {
-        return $this->table('klien')->like('wajibpajak', $keyword);
+        return $this->table('klien')->like('wajibpajak', $keyword)->orlike('status', $keyword);
     }
 
     public function getData()

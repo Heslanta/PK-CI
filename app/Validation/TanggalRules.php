@@ -13,7 +13,7 @@ class TanggalRules
         $date1 = date_create($curdate);
         $date2 = date_create($str);
 
-        if ($date1 <= $date2) {
+        if ($date1 < $date2) {
             return true;
         } else {
             return false;
